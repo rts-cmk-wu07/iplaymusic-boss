@@ -57,7 +57,7 @@ const sun = {
 			rotate: `${(360 / 8) * i}deg`,
 			filter: 'blur(0px)',
 			transition: {
-				duration: 0.5,
+				duration: 0.25,
 				delay: i * 0.1,
 			},
 		}),

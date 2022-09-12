@@ -60,7 +60,7 @@ const ThemeToggle = () => {
 	return (
 		<motion.button
 			variants={container}
-			className="m-4 h-8 w-8 flex items-center justify-center rounded-full"
+			className="h-8 w-8 flex items-center justify-center rounded-full"
 			animate={
 				themeToggle === 'light'
 					? 'light'
