@@ -1,19 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Layout from "./Layout"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
 
 // Import pages
-import Home from "./pages/Home"
-import LogIn from "./pages/LogIn"
-import EventFeed from "./pages/EventFeed"
-import AlbumDetails from "./pages/AlbumDetails"
-import AllAlbums from "./pages/AllAlbums"
-import AllArtists from "./pages/AllArtists"
-import AllPlaylists from "./pages/AllPlaylists"
-import AllSongs from "./pages/AllSongs"
-import Featured from "./pages/Featured"
-import Search from "./pages/Search"
-import LatestTrends from "./pages/LatestTrends"
-import NotFound from "./pages/NotFound"
+import Home from "./pages/Home";
+import LogIn from "./pages/LogIn";
+import EventFeed from "./pages/EventFeed";
+import AlbumDetails from "./pages/AlbumDetails";
+import AllAlbums from "./pages/AllAlbums";
+import AllArtists from "./pages/AllArtists";
+import AllPlaylists from "./pages/AllPlaylists";
+import AllSongs from "./pages/AllSongs";
+import Featured from "./pages/Featured";
+import Search from "./pages/Search";
+import LatestTrends from "./pages/LatestTrends";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
         </Routes>
       </Router>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
