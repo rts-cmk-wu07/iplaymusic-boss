@@ -4,15 +4,12 @@
 // Here goes the Outlet
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import NavigationTop from "./templates/NavigationTop";
 
 const Layout = () => {
   return (
     <div className="flex flex-col bg-white dark:bg-secondary h-screen w-screen overflow-x-hidden overflow-y-auto">
-      <header>
-        {/* This is the header
-				It contains the logo, the navigation, and the
-				theme toggle */}
-      </header>
+      <NavigationTop />
 
       {/* Adjust py- of main for when height of top and bottom is set, should be a little bigger than their height */}
       {/* TODO: add motion to main for fluid navigation */}
