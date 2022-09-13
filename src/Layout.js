@@ -13,7 +13,7 @@ const Layout = () => {
 
 			{/* Adjust py- of main for when height of top and bottom is set, should be a little bigger than their height */}
 			{/* TODO: add motion to main for fluid navigation */}
-			<main className="h-full py-20">
+			<main className="py-20">
 				<Outlet />
 			</main>
 
