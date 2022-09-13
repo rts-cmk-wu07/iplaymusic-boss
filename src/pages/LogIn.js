@@ -1,5 +1,11 @@
 const LogIn = () => {
-  return <div>Login</div>
+  return (
+    <div>
+      <a className="App-button" href="/.netlify/functions/login">
+        Login with Spotify
+      </a>
+    </div>
+  )
 }
 
 export default LogIn
