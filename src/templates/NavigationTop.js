@@ -20,6 +20,7 @@ const NavigationTop = () => {
 		'/search': 'Search',
 		'/trends': 'Latest Trends',
 		'/settings': 'Settings',
+		'/categories': 'All Categories',
 	};
 
 	const pathsWithoutBack = ['/login', '/', '/events', '/trends', '/settings'];
@@ -27,9 +28,9 @@ const NavigationTop = () => {
 	const currentPath = paths[location.pathname] || '404';
 
 	return (
-		<div className="h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl">
+		<div className="h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50">
 			{pathsWithoutBack.includes(location.pathname) ? (
-				<div ariaHidden="true" focusable="false"></div>
+				<div aria-hidden="true" focusable="false"></div>
 			) : (
 				<button
 					className="p-2 ml-2 w-fit h-fit rounded-full"
