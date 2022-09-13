@@ -1,7 +1,8 @@
 import BottomNavLink from "../components/subcomponents/BottomNavLink";
 import ThemeToggle from "../components/buttons/ThemeToggle";
 const NavigationBottom = () => {
-  const navigation = [
+  // Array of objects containing the links and icons for the bottom navigation  
+  const bottomNavigationItems = [
     { icon: "IoHome", href: "/" },
     { icon: "IoPulse", href: "/trends" },
     { icon: "IoCalendar", href: "/events" },
@@ -11,7 +12,7 @@ const NavigationBottom = () => {
     <nav className="z-40 flex fixed bottom-0 w-screen select-none shadow-top bg-white dark:bg-additional">
       <div className="wrapper h-full w-10/12  mx-auto">
         <ul className="flex justify-between items-center py-2">
-          {navigation.map((item, index) => (
+          {bottomNavigationItems.map((item, index) => (
             <BottomNavLink key={index} icon={item.icon} href={item.href} to="/" />
           ))}
           <ThemeToggle />
