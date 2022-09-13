@@ -1,0 +1,3 @@
+.gradient-fill i svg {
+  fill: url(#gradient);
+}
