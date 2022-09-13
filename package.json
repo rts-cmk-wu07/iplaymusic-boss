@@ -10,6 +10,7 @@
     "classnames": "^2.3.1",
     "feather-icons-react": "^0.5.0",
     "framer-motion": "^7.3.2",
+    "netlify-cli": "^11.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.35.0",
@@ -24,6 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "netlify dev",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
