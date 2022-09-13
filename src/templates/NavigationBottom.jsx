@@ -1,6 +1,6 @@
-import BottomNavLink from "./subcomponents/BottomNavLink";
-import ThemeToggle from "./buttons/ThemeToggle";
-const Navbar = () => {
+import BottomNavLink from "../components/subcomponents/BottomNavLink";
+import ThemeToggle from "../components/buttons/ThemeToggle";
+const NavigationBottom = () => {
   const navigation = [
     { icon: "IoHome", href: "/" },
     { icon: "IoPulse", href: "/trends" },
@@ -21,4 +21,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavigationBottom;
