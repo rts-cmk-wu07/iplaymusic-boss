@@ -15,6 +15,7 @@ import Search from './pages/Search';
 import LatestTrends from './pages/LatestTrends';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
+import AllCategories from './pages/AllCategories';
 
 function App() {
 	return (
@@ -34,6 +35,7 @@ function App() {
 						<Route path="/search" element={<Search />} />
 						<Route path="/trends" element={<LatestTrends />} />
 						<Route path="/settings" element={<Settings />} />
+						<Route path="/categories" element={<AllCategories />} />
 						<Route path="*" element={<NotFound />} />
 					</Route>
 				</Routes>

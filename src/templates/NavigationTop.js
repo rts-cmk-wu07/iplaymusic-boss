@@ -20,6 +20,7 @@ const NavigationTop = () => {
 		'/search': 'Search',
 		'/trends': 'Latest Trends',
 		'/settings': 'Settings',
+		'/categories': 'All Categories',
 	};
 
 	const pathsWithoutBack = ['/login', '/', '/events', '/trends', '/settings'];
