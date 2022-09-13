@@ -19,11 +19,7 @@ const Layout = () => {
 
 			{/* Music player should be here */}
 
-			<footer>
-				{/* This is the footer
-				It contains the footer navigation */}
-				<NavigationBottom />
-			</footer>
+			<NavigationBottom />
 		</div>
 	);
 };

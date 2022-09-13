@@ -91,9 +91,8 @@ const Home = () => {
 					<ColoredListItem key={link.id} {...link} />
 				))}
 			</div>
-
-			<h1 className="heading gradient-text mt-16">Featured</h1>
-			<List gap="gap-16">
+			<h1 className="heading gradient-text mt-16 mb-4">Featured</h1>
+			<List gap="gap-12">
 				{tempArticles.map(article => (
 					<FeaturedItem key={article.id} {...article} />
 				))}
