@@ -13,8 +13,6 @@ const ThemeToggle = () => {
 			: 'auto'
 	);
 
-	console.log(themeToggle);
-
 	// Initial theme setup on load
 	if (
 		localStorage.theme === 'dark' ||

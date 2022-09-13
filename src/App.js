@@ -14,6 +14,7 @@ import Featured from './pages/Featured';
 import Search from './pages/Search';
 import LatestTrends from './pages/LatestTrends';
 import NotFound from './pages/NotFound';
+import Settings from './pages/Settings';
 
 function App() {
 	return (
@@ -32,6 +33,7 @@ function App() {
 						<Route path="/featured" element={<Featured />} />
 						<Route path="/search" element={<Search />} />
 						<Route path="/trends" element={<LatestTrends />} />
+						<Route path="/settings" element={<Settings />} />
 						<Route path="*" element={<NotFound />} />
 					</Route>
 				</Routes>
