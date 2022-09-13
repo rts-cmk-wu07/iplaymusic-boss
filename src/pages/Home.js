@@ -1,5 +1,11 @@
-const Home = () => {
-  return <div>home</div>
-}
+import H1 from "../components/subcomponents/H1";
 
-export default Home
+const Home = () => {
+  return (
+    <div>
+      <H1 value="Goodmorning" />
+    </div>
+  );
+};
+
+export default Home;
