@@ -13,6 +13,8 @@ const ThemeToggle = () => {
 			: 'auto'
 	);
 
+	console.log(themeToggle);
+
 	// Initial theme setup on load
 	if (
 		localStorage.theme === 'dark' ||
@@ -27,11 +29,13 @@ const ThemeToggle = () => {
 	// Checks if the user has a theme preference set
 	// If not, it checks the system preference and sets theme
 	const darkTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
 	darkTheme.addEventListener('change', e => {
-		if (e.matches && themeToggle === 'auto') {
-			document.documentElement.classList.add('dark');
-		} else if (!e.matches && themeToggle === 'auto') {
-			document.documentElement.classList.remove('dark');
+		if (e.matches) {
+			themeToggle === 'auto' && document.documentElement.classList.add('dark');
+		} else {
+			themeToggle === 'auto' &&
+				document.documentElement.classList.remove('dark');
 		}
 	});
 
