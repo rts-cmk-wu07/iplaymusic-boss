@@ -7,8 +7,8 @@ const BottomNavLink = ({ icon, href }) => {
       <NavLink
         className={(navData) =>
           navData.isActive
-            ? "gradient text-white dark:text-black p-3 rounded-full gap-4 cursor-pointer hover:scale-105 transition-all flex"
-            : "text-gradientColors-left p-3 rounded-full gap-4 cursor-pointer hover:scale-105 transition-all flex"
+            ? "gradient text-white dark:text-black p-3 rounded-full gap-4 cursor-pointer flex"
+            : "gradient-fill p-3 rounded-full gap-4 cursor-pointer flex"
         }
         to={href}
       >

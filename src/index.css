@@ -9,4 +9,5 @@
 /* Custom CSS Imports */
 @import url("./styles/gradient-text.css");
 @import url("./styles/gradient.css");
+@import url("./styles/gradient-fill.css");
 @import url("./styles/heading.css");
