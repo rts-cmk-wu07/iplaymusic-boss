@@ -3,7 +3,7 @@
 // It contains the header, the main content, and the footer
 // Here goes the Outlet
 import { Outlet } from 'react-router-dom';
-import ThemeToggle from './components/buttons/ThemeToggle';
+import NavigationBottom from './templates/NavigationBottom';
 import NavigationTop from './templates/NavigationTop';
 
 const Layout = () => {
@@ -22,7 +22,7 @@ const Layout = () => {
 			<footer>
 				{/* This is the footer
 				It contains the footer navigation */}
-				<ThemeToggle />
+				<NavigationBottom />
 			</footer>
 		</div>
 	);
