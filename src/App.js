@@ -22,31 +22,35 @@ import LatestTrends from "./pages/LatestTrends"
 import NotFound from "./pages/NotFound"
 import Settings from "./pages/Settings"
 import AllCategories from "./pages/AllCategories"
+import loaderModalContext from "./contexts/loaderModalContext"
+import { useState } from "react"
 
 function App() {
   const location = useLocation()
-
+  const [loaderModal, setLoaderModal] = useState(false)
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/events" element={<EventFeed />} />
-          <Route path="/albumdetails" element={<AlbumDetails />} />
-          <Route path="/albums" element={<AllAlbums />} />
-          <Route path="/artists" element={<AllArtists />} />
-          <Route path="/playlists" element={<AllPlaylists />} />
-          <Route path="/songs" element={<AllSongs />} />
-          <Route path="/featured" element={<Featured />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/trends" element={<LatestTrends />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/categories" element={<AllCategories />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </AnimatePresence>
+    <loaderModalContext.Provider value={{ loaderModal, setLoaderModal }}>
+      <AnimatePresence mode="wait" initial={false}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/events" element={<EventFeed />} />
+            <Route path="/albumdetails" element={<AlbumDetails />} />
+            <Route path="/albums" element={<AllAlbums />} />
+            <Route path="/artists" element={<AllArtists />} />
+            <Route path="/playlists" element={<AllPlaylists />} />
+            <Route path="/songs" element={<AllSongs />} />
+            <Route path="/featured" element={<Featured />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/trends" element={<LatestTrends />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/categories" element={<AllCategories />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </AnimatePresence>
+    </loaderModalContext.Provider>
   )
 }
 
