@@ -1,7 +1,6 @@
 import ColoredListItem from "../components/lists/ColoredListItem";
 import FeaturedItem from "../components/lists/FeaturedItem";
 import List from "../components/lists/List";
-import CategoryList from "../components/lists/CategoryList";
 const Home = () => {
   const getTimeOfDay = () => {
     const date = new Date();
@@ -97,7 +96,6 @@ const Home = () => {
             <FeaturedItem key={article.id} {...article} />
           ))}
         </List>
-        <CategoryList />
       </div>
     </>
   );
