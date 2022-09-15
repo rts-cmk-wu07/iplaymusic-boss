@@ -5,6 +5,7 @@
 import { Outlet } from 'react-router-dom';
 import NavigationBottom from './templates/NavigationBottom';
 import NavigationTop from './templates/NavigationTop';
+import Player from './templates/Player';
 
 const Layout = () => {
 	return (
@@ -18,6 +19,7 @@ const Layout = () => {
 			</main>
 
 			{/* Music player should be here */}
+			<Player />
 
 			<NavigationBottom />
 		</div>
