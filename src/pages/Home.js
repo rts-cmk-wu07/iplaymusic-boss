@@ -1,8 +1,6 @@
-import { useState } from "react";
 import ColoredListItem from "../components/lists/ColoredListItem";
 import FeaturedItem from "../components/lists/FeaturedItem";
 import List from "../components/lists/List";
-import Welcome from "../components/modals/Welcome";
 
 const Home = () => {
   const getTimeOfDay = () => {
@@ -84,9 +82,6 @@ const Home = () => {
       link: "/article/3",
     },
   ];
-
-  const [welcomeModal, setWelcomeModal] = useState(true);
-
   return (
     <>
       <div className="p-6">
@@ -103,7 +98,6 @@ const Home = () => {
           ))}
         </List>
       </div>
-      {welcomeModal && <Welcome />}
     </>
   );
 };
