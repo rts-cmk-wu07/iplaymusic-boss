@@ -19,9 +19,9 @@ const Layout = () => {
 			</main>
 
 			{/* Music player should be here */}
-			<Player />
 
 			<NavigationBottom />
+			<Player />
 		</div>
 	);
 };
