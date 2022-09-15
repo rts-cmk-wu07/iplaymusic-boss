@@ -1,5 +1,7 @@
-const AllPlaylists = () => {
-	return <div></div>;
-};
+import { motion } from "framer-motion"
 
-export default AllPlaylists;
+const AllPlaylists = () => {
+  return <div>asdasjdojasoidjioasd</div>
+}
+
+export default AllPlaylists
