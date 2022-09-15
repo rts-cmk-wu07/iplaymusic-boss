@@ -9,9 +9,11 @@ const Player = ({ isPlaying, song }) => {
 		<motion.section
 			layout
 			animate={{ borderRadius: isOpen ? '0px' : '8px' }}
-			transition={{ duration: 0.5, ease: 'easeInOut' }}
-			className={`fixed flex flex-col gradient left-2 right-2 p-1 shadow-lg shadow-[#FF6A00]/50 ${
-				isOpen ? 'top-0 bottom-0 left-0 right-0' : 'bottom-20 left-2 right-2'
+			transition={{ duration: 0.3, ease: 'easeInOut' }}
+			className={`fixed flex flex-col gradient shadow-lg shadow-[#FF6A00]/50 ${
+				isOpen
+					? 'top-0 bottom-0 left-0 right-0'
+					: 'bottom-20 left-2 right-2 p-1'
 			}`}
 		>
 			<LargePlayer isOpen={isOpen} setIsOpen={setIsOpen} song={song} />

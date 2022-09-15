@@ -14,9 +14,26 @@ const containerV = {
 };
 
 const albumArtV = {
-	initial: {},
-	open: {},
-	exit: {},
+	initial: {
+		opacity: 0,
+		scale: 0.5,
+	},
+	open: {
+		opacity: 1,
+		scale: 1,
+		y: 0,
+		filter: 'blur(0px)',
+		transition: {
+			delay: 0.5,
+			ease: 'easeOut',
+		},
+	},
+	exit: {
+		opacity: 0,
+		scale: 0.5,
+		y: 80,
+		filter: 'blur(24px)',
+	},
 };
 
 const titleV = {
@@ -74,4 +91,26 @@ const closeV = {
 	},
 };
 
-export { containerV, albumArtV, titleV, controlV, progressV, closeV };
+const imgV = {
+	initial: {
+		opacity: 0,
+	},
+	open: {
+		opacity: 0.5,
+		filter: 'blur(0px)',
+		transition: {
+			delay: 0.3,
+			duration: 0.25,
+		},
+	},
+	exit: {
+		opacity: 0,
+		filter: 'blur(16px)',
+		transition: {
+			duration: 1,
+			delay: 0.5,
+		},
+	},
+};
+
+export { containerV, albumArtV, titleV, controlV, progressV, closeV, imgV };
