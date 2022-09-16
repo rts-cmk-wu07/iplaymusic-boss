@@ -1,23 +1,16 @@
 import { motion } from "framer-motion";
 const SoundWaveHeader = () => {
-  const waveTransition = {
-    loop: Infinity,
-    ease: "linear",
-    duration: 1,
-  };
   return (
     <motion.svg
-      animate={{ rotate: [10, -10] }}
+      animate={{ rotate: [2, -2, 2], x: [0, 4, 0], scaleY: [1, 1.3, 1], scale: [1, 1.1, 1] }}
       transition={{
-        yoyo: Infinity,
-        from: 0,
-        duration: 2,
+        loop: Infinity,
         ease: "easeInOut",
-        type: "spring",
+        duration: 4,
       }}
-      className="absolute -top-24 w-full"
+      className="absolute -top-12 w-full"
       width="450"
-      height="272.277"
+      height="280.277"
       viewBox="0 0 450 272.277"
     >
       <defs>
