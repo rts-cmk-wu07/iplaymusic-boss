@@ -5,8 +5,6 @@ const NavigationTop = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	console.log(location.pathname);
-
 	const paths = {
 		'/': 'Home',
 		'/login': 'Log In',
@@ -28,12 +26,12 @@ const NavigationTop = () => {
 	const currentPath = paths[location.pathname] || '404';
 
 	return (
-		<div className="h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50">
+		<div className="h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50 z-20">
 			{pathsWithoutBack.includes(location.pathname) ? (
 				<div aria-hidden="true" focusable="false"></div>
 			) : (
 				<button
-					className="p-2 ml-2 w-fit h-fit rounded-full"
+					className="p-2 ml-2 w-fit h-fit rounded-full z-10"
 					onClick={() => navigate(-1)}
 				>
 					<IoChevronBackOutline className="h-6 w-6 stroke-3" />

@@ -10,7 +10,7 @@ const Player = ({ isPlaying, song }) => {
 			layout
 			animate={{ borderRadius: isOpen ? '0px' : '8px' }}
 			transition={{ duration: 0.3, ease: 'easeInOut' }}
-			className={`fixed flex flex-col gradient shadow-lg shadow-[#FF6A00]/50 ${
+			className={`fixed flex flex-col gradient shadow-lg rounded-lg shadow-[#FF6A00]/50 z-30 ${
 				isOpen
 					? 'top-0 bottom-0 left-0 right-0'
 					: 'bottom-20 left-2 right-2 p-1'

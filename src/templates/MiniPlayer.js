@@ -8,7 +8,7 @@ const MiniPlayer = ({ isOpen, setIsOpen, song }) => {
 			{!isOpen && (
 				<motion.div
 					layout
-					className={`flex ${isOpen && 'flex-col'} items-center gap-2`}
+					className={`flex items-center gap-2`}
 					initial={{ opacity: 0, y: 32 }}
 					animate={{
 						opacity: 1,
