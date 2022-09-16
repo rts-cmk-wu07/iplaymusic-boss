@@ -1,7 +1,14 @@
-import { motion } from "framer-motion"
+import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader";
 
 const AllPlaylists = () => {
-  return <div>asdasjdojasoidjioasd</div>
-}
+  return (
+    <>
+      <SoundWaveHeader />
+      <div className="p-6">
+        <h1 className="heading gradient-text mb-4">All Playlists</h1>
+      </div>
+    </>
+  );
+};
 
-export default AllPlaylists
+export default AllPlaylists;
