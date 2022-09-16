@@ -1,8 +1,14 @@
 import ProfileAvatar from "./ProfileAvatar";
-
+import { useNavigate } from "react-router-dom";
 const EventArticle = ({ image, tags, heading, likes }) => {
+  const navigate = useNavigate();
   return (
-    <article className="bg-additional text-white pb-6 rounded-lg">
+    <article
+      className="bg-additional text-white pb-6 rounded-lg"
+      onClick={() => {
+        navigate(`/event/${heading}`);
+      }}
+    >
       <img src={image} className="w-full rounded-t-lg" alt="alt" />
       <div className="py-4 px-6 flex flex-col gap-4">
         <ul className="flex">

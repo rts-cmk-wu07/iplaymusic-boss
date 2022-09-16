@@ -13,7 +13,7 @@ const TagList = () => {
     { id: 10, content: "#edm" },
   ];
   return (
-    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap mb-6">
+    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap pb-6">
       {Tags.map((tag) => (
         <Tag key={tag.id} content={tag.content} />
       ))}
