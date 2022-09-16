@@ -2,19 +2,30 @@ import { motion } from "framer-motion";
 const SoundWaveHeader = () => {
   return (
     <motion.svg
-      animate={{ rotate: [2, -2, 2], x: [0, 4, 0], scaleY: [1, 1.3, 1], scale: [1, 1.1, 1] }}
+      animate={{
+        rotate: [3, -3, 3],
+        x: [0, 4, 0],
+        scaleY: [1.1, 1.9, 1.1],
+        scaleX: [1.1, 1.2, 1.1],
+      }}
       transition={{
         loop: Infinity,
         ease: "easeInOut",
         duration: 4,
       }}
-      className="absolute -top-12 w-full"
+      className="z-50 fixed top-0 h-full"
       width="450"
       height="280.277"
       viewBox="0 0 450 272.277"
     >
       <defs>
-        <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+        <linearGradient
+          id="linear-gradient"
+          x1="0.5"
+          x2="0.5"
+          y2="1"
+          gradientUnits="objectBoundingBox"
+        >
           <stop offset="0" stopColor="#ee0979" />
           <stop offset="1" stopColor="#ff6a00" />
         </linearGradient>
