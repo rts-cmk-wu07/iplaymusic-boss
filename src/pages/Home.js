@@ -1,7 +1,6 @@
 import ColoredListItem from "../components/lists/ColoredListItem";
 import FeaturedItem from "../components/lists/FeaturedItem";
 import List from "../components/lists/List";
-
 const Home = () => {
   const getTimeOfDay = () => {
     const date = new Date();
