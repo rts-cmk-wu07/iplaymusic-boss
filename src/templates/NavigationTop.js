@@ -1,11 +1,9 @@
-import { useNavigate, useLocation, NavLink, useHistory } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { IoChevronBackOutline, IoSearch } from "react-icons/io5";
 
 const NavigationTop = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  console.log(location.pathname);
 
   const paths = {
     "/": "Home",
