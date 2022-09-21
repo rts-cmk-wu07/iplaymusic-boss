@@ -4,7 +4,7 @@ const spinTransition = {
   ease: "linear",
   duration: 5,
 };
-const LoaderDecorationFigure = () => {
+const LoaderPulseFigure = () => {
   return (
     <motion.svg
       animate={{
@@ -113,4 +113,4 @@ const LoaderDecorationFigure = () => {
   );
 };
 
-export default LoaderDecorationFigure;
+export default LoaderPulseFigure;

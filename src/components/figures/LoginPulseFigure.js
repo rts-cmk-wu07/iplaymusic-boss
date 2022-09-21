@@ -1,23 +1,7 @@
 import { motion } from "framer-motion";
-const LoginDecorationFigure = () => {
+const LoginPulseFigure = () => {
   return (
     <motion.svg
-      animate={{
-        rotate: [0, 3, -3, 0],
-        y: [0, 15, -15, 0],
-        x: [0, 50, -50, 0],
-        scale: [1.3, 1.4, 1.4, 1.3],
-        transition: {
-          duration: 5,
-          repeat: Infinity,
-        },
-      }}
-      initial={{
-        rotate: 0,
-        y: 0,
-        x: 0,
-        scale: 1.3,
-      }}
       xmlns="http://www.w3.org/2000/svg"
       width="590.891"
       height="480.76"
@@ -56,4 +40,4 @@ const LoginDecorationFigure = () => {
   );
 };
 
-export default LoginDecorationFigure;
+export default LoginPulseFigure;
