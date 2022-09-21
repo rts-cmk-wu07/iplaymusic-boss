@@ -63,11 +63,11 @@ function App() {
 								<Route path="*" element={<NotFound />} />
 							</Route>
 						) : (
-							<Route path="/" element={<Layout />}>
+							<>
 								<Route index element={<LogIn />} />
 								<Route path="/callback" element={<Callback />} />
 								<Route path="*" element={<NotFound />} />
-							</Route>
+							</>
 						)}
 					</Routes>
 				</AnimatePresence>
