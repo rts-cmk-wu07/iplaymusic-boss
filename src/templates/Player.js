@@ -7,6 +7,12 @@ const Player = ({ isPlaying, song }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<motion.section
+			drag="y"
+			dragConstraints={{ top: 0, bottom: 0 }}
+			onMouseOut={() => {
+				setIsOpen(!isOpen);
+				console.log('mouse up');
+			}}
 			layout
 			animate={{ borderRadius: isOpen ? '0px' : '8px' }}
 			transition={{ duration: 0.3, ease: 'easeInOut' }}
