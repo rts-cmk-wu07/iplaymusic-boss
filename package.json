@@ -7,11 +7,13 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "feather-icons-react": "^0.5.0",
     "framer-motion": "^7.3.2",
-    "netlify-cli": "^11.8.2",
+    "querystring": "^0.2.1",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-collapsible": "^2.10.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.35.0",
@@ -19,13 +21,15 @@
     "react-music-visualizer": "^1.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-spotify-web-playback": "^0.10.0",
     "react-toastify": "^9.0.8",
+    "react-use-cookie": "^1.4.0",
     "sass": "^1.54.9",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
   "scripts": {
-    "dev": "netlify dev",
+    "dev": "netlify dev -f .netlify/functions",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,6 +55,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.9",
+    "netlify-cli": "^11.8.1",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
   }

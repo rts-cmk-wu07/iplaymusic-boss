@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 const spinTransition = {
-  loop: Infinity,
+  repeat: Infinity,
   ease: "linear",
   duration: 5,
 };
@@ -9,7 +9,11 @@ const LoaderModal = () => {
   return (
     <div className="z-40 w-screen h-screen fixed inset-0 bg-white dark:bg-secondary gap-14 flex flex-col items-center justify-center ">
       <motion.svg
-        animate={{ rotate: 360, scale: [0.9, 1.2, 0.9, 1.2, 0.9], type: "spring" }}
+        animate={{
+          rotate: 360,
+          scale: [0.9, 1.2, 0.9, 1.2, 0.9],
+          type: "spring",
+        }}
         transition={spinTransition}
         id="music-logo-solid"
         width="200"
@@ -17,11 +21,25 @@ const LoaderModal = () => {
         viewBox="0 0 200 215.963"
       >
         <defs>
-          <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+          <linearGradient
+            id="linear-gradient"
+            x1="0.5"
+            x2="0.5"
+            y2="1"
+            gradientUnits="objectBoundingBox"
+          >
             <stop offset="0" stopColor="#ee0979" />
             <stop offset="1" stopColor="#ff6a00" />
           </linearGradient>
-          <linearGradient className="hidden dark:block" id="linear-gradient-2" x1="0.5" y1="0" x2="0.5" y2="1" href="#linear-gradient" />
+          <linearGradient
+            className="hidden dark:block"
+            id="linear-gradient-2"
+            x1="0.5"
+            y1="0"
+            x2="0.5"
+            y2="1"
+            href="#linear-gradient"
+          />
         </defs>
         <circle
           className="block dark:hidden"
@@ -49,7 +67,12 @@ const LoaderModal = () => {
           transform="translate(-0.5 -0.437)"
           fill="url(#linear-gradient)"
         />
-        <g className=" hidden dark:block" id="Group_391" data-name="Group 391" transform="translate(0 28.7)">
+        <g
+          className=" hidden dark:block"
+          id="Group_391"
+          data-name="Group 391"
+          transform="translate(0 28.7)"
+        >
           <path
             className=" hidden dark:block"
             id="Path_321"
@@ -59,7 +82,12 @@ const LoaderModal = () => {
             fill="url(#linear-gradient)"
           />
         </g>
-        <g className=" hidden dark:block" id="Group_392" data-name="Group 392" transform="translate(48.6 56.6)">
+        <g
+          className=" hidden dark:block"
+          id="Group_392"
+          data-name="Group 392"
+          transform="translate(48.6 56.6)"
+        >
           <path
             className=" hidden dark:block"
             id="Path_322"
@@ -69,7 +97,12 @@ const LoaderModal = () => {
             fill="url(#linear-gradient-2)"
           />
         </g>
-        <g className=" hidden dark:block" id="Group_393" data-name="Group 393" transform="translate(0)">
+        <g
+          className=" hidden dark:block"
+          id="Group_393"
+          data-name="Group 393"
+          transform="translate(0)"
+        >
           <path
             className=" hidden dark:block"
             id="Path_323"
@@ -83,7 +116,7 @@ const LoaderModal = () => {
       <motion.h2
         animate={{ scale: [0.9, 1.2, 0.9, 1.2, 0.9], type: "spring" }}
         transition={{ duration: 5, loop: Infinity }}
-        className="heading dark:text-white text-black "
+        className="heading dark:text-white text-black"
       >
         iPlayMusic
       </motion.h2>
