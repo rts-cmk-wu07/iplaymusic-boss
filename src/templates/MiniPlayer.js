@@ -23,7 +23,10 @@ const MiniPlayer = ({ isOpen, setIsOpen, song }) => {
 						transition: { duration: 0.5 },
 					}}
 				>
-					<AlbumArt callback={() => setIsOpen(true)} />
+					<AlbumArt
+						callback={() => setIsOpen(true)}
+						artwork={song?.album?.images[0]?.url}
+					/>
 					<motion.div className="min-w-0" onClick={() => setIsOpen(true)}>
 						<h2 className="text-white font-bold w-full whitespace-nowrap overflow-hidden text-ellipsis">
 							{song?.name || 'Never gonna let you down'}
