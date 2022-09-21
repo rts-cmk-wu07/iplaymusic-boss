@@ -1,25 +1,9 @@
 import { motion } from 'framer-motion';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
-import useFetch from '../hooks/useFetch';
-import SpotifyPlayer from 'react-spotify-web-playback';
-import TokenContext from '../contexts/TokenContext';
 
 const Player = ({ isPlaying, song }) => {
-	const { tokenData } = useContext(TokenContext);
-	const rickrollid = '4cOdK2wGLETKBW3PvgPWqT'; // rickroll
-	const { data, loading, error } = useFetch(
-		`https://api.spotify.com/v1/tracks/${rickrollid}`
-	);
-	console.log(data);
-	song = data;
-	const {
-		data: audioData,
-		loading: audioLoading,
-		error: audioError,
-	} = useFetch(`https://api.spotify.com/v1/audio-features/${rickrollid}`);
-	console.log(audioData);
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<motion.section
@@ -38,7 +22,6 @@ const Player = ({ isPlaying, song }) => {
 					: 'bottom-20 left-2 right-2 p-1'
 			}`}
 		>
-			<SpotifyPlayer token={tokenData.accessToken} uris={[data.uri]} />
 			<LargePlayer isOpen={isOpen} setIsOpen={setIsOpen} song={song} />
 			<MiniPlayer isOpen={isOpen} setIsOpen={setIsOpen} song={song} />
 		</motion.section>
