@@ -42,7 +42,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 				>
 					<motion.img
 						variants={imgV}
-						src="https://picsum.photos/1920/1080"
+						src={song?.album.images[0].url}
 						className="w-full h-full object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					/>
 
@@ -63,7 +63,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 							>
 								<motion.img
 									variants={albumArtV.art}
-									src="https://picsum.photos/200/200"
+									src={song?.album.images[0].url}
 									alt="album art"
 									className="h-64 w-64 rounded-full"
 								/>
