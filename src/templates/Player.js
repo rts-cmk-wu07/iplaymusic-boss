@@ -1,8 +1,7 @@
 import { motion } from "framer-motion"
-import { useState, useContext } from "react"
+import { useState } from "react"
 import MiniPlayer from "./MiniPlayer"
 import LargePlayer from "./LargePlayer"
-import TokenContext from "../contexts/TokenContext"
 
 const Player = ({ isPlaying, song }) => {
   const [isOpen, setIsOpen] = useState(false)
