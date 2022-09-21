@@ -48,7 +48,7 @@ const albumArtV = {
 				ease: 'easeOut',
 				rotate: {
 					duration: 10,
-					loop: Infinity,
+					repeat: Infinity,
 					ease: 'linear',
 				},
 			},
