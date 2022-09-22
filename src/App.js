@@ -10,6 +10,7 @@ import AlbumDetails from "./pages/AlbumDetails"
 import AllAlbums from "./pages/AllAlbums"
 import AllArtists from "./pages/AllArtists"
 import AllPlaylists from "./pages/AllPlaylists"
+import Playlist from "./pages/Playlist"
 import AllSongs from "./pages/AllSongs"
 import Featured from "./pages/Featured"
 import Search from "./pages/Search"
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/albums" element={<AllAlbums />} />
                 <Route path="/artists" element={<AllArtists />} />
                 <Route path="/playlists" element={<AllPlaylists />} />
+                <Route path="/playlist/:id/:name" element={<Playlist />} />
                 <Route path="/songs" element={<AllSongs />} />
                 <Route path="/featured" element={<Featured />} />
                 <Route path="/search" element={<Search />} />

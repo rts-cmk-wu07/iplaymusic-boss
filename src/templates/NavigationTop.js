@@ -1,9 +1,9 @@
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { IoChevronBackOutline, IoSearch } from "react-icons/io5";
+import { useNavigate, useLocation, NavLink } from "react-router-dom"
+import { IoChevronBackOutline, IoSearch } from "react-icons/io5"
 
 const NavigationTop = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const paths = {
     "/": "Home",
@@ -13,18 +13,19 @@ const NavigationTop = () => {
     "/albums": "All Albums",
     "/artists": "All Artists",
     "/playlists": "All Playlists",
+    "/playlist": "Playlist",
     "/songs": "All Songs",
     "/featured": "Featured",
     "/search": "Search",
     "/trends": "Latest Trends",
     "/settings": "Settings",
     "/categories": "All Categories",
-  };
+  }
 
-  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"];
-  const pathsWithOnlyWhiteText = ["/playlists"];
+  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"]
+  const pathsWithOnlyWhiteText = ["/playlists"]
 
-  const currentPath = paths[location.pathname] || "404";
+  const currentPath = paths[location.pathname] || "404"
 
   return (
     <div
@@ -37,18 +38,26 @@ const NavigationTop = () => {
       {pathsWithoutBack.includes(location.pathname) ? (
         <div aria-hidden="true" focusable="false"></div>
       ) : (
-        <button className="p-2 ml-2 w-fit h-fit rounded-full z-10" onClick={() => navigate(-1)}>
+        <button
+          className="p-2 ml-2 w-fit h-fit rounded-full z-10"
+          onClick={() => navigate(-1)}
+        >
           <IoChevronBackOutline className="h-6 w-6 stroke-3" />
         </button>
       )}
-      <h1 className="text-lg col-span-2 mx-auto uppercase tracking-wider">{currentPath}</h1>
+      <h1 className="text-lg col-span-2 mx-auto uppercase tracking-wider">
+        {currentPath}
+      </h1>
       {location.pathname !== "/search" && (
-        <NavLink to="/search" className="p-2 mr-2 ml-auto w-fit h-fit rounded-full">
+        <NavLink
+          to="/search"
+          className="p-2 mr-2 ml-auto w-fit h-fit rounded-full"
+        >
           <IoSearch className="h-6 w-6 stroke-3" />
         </NavLink>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default NavigationTop;
+export default NavigationTop
