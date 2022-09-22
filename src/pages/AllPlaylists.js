@@ -1,63 +1,71 @@
-import { useEffect, useState } from "react"
-import useFetch from "../hooks/useFetch"
+import { useEffect, useState, useRef } from "react"
+import { InView } from "react-intersection-observer"
 import { motion } from "framer-motion"
+/* Hooks */
+import useFetch from "../hooks/useFetch"
+/* Components */
 import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader"
-import { useNavigate } from "react-router-dom"
+import Playlist from "../components/subcomponents/Playlist"
 
+const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0)
+
+//sfc => for printing users playlists out
 const AllPlaylists = () => {
-  const [playlistData, setPlaylistData] = useState([])
   const [currentUrl, setCurrentUrl] = useState(
     "https://api.spotify.com/v1/me/playlists"
   )
+  const [nextUrl, setNextUrl] = useState(null)
+  const [playlistData, setPlaylistData] = useState(null)
 
   // Get current users playlists
   const { data, loading, error } = useFetch(currentUrl)
 
-  // For development purposes
   useEffect(() => {
-    if (data.items) {
-      console.log(data.items)
-      setPlaylistData((prevState) => [...data.items])
-    } else {
-      setPlaylistData(data.items)
+    // Saves data to playlistData state and sets nextUrl for lazy loading
+    if (data?.items) {
+      if (playlistData) {
+        setPlaylistData([...playlistData, ...data.items])
+      } else {
+        setPlaylistData(data.items)
+      }
+      setNextUrl(data.next)
     }
-  }, [data, loading, error])
+  }, [data])
 
-  const navigate = useNavigate()
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    if (inView) setCurrentUrl(nextUrl)
+  }, [inView])
 
   return (
-    <div>
+    <div className="mb-[5rem]">
       <SoundWaveHeader />
-      <ul className="p-6 grid grid-cols-2 gap-y-5 gap-x-4 max-w-[100%]">
-        {!loading &&
-          playlistData?.map((playlist) => {
-            const { uri, images, name, id } = playlist
-            const isImages = images.length > 0
-            return (
-              <motion.li
-                whileTap={{ scale: 1.1 }}
-                className="flex flex-col"
-                onClick={() => navigate(`/playlist/${id}`)}
-                key={uri}
-              >
-                {isImages && (
-                  <>
-                    <img
-                      className="mb-2"
-                      src={images[1]?.url || images[0]?.url}
-                      alt=""
-                    />
-                    <p className="text-white self-center">{name}</p>
-                  </>
+
+      {!loading && (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
+          {playlistData?.map((playlist, i) =>
+            i === 16 && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ inView, ref, entry }) => (
+                  <div ref={ref}>
+                    <Playlist key={playlist.id} {...playlist} />
+                  </div>
                 )}
-                {!isImages && (
-                  <div className="w-full h-full bg-slate-500"></div>
-                )}
-              </motion.li>
+              </InView>
+            ) : (
+              <Playlist key={playlist.id} {...playlist} />
             )
-          })}
-        {loading && <p>LOADING</p>}
-      </ul>
+          )}
+        </ul>
+      )}
+      {loading && (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[100vh]">
+          {loadingPlaceholderAmount.map((_, i) => (
+            <Playlist key={i} loading />
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

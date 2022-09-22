@@ -9,7 +9,7 @@ const SoundWaveHeader = () => {
         scaleX: [1.1, 1.2, 1.1],
       }}
       transition={{
-        loop: Infinity,
+        repeat: Infinity,
         ease: "easeInOut",
         duration: 4,
       }}
