@@ -4,7 +4,7 @@ import AlbumArt from "../components/subcomponents/AlbumArt"
 
 const MiniPlayer = ({ isOpen, setIsOpen, song }) => {
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {!isOpen && (
         <motion.div
           layout
