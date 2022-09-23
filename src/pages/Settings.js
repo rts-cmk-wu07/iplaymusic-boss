@@ -1,18 +1,25 @@
 import useFetch from "../hooks/useFetch";
 import ReactCountryFlag from "react-country-flag";
 import { IoLogOutOutline, IoPerson } from "react-icons/io5";
+import { HiOutlineExternalLink } from "react-icons/hi";
 import { signOut } from "../functions/signOut";
 import TokenContext from "../contexts/TokenContext";
 import { useContext } from "react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
-  const { data, loading, error } = useFetch("https://api.spotify.com/v1/me");
-  console.log(data);
+  const { data, loading } = useFetch("https://api.spotify.com/v1/me");
+  const { data: followingData, loading: followingLoading } = useFetch(
+    "https://api.spotify.com/v1/me/following?type=artist"
+  );
+
+  console.log(followingData);
   const { setTokenData } = useContext(TokenContext);
   const [showUserID, setShowUserID] = useState(false);
 
+  const navigate = useNavigate();
   return (
     <section className="p-4">
       <h1 className="heading gradient-text">User Overview</h1>
@@ -26,7 +33,11 @@ const Settings = () => {
                 className="max-w-[12rem] rounded-full"
               />
             ) : (
-              <IoPerson size="100" />
+              <IoPerson
+                className="rounded-full bg-[#C9CCD1]"
+                color="white"
+                size="100"
+              />
             )}
 
             <h2 className="text-4xl ml-6 font-semibold flex gap-1 items-center">
@@ -49,10 +60,18 @@ const Settings = () => {
           <p className="text-neutral-800 dark:text-zinc-300 text-sm text-center">
             {data?.email}
           </p>
-
-          <p className="text-xl flex items-center justify-center">
-            Followers: {data?.followers?.total} <IoPerson />{" "}
-          </p>
+          <div className="flex items-center justify-center flex-col gap-1">
+            <p className="text-xl flex items-center justify-center">
+              Followers: {data?.followers?.total} <IoPerson />{" "}
+            </p>
+            <p
+              className="text-xl flex items-center justify-center underline"
+              onClick={() => navigate("/following")}
+            >
+              Following: {followingData?.artists?.total}
+              <HiOutlineExternalLink size="30" />
+            </p>
+          </div>
           <button
             className="rounded-full border-2 border-additional dark:border-white flex items-center mx-auto  text-sm w-fit px-3 py-1"
             onClick={() => {
