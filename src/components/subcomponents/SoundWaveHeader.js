@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 const SoundWaveHeader = () => {
   return (
     <motion.svg
@@ -11,7 +11,7 @@ const SoundWaveHeader = () => {
       transition={{
         repeat: Infinity,
         ease: "easeInOut",
-        duration: 4,
+        duration: 10,
       }}
       className="z-50 fixed top-0 -z-10"
       width="450"
@@ -37,7 +37,7 @@ const SoundWaveHeader = () => {
         fill="url(#linear-gradient)"
       />
     </motion.svg>
-  )
-}
+  );
+};
 
-export default SoundWaveHeader
+export default SoundWaveHeader;

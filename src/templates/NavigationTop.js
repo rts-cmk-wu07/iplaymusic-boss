@@ -1,9 +1,9 @@
-import { useNavigate, useLocation, NavLink } from "react-router-dom"
-import { IoChevronBackOutline, IoSearch } from "react-icons/io5"
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { IoChevronBackOutline, IoSearch } from "react-icons/io5";
 
 const NavigationTop = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const paths = {
     "/": "Home",
@@ -20,19 +20,20 @@ const NavigationTop = () => {
     "/trends": "Latest Trends",
     "/settings": "Settings",
     "/categories": "All Categories",
-  }
+    "/category": "Category",
+  };
 
-  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"]
-  const pathsWithOnlyWhiteText = ["/playlists"]
+  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"];
+  const pathsWithOnlyWhiteText = ["/playlists"];
 
-  const currentPath = paths[location.pathname] || "404"
+  const currentPath = paths[location.pathname] || "404";
 
   return (
     <div
       className={
         pathsWithOnlyWhiteText.includes(location.pathname)
           ? "h-16 w-screen fixed grid grid-cols-4 items-center bg-transparent text-white z-20"
-          : "h-16 w-screen fixed grid grid-cols-4 items-center bg-transparent text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50 z-20"
+          : "h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50 z-20"
       }
     >
       {pathsWithoutBack.includes(location.pathname) ? (
@@ -57,7 +58,7 @@ const NavigationTop = () => {
         </NavLink>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default NavigationTop
+export default NavigationTop;

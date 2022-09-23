@@ -1,44 +1,45 @@
-import { Routes, Route, useLocation } from "react-router-dom"
-import Layout from "./Layout"
-import { AnimatePresence } from "framer-motion"
+import { Routes, Route, useLocation } from "react-router-dom";
+import Layout from "./Layout";
+import { AnimatePresence } from "framer-motion";
 
 // Import pages
-import Home from "./pages/Home"
-import LogIn from "./pages/LogIn"
-import EventFeed from "./pages/EventFeed"
-import AlbumDetails from "./pages/AlbumDetails"
-import AllAlbums from "./pages/AllAlbums"
-import AllArtists from "./pages/AllArtists"
-import AllPlaylists from "./pages/AllPlaylists"
-import Playlist from "./pages/Playlist"
-import AllSongs from "./pages/AllSongs"
-import Featured from "./pages/Featured"
-import Search from "./pages/Search"
-import LatestTrends from "./pages/LatestTrends"
-import NotFound from "./pages/NotFound"
-import Settings from "./pages/Settings"
-import AllCategories from "./pages/AllCategories"
-import loaderModalContext from "./contexts/loaderModalContext"
-import { useState } from "react"
-import { useEffect } from "react"
-import { default as refreshTokenFunction } from "./functions/refreshToken"
-import Callback from "./pages/Callback"
-import TokenContext from "./contexts/TokenContext"
+import Home from "./pages/Home";
+import LogIn from "./pages/LogIn";
+import EventFeed from "./pages/EventFeed";
+import AlbumDetails from "./pages/AlbumDetails";
+import AllAlbums from "./pages/AllAlbums";
+import AllArtists from "./pages/AllArtists";
+import AllPlaylists from "./pages/AllPlaylists";
+import Playlist from "./pages/Playlist";
+import AllSongs from "./pages/AllSongs";
+import Featured from "./pages/Featured";
+import Search from "./pages/Search";
+import LatestTrends from "./pages/LatestTrends";
+import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
+import AllCategories from "./pages/AllCategories";
+import loaderModalContext from "./contexts/loaderModalContext";
+import { useState } from "react";
+import { useEffect } from "react";
+import { default as refreshTokenFunction } from "./functions/refreshToken";
+import Callback from "./pages/Callback";
+import TokenContext from "./contexts/TokenContext";
+import Category from "./pages/Category";
 
 function App() {
-  const location = useLocation()
-  const [loaderModal, setLoaderModal] = useState(false)
+  const location = useLocation();
+  const [loaderModal, setLoaderModal] = useState(false);
 
   const [tokenData, setTokenData] = useState({
     accessToken: "",
     refreshToken: "",
     expiredDate: null,
-  })
-  const { accessToken } = tokenData
+  });
+  const { accessToken } = tokenData;
 
   useEffect(() => {
-    refreshTokenFunction(setTokenData)
-  }, [])
+    refreshTokenFunction(setTokenData);
+  }, []);
 
   return (
     <TokenContext.Provider value={{ tokenData, setTokenData }}>
@@ -61,6 +62,7 @@ function App() {
                 <Route path="/trends" element={<LatestTrends />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/categories" element={<AllCategories />} />
+                <Route path="/category/:id" element={<Category />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             ) : (
@@ -74,7 +76,7 @@ function App() {
         </AnimatePresence>
       </loaderModalContext.Provider>
     </TokenContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;
