@@ -17,18 +17,19 @@ import {
 	imgV,
 	controlV,
 } from '../assets/variants/LargePlayer';
+import Progress from '../components/Progress';
 
 const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 	let progress = 0;
 	const [progressState, setProgressState] = useState(0);
 	const updateProgress = () => {
 		setTimeout(() => {
-			if (progress < 100) {
+			if (progress < 213) {
 				progress++;
 				setProgressState(progress);
 				updateProgress();
 			}
-		}, 100);
+		}, 1000);
 	};
 	return (
 		<AnimatePresence>
@@ -84,7 +85,8 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 									{song?.artist || 'Rick Astley'}
 								</motion.h2>
 							</motion.div>
-							<motion.div>
+							<motion.div onClick={updateProgress}>
+								<Progress current={progressState} max={213} />
 								<motion.div
 									variants={progressV.bar}
 									className="w-full h-1 bg-primary/50 rounded-full mt-12"
