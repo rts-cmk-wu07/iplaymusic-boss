@@ -19,11 +19,15 @@ const Settings = () => {
       {!loading ? (
         <article className="relative flex flex-col w-full gap-4 mt-4 text-additional dark:text-white">
           <div className="flex flex-col items-center">
-            <img
-              src={data?.images[0]?.url}
-              alt="profile avatar"
-              className="max-w-[12rem] rounded-full"
-            />
+            {data.images[0] ? (
+              <img
+                src={data?.images[0]?.url}
+                alt="profile avatar"
+                className="max-w-[12rem] rounded-full"
+              />
+            ) : (
+              <IoPerson size="100" />
+            )}
 
             <h2 className="text-4xl ml-6 font-semibold flex gap-1 items-center">
               {data?.display_name}{" "}
