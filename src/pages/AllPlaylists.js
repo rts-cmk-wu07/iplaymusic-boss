@@ -1,48 +1,72 @@
-import { useEffect } from "react"
-import useFetch from "../hooks/useFetch"
+import { useEffect, useState, useRef } from "react"
+import { InView } from "react-intersection-observer"
 import { motion } from "framer-motion"
+/* Hooks */
+import useFetch from "../hooks/useFetch"
+/* Components */
+import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader"
+import Playlist from "../components/subcomponents/Playlist"
 
+const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0)
+
+//sfc => for printing users playlists out
 const AllPlaylists = () => {
-  // Get current users playlists
-  const { data, loading, error } = useFetch(
+  const [currentUrl, setCurrentUrl] = useState(
     "https://api.spotify.com/v1/me/playlists"
   )
-  const playlistArray = data?.items
+  const [nextUrl, setNextUrl] = useState(null)
+  const [playlistData, setPlaylistData] = useState(null)
 
-  // For development purposes
+  // Get current users playlists
+  const { data, loading, error } = useFetch(currentUrl)
+
   useEffect(() => {
-    console.log(playlistArray)
-    console.log(loading)
-  }, [data, loading, error])
+    // Saves data to playlistData state and sets nextUrl for lazy loading
+    if (data?.items) {
+      if (playlistData) {
+        setPlaylistData([...playlistData, ...data.items])
+      } else {
+        setPlaylistData(data.items)
+      }
+      setNextUrl(data.next)
+    }
+  }, [data])
+
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    if (inView) setCurrentUrl(nextUrl)
+  }, [inView])
 
   return (
-    <ul className="p-6 grid grid-cols-2 gap-y-5 gap-x-4 max-w-[100%]">
-      {!loading &&
-        playlistArray?.map((playlist) => {
-          const { uri, images, name } = playlist
-          const isImages = images.length > 0
-          return (
-            <motion.li
-              whileTap={{ scale: 1.1 }}
-              className="flex flex-col"
-              key={uri}
-            >
-              {isImages && (
-                <>
-                  <img
-                    className="mb-2"
-                    src={images[1]?.url || images[0]?.url}
-                    alt=""
-                  />
-                  <p className="text-white self-center">{name}</p>
-                </>
-              )}
-              {!isImages && <div className="w-full h-full bg-slate-500"></div>}
-            </motion.li>
-          )
-        })}
-      {loading && <p>LOADING</p>}
-    </ul>
+    <div className="mb-[5rem]">
+      <SoundWaveHeader />
+
+      {!loading && (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
+          {playlistData?.map((playlist, i) =>
+            i === 16 && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ inView, ref, entry }) => (
+                  <div ref={ref}>
+                    <Playlist key={playlist.id} {...playlist} />
+                  </div>
+                )}
+              </InView>
+            ) : (
+              <Playlist key={playlist.id} {...playlist} />
+            )
+          )}
+        </ul>
+      )}
+      {loading && (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[100vh]">
+          {loadingPlaceholderAmount.map((_, i) => (
+            <Playlist key={i} loading />
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 
