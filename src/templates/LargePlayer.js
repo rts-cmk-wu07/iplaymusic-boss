@@ -6,6 +6,7 @@ import {
 	IoPlayForward,
 	IoPlayCircle,
 	IoPlaySkipForward,
+	IoPauseCircle,
 } from 'react-icons/io5';
 import { useState } from 'react';
 import {
@@ -18,8 +19,9 @@ import {
 	controlV,
 } from '../assets/variants/LargePlayer';
 import Progress from '../components/Progress';
+import PlayBackButton from '../components/buttons/PlayBackButton';
 
-const LargePlayer = ({ isOpen, setIsOpen, song }) => {
+const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 	let progress = 0;
 	const [progressState, setProgressState] = useState(0);
 	const updateProgress = () => {
@@ -125,7 +127,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 									>
 										<IoPlayBack className="text-white w-full h-full" />
 									</motion.button>
-									<motion.button
+									{/* <motion.button
 										variants={controlV.play}
 										animate={{ scale: 1 }}
 										whileTap={{ scale: 0.75 }}
@@ -136,7 +138,21 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 										className="rounded-full w-24 h-24 flex justify-center items-center"
 									>
 										<IoPlayCircle className="text-white w-full h-full" />
-									</motion.button>
+									</motion.button> */}
+									<PlayBackButton
+										size="xl"
+										variants={controlV.play}
+										animate={{ scale: 1 }}
+										callback={() =>
+											isPlaying ? controls.pause() : controls.play()
+										}
+									>
+										{isPlaying ? (
+											<IoPauseCircle className="w-full h-full" />
+										) : (
+											<IoPlayCircle className="w-full h-full" />
+										)}
+									</PlayBackButton>
 									<motion.button
 										variants={controlV.next}
 										className="rounded-full w-12 h-12 flex justify-center items-center"

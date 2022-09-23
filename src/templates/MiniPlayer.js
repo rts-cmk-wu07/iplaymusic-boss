@@ -8,14 +8,7 @@ import {
 import PlayBackButton from '../components/buttons/PlayBackButton';
 import AlbumArt from '../components/subcomponents/AlbumArt';
 
-const MiniPlayer = ({
-	isOpen,
-	setIsOpen,
-	song,
-	controls,
-	isPlaying,
-	setIsPlaying,
-}) => {
+const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
 	return (
 		<AnimatePresence>
 			{!isOpen && (
