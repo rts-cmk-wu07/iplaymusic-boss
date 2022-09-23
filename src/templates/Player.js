@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
-import ReactAudioPlayer from 'react-audio-player';
-import { useRef } from 'react';
 
 const Player = ({ song, audioControls }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -90,4 +88,4 @@ const Player = ({ song, audioControls }) => {
 	);
 };
 
-export default Player;
+export default memo(Player);
