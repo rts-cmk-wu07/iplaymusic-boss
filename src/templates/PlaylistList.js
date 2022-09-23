@@ -1,6 +1,4 @@
-import List from "../templates/List"
-import H1 from "../components/subcomponents/H1"
-const AllSongs = () => {
+const PlaylistList = () => {
   return (
     <div className="p-6">
       <h1 className="heading gradient-text">Your Top Songs</h1>
@@ -9,4 +7,4 @@ const AllSongs = () => {
   )
 }
 
-export default AllSongs
+export default PlaylistList
