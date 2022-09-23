@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, memo } from "react"
 import MiniPlayer from "./MiniPlayer"
 import LargePlayer from "./LargePlayer"
 
@@ -22,10 +22,15 @@ const Player = ({ isPlaying, song }) => {
           : "bottom-20 left-2 right-2 p-1"
       }`}
     >
+      <audio
+        controls
+        className="hidden"
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      ></audio>
       <LargePlayer isOpen={isOpen} setIsOpen={setIsOpen} song={song} />
       <MiniPlayer isOpen={isOpen} setIsOpen={setIsOpen} song={song} />
     </motion.section>
   )
 }
 
-export default Player
+export default memo(Player)
