@@ -3,13 +3,12 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 import { setCookie } from "react-use-cookie";
-
+import LoaderModal from "../components/modals/LoaderModal";
+import ThemeToggle from "../components/buttons/ThemeToggle";
 import axios from "axios";
 /* Context */
 import TokenContext from "../contexts/TokenContext";
 import loaderModalContext from "../contexts/loaderModalContext";
-import LoaderModal from "../components/modals/LoaderModal";
-import ThemeToggle from "../components/buttons/ThemeToggle";
 
 export default function Callback() {
   const navigate = useNavigate();
@@ -49,10 +48,10 @@ export default function Callback() {
 
   return (
     <div>
-      {loaderModal && <LoaderModal />}{" "}
+      {loaderModal && <LoaderModal />}
       <div className="hidden">
         <ThemeToggle />
-      </div>{" "}
+      </div>
     </div>
   );
 }
