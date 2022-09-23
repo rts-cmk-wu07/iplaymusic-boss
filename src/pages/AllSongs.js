@@ -1,5 +1,4 @@
 import List from "../templates/List";
-import H1 from "../components/subcomponents/H1";
 const AllSongs = () => {
   return (
     <div className="p-6">

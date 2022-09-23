@@ -36,7 +36,7 @@ const Settings = () => {
               <IoPerson
                 className="rounded-full bg-[#C9CCD1]"
                 color="white"
-                size="100"
+                size="12rem"
               />
             )}
 

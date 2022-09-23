@@ -41,30 +41,39 @@ const AllPlaylists = () => {
   return (
     <div className="mb-[5rem]">
       <SoundWaveHeader />
-
-      {!loading && (
-        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
-          {playlistData?.map((playlist, i) =>
-            i === 16 && nextUrl ? (
-              <InView key={i} onChange={setInView}>
-                {({ inView, ref, entry }) => (
-                  <div ref={ref}>
-                    <Playlist key={playlist.id} {...playlist} />
-                  </div>
-                )}
-              </InView>
-            ) : (
-              <Playlist key={playlist.id} {...playlist} />
-            )
-          )}
-        </ul>
-      )}
-      {loading && (
-        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[100vh]">
-          {loadingPlaceholderAmount.map((_, i) => (
-            <Playlist key={i} loading />
-          ))}
-        </ul>
+      {data?.items?.length > 0 ? (
+        !loading ? (
+          <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
+            {playlistData?.map((playlist, i) =>
+              i === 16 && nextUrl ? (
+                <InView key={i} onChange={setInView}>
+                  {({ inView, ref, entry }) => (
+                    <div ref={ref}>
+                      <Playlist key={playlist.id} {...playlist} />
+                    </div>
+                  )}
+                </InView>
+              ) : (
+                <Playlist key={playlist.id} {...playlist} />
+              )
+            )}
+          </ul>
+        ) : (
+          <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-screen">
+            {loadingPlaceholderAmount.map((_, i) => (
+              <Playlist key={i} loading />
+            ))}
+          </ul>
+        )
+      ) : (
+        <div className="text-additional dark:text-white mt-[75%]">
+          <h1 className="text-4xl font-bold text-center mb-2">
+            You don't have any playlists yet.
+          </h1>
+          <h2 className="text-2xl font-semibold text-center">
+            Create a playlist to see it here.
+          </h2>
+        </div>
       )}
     </div>
   );
