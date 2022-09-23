@@ -1,6 +1,6 @@
 // The playlist card
 const PlaylistCard = (props) => {
-  const { isImage, images, name, setIsImage } = props
+  const { isImage, images, name, setIsImage } = props;
   return (
     <>
       <div className="relative aspect-square">
@@ -15,11 +15,11 @@ const PlaylistCard = (props) => {
           alt=""
         />
       </div>
-      <p className="text-white text-center self-stretch mt-1 text-ellipsis overflow-hidden whitespace-nowrap">
+      <p className="text-center self-stretch mt-1 text-ellipsis overflow-hidden whitespace-nowrap text-additional dark:text-white ">
         {name}
       </p>
     </>
-  )
-}
+  );
+};
 
-export default PlaylistCard
+export default PlaylistCard;

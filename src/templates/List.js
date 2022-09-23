@@ -1,26 +1,21 @@
 import SongListItem from "../components/subcomponents/SongListItem";
+import useFetch from "../hooks/useFetch";
 const List = () => {
   //Placheholder array of objects for the songs list items to be mapped over in the return statement below
-  const songData = [
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-    { title: "Kill This Love", artist: "BLACKPINK", duration: "2:20" },
-    { title: "Glimpse Of Us", artist: "Joji", duration: "3:20" },
-  ];
+  const { data, loading, error } = useFetch(
+    "https://api.spotify.com/v1/me/top/tracks"
+  );
+
+  console.log(data);
   return (
-    <ul className="flex flex-col gap-4  w-11/12 mx-auto">
-      {songData.map((item, index) => (
-        <SongListItem key={index} item={item} />
-      ))}
+    <ul className="flex flex-col gap-4 mt-4 mx-auto">
+      {!loading ? (
+        data.items.map((item) => (
+          <SongListItem key={item.id} id={item.id} item={item} />
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </ul>
   );
 };

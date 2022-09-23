@@ -18,6 +18,7 @@ import LatestTrends from './pages/LatestTrends';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
 import AllCategories from './pages/AllCategories';
+import Category from './pages/Category';
 import loaderModalContext from './contexts/loaderModalContext';
 import { useState, useContext } from 'react';
 import { useEffect } from 'react';
@@ -51,6 +52,7 @@ function App() {
 							<Route path="/trends" element={<LatestTrends />} />
 							<Route path="/settings" element={<Settings />} />
 							<Route path="/categories" element={<AllCategories />} />
+							<Route path="/category/:id" element={<Category />} />
 							<Route path="*" element={<NotFound />} />
 						</Route>
 					) : (
