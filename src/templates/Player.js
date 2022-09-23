@@ -61,8 +61,12 @@ const Player = ({ song }) => {
 			transition={{
 				duration: 0.3,
 				ease: 'easeInOut',
-				paddingTop: { duration: 0.1 },
-				paddingBottom: { duration: 0.1 },
+				paddingTop: {
+					type: 'spring',
+					stiffness: 150,
+					damping: 15,
+				},
+				paddingBottom: { type: 'spring', stiffness: 150, damping: 15 },
 			}}
 			className={`fixed flex flex-col gradient shadow-lg rounded-lg shadow-[#FF6A00]/50 z-30 ${
 				isOpen
@@ -82,7 +86,7 @@ const Player = ({ song }) => {
 				setIsOpen={setIsOpen}
 				isPlaying={isPlaying}
 				setIsPlaying={setIsPlaying}
-				song={song}
+				song={data}
 				controls={audioPlayer.current?.audioEl.current}
 			/>
 			<MiniPlayer
@@ -90,7 +94,7 @@ const Player = ({ song }) => {
 				setIsOpen={setIsOpen}
 				isPlaying={isPlaying}
 				setIsPlaying={setIsPlaying}
-				song={song}
+				song={data}
 				controls={audioPlayer.current?.audioEl.current}
 			/>
 		</motion.section>

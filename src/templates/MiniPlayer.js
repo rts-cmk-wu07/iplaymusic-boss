@@ -5,6 +5,7 @@ import {
 	IoPlayForward,
 	IoPauseCircle,
 } from 'react-icons/io5';
+import PlayBackButton from '../components/buttons/PlayBackButton';
 import AlbumArt from '../components/subcomponents/AlbumArt';
 
 const MiniPlayer = ({
@@ -54,37 +55,24 @@ const MiniPlayer = ({
 							!isOpen && 'ml-auto'
 						} mr-2`}
 					>
-						{isOpen && (
-							<motion.button
-								initial={{ opacity: 0, x: 16 }}
-								animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-							>
-								<IoPlayBack size={24} />
-							</motion.button>
-						)}
-						<motion.button
+						<PlayBackButton
 							initial={{ x: 8 }}
 							animate={{ x: 0, transition: { delay: 0.7 } }}
-							className="rounded-full p-1"
-							whileTap={{
-								scale: 0.9,
-								transition: { type: 'spring', stiffness: 500 },
-							}}
-							onClick={() => (isPlaying ? controls.pause() : controls.play())}
+							callback={() => (isPlaying ? controls.pause() : controls.play())}
 						>
 							{isPlaying ? (
 								<IoPauseCircle className="w-12 h-12" />
 							) : (
 								<IoPlayCircle className="w-12 h-12" />
 							)}
-						</motion.button>
-						<motion.button
+						</PlayBackButton>
+						<PlayBackButton
 							initial={{ opacity: 0, x: -16 }}
 							animate={{ opacity: 1, x: 0, transition: { delay: 0.75 } }}
-							className="rounded-full p-1"
+							callback={() => console.log('next')}
 						>
-							<IoPlayForward className="w-6 h-6" />
-						</motion.button>
+							<IoPlayForward size={24} />
+						</PlayBackButton>
 					</motion.div>
 				</motion.div>
 			)}

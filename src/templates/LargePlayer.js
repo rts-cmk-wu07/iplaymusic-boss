@@ -87,7 +87,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 							</motion.div>
 							<motion.div>
 								<Progress progress={progressState} />
-								<motion.div
+								{/* <motion.div
 									variants={progressV.bar}
 									className="w-full h-1 bg-primary/50 rounded-full mt-12"
 									onClick={updateProgress}
@@ -97,16 +97,16 @@ const LargePlayer = ({ isOpen, setIsOpen, song }) => {
 										animate={{ width: `${progressState}%` }}
 										className="h-full gradient rounded-full shadow-glow shadow-gradientColors-right/50"
 									/>
-								</motion.div>
-							</motion.div>
-							<motion.div>
+								</motion.div> */}
+								{/* </motion.div> */}
+								{/* <motion.div>
 								<motion.div
 									variants={progressV.time}
 									className="flex justify-between text-white text-sm mt-2"
 								>
 									<span>0:00</span>
 									<span>3:33</span>
-								</motion.div>
+								</motion.div> */}
 							</motion.div>
 							<motion.div>
 								<motion.div
