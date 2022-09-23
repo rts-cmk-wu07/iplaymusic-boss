@@ -21,7 +21,6 @@ import AllCategories from './pages/AllCategories';
 import Category from './pages/Category';
 import loaderModalContext from './contexts/loaderModalContext';
 import { useState, useContext } from 'react';
-import { useEffect } from 'react';
 import Callback from './pages/Callback';
 import TokenContext from './contexts/TokenContext';
 

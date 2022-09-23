@@ -2,24 +2,24 @@ import { motion } from 'framer-motion';
 import { useState, memo, useRef } from 'react';
 import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
+import useFetch from '../hooks/useFetch';
+import ReactAudioPlayer from 'react-audio-player';
 
-const Player = ({ song, audioControls }) => {
+const Player = ({ song }) => {
+	const [isPlaying, setIsPlaying] = useState(false);
+	const { data, loading, error } = useFetch(
+		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
+	);
+	console.log(data);
+	console.log('%cPlayer rerender', 'color: #ff0000');
 	const [isOpen, setIsOpen] = useState(false);
-
-	const [isPlaying, setIsPlayingState] = useState(false);
-
-	const audioUrl = song?.preview_url;
+	const audioUrl = data?.preview_url;
 	console.log(audioUrl);
-
 	const audioPlayer = useRef();
-
 	const [dragStart, setDragStart] = useState(0);
 	const [dragCurrent, setDragCurrent] = useState(0);
-	const [dragEnd, setDragEnd] = useState(0);
-
 	const [paddingTop, setPaddingTop] = useState(isOpen ? '0px' : '4px');
 	const [paddingBottom, setPaddingBottom] = useState(isOpen ? '0px' : '4px');
-
 	return (
 		<motion.section
 			drag="y"
@@ -70,19 +70,28 @@ const Player = ({ song, audioControls }) => {
 					: 'bottom-20 left-2 right-2 p-1'
 			}`}
 		>
+			<ReactAudioPlayer
+				src={audioUrl}
+				ref={audioPlayer}
+				autoPlay={isPlaying}
+				onPause={() => setIsPlaying(false)}
+				onPlay={() => setIsPlaying(true)}
+			/>
 			<LargePlayer
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}
 				isPlaying={isPlaying}
-				setIsPlaying={setIsPlayingState}
+				setIsPlaying={setIsPlaying}
 				song={song}
-				controls={audioControls}
+				controls={audioPlayer.current?.audioEl.current}
 			/>
 			<MiniPlayer
 				isOpen={isOpen}
 				setIsOpen={setIsOpen}
+				isPlaying={isPlaying}
+				setIsPlaying={setIsPlaying}
 				song={song}
-				controls={audioControls}
+				controls={audioPlayer.current?.audioEl.current}
 			/>
 		</motion.section>
 	);

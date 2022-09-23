@@ -13,7 +13,7 @@ export default function useFetch(url) {
 	// Get token from context
 	const { tokenData, setTokenData } = useContext(TokenContext);
 	// Deconstructing to get both tokens individually
-	const { accessToken, refreshToken } = tokenData;
+	const { accessToken } = tokenData;
 
 	// fetch data from Spotify API
 	useEffect(() => {
@@ -39,7 +39,7 @@ export default function useFetch(url) {
 					setError(response.status);
 				}
 			});
-	}, [url]);
+	}, [url, accessToken, setTokenData]);
 
 	return { data, loading, error };
 }

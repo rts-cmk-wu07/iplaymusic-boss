@@ -1,8 +1,20 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { IoPlayBack, IoPlayCircle, IoPlayForward } from 'react-icons/io5';
+import {
+	IoPlayBack,
+	IoPlayCircle,
+	IoPlayForward,
+	IoPauseCircle,
+} from 'react-icons/io5';
 import AlbumArt from '../components/subcomponents/AlbumArt';
 
-const MiniPlayer = ({ isOpen, setIsOpen, song, controls }) => {
+const MiniPlayer = ({
+	isOpen,
+	setIsOpen,
+	song,
+	controls,
+	isPlaying,
+	setIsPlaying,
+}) => {
 	return (
 		<AnimatePresence>
 			{!isOpen && (
@@ -54,9 +66,17 @@ const MiniPlayer = ({ isOpen, setIsOpen, song, controls }) => {
 							initial={{ x: 8 }}
 							animate={{ x: 0, transition: { delay: 0.7 } }}
 							className="rounded-full p-1"
-							onClick={() => controls.play()}
+							whileTap={{
+								scale: 0.9,
+								transition: { type: 'spring', stiffness: 500 },
+							}}
+							onClick={() => (isPlaying ? controls.pause() : controls.play())}
 						>
-							<IoPlayCircle className="w-12 h-12" />
+							{isPlaying ? (
+								<IoPauseCircle className="w-12 h-12" />
+							) : (
+								<IoPlayCircle className="w-12 h-12" />
+							)}
 						</motion.button>
 						<motion.button
 							initial={{ opacity: 0, x: -16 }}

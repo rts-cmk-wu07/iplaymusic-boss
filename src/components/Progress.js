@@ -2,8 +2,6 @@ import { motion } from 'framer-motion';
 import { progressV } from '../assets/variants/LargePlayer';
 
 const Progress = ({ current, min, max }) => {
-	const minValue = min || 0;
-	const minValueMinutes = Math.floor(minValue / 60);
 	const maxValue = max || 123;
 	const maxValueMinutes = Math.floor(maxValue / 60);
 	const maxValueSeconds = maxValue % 60;

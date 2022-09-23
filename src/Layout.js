@@ -6,26 +6,19 @@ import { Outlet } from 'react-router-dom';
 import NavigationBottom from './templates/NavigationBottom';
 import NavigationTop from './templates/NavigationTop';
 import { motion } from 'framer-motion';
-import Player from './templates/Player';
 import useFetch from './hooks/useFetch';
-import { useContext } from 'react';
-import SongContext from './contexts/SongContext';
-import { useMemo } from 'react';
-import { useEffect } from 'react';
+// import { useContext } from 'react';
+// import SongContext from './contexts/SongContext';
 
 const Layout = ({ audioControls }) => {
-	const { songData, setSongData } = useContext(SongContext);
+	// const { songData, setSongData } = useContext(SongContext);
 	// https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?si=47816c8cffa84420
 
 	// url for never gonna give you up spotify api
-	const url = 'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT';
+	// const url = 'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT';
 
 	// url for im blue spotify api
 	// 2yAVzRiEQooPEJ9SYx11L3
-
-	const { data, loading, error } = useFetch(
-		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
-	);
 
 	return (
 		<div className="flex flex-col bg-white dark:bg-secondary h-screen w-screen overflow-x-hidden overflow-y-auto">
@@ -47,7 +40,7 @@ const Layout = ({ audioControls }) => {
 			</motion.main>
 			{/* Music player should be here */}
 			<NavigationBottom />
-			<Player song={data} audioControls={audioControls} />
+			{/* <Player song={data} audioControls={audioControls} /> */}
 		</div>
 	);
 };
