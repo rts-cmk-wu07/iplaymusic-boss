@@ -8,7 +8,8 @@ export default function Login() {
   var queryParameters = querystring.stringify({
     response_type: "code",
     client_id: clientId,
-    scope: "user-read-private user-read-email",
+    scope:
+      "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played user-read-currently-playing user-read-playback-state user-modify-playback-state user-read-playback-position ",
     redirect_uri: "http://127.0.0.1:8888/callback",
     state: "324y732467234763284678324htr",
   });
@@ -23,7 +24,12 @@ export default function Login() {
         className="w-full overflow-hidden h-screen gradient flex flex-col items-center"
       >
         <motion.div
-          animate={{ scale: [1.1, 1.2, 1.1], rotate: [0, -30, 0], y: [0, -25, 0], x: [0, -50, 0] }}
+          animate={{
+            scale: [1.1, 1.2, 1.1],
+            rotate: [0, -30, 0],
+            y: [0, -25, 0],
+            x: [0, -50, 0],
+          }}
           transition={{
             duration: 10,
             repeat: Infinity,
