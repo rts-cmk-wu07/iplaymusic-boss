@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState, memo } from 'react';
+import { useState, memo, useRef } from 'react';
 import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
 
