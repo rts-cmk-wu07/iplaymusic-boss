@@ -34,7 +34,7 @@ const FollowedArtistsList = (props) => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView]);
   return (
-    <ul className="grid grid-cols-3 mt-4">
+    <ul className="grid grid-cols-3 mt-4 gap-y-5 gap-x-2">
       {data?.artists?.items.length > 0 ? (
         artistArray &&
         artistArray?.map((item, i) =>
@@ -53,9 +53,7 @@ const FollowedArtistsList = (props) => {
         )
       ) : (
         <div className="mt-[15%] col-start-1 col-end-4">
-          <p className="text-center heading text-2xl text-black dark:text-white">
-            You don't follow any artists yet. you can find some here:
-          </p>
+          <p className="text-center heading text-2xl text-black dark:text-white">You don't follow any artists yet. you can find some here:</p>
           <button
             className="mt-4 rounded-full text-additional dark:text-white border-2 border-additional dark:border-white px-10 py-2 flex items-center justify-between gap-2 text-3xl w-fit mx-auto"
             onClick={() => {
