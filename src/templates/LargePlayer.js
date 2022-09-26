@@ -8,7 +8,6 @@ import {
 	IoPlaySkipForward,
 	IoPauseCircle,
 } from 'react-icons/io5';
-import { useState } from 'react';
 import {
 	containerV,
 	albumArtV,
@@ -22,17 +21,17 @@ import Progress from '../components/Progress';
 import PlayBackButton from '../components/buttons/PlayBackButton';
 
 const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
-	let progress = 0;
-	const [progressState, setProgressState] = useState(0);
-	const updateProgress = () => {
-		setTimeout(() => {
-			if (progress < 213) {
-				progress++;
-				setProgressState(progress);
-				updateProgress();
-			}
-		}, 1000);
-	};
+	// let progress = 0;
+	// const [progressState, setProgressState] = useState(0);
+	// const updateProgress = () => {
+	// 	setTimeout(() => {
+	// 		if (progress < 213) {
+	// 			progress++;
+	// 			setProgressState(progress);
+	// 			updateProgress();
+	// 		}
+	// 	}, 1000);
+	// };
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -88,7 +87,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 								</motion.h2>
 							</motion.div>
 							<motion.div>
-								<Progress progress={progressState} />
+								<Progress />
 								{/* <motion.div
 									variants={progressV.bar}
 									className="w-full h-1 bg-primary/50 rounded-full mt-12"

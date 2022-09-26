@@ -6,9 +6,9 @@ import useFetch from '../hooks/useFetch';
 import ReactAudioPlayer from 'react-audio-player';
 import { useEffect } from 'react';
 
-const Player = ({ song }) => {
+const Player = () => {
 	const [isPlaying, setIsPlaying] = useState(false);
-	const { data, loading, error } = useFetch(
+	const { data } = useFetch(
 		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
 	);
 

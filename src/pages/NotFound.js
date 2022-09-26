@@ -4,21 +4,22 @@ import villagerImg from '../assets/images/villager.png';
 import { Link, useLocation } from 'react-router-dom';
 import H1 from '../components/subcomponents/H1';
 import { motion } from 'framer-motion';
+import { useCallback } from 'react';
 
 const NotFound = () => {
 	const [firstSoundHasPlayed, setFirstSoundHasPlayed] = useState(false);
-	const randomWait = () => {
+	const randomWait = useCallback(() => {
 		setTimeout(() => {
 			const audio = new Audio(villager);
 			audio.play();
 			setFirstSoundHasPlayed(true);
 			randomWait();
 		}, Math.random() * 10000 + 100);
-	};
+	}, []);
 
 	useEffect(() => {
 		randomWait();
-	}, []);
+	}, [randomWait]);
 
 	// check if url has changed, if so, stop audio
 	const location = useLocation();

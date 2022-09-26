@@ -4,7 +4,6 @@ import Player from './Player';
 import TokenContext from '../contexts/TokenContext';
 import { default as refreshTokenFunction } from '../functions/refreshToken';
 import SongContext from '../contexts/SongContext';
-import useFetch from '../hooks/useFetch';
 
 const PlayerLayout = ({ children }) => {
 	const [songData, setSongData] = useState({});

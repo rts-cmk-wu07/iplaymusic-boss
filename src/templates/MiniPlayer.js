@@ -1,10 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-	IoPlayBack,
-	IoPlayCircle,
-	IoPlayForward,
-	IoPauseCircle,
-} from 'react-icons/io5';
+import { IoPlayCircle, IoPlayForward, IoPauseCircle } from 'react-icons/io5';
 import PlayBackButton from '../components/buttons/PlayBackButton';
 import AlbumArt from '../components/subcomponents/AlbumArt';
 
