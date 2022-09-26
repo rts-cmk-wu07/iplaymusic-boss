@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
-import Artist from "../subcomponents/Artist";
+import ArtistListItem from "../subcomponents/ArtistListItem";
 import { useNavigate } from "react-router-dom";
 
 const ArtistList = (props) => {
@@ -43,12 +43,12 @@ const ArtistList = (props) => {
               <InView key={i} onChange={setInView}>
                 {({ ref }) => (
                   <div ref={ref}>
-                    <Artist key={item.id} id={item.id} item={item} />
+                    <ArtistListItem key={item.id} id={item.id} item={item} />
                   </div>
                 )}
               </InView>
             ) : (
-              <Artist key={item.id} id={item.id} item={item} />
+              <ArtistListItem key={item.id} id={item.id} item={item} />
             )
           )
         ) : (
@@ -56,7 +56,9 @@ const ArtistList = (props) => {
         )
       ) : (
         <div className="mt-[15%] col-start-1 col-end-4">
-          <p className="text-center heading text-2xl text-black dark:text-white">You don't follow any artists yet. you can find some here:</p>
+          <p className="text-center heading text-2xl text-black dark:text-white">
+            You don't follow any artists yet. you can find some here:
+          </p>
           <button
             className="mt-4 rounded-full text-additional dark:text-white border-2 border-additional dark:border-white px-10 py-2 flex items-center justify-between gap-2 text-3xl w-fit mx-auto"
             onClick={() => {
