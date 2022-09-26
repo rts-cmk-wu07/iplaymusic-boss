@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import Artist from "../subcomponents/Artist";
 import { useNavigate } from "react-router-dom";
 
-const FollowedArtistsList = (props) => {
+const ArtistList = (props) => {
   const { startUrl, loadMoreOnIndex } = props;
   const [currentUrl, setCurrentUrl] = useState(startUrl);
   const [artistArray, setArtistArray] = useState(null);
@@ -15,18 +15,18 @@ const FollowedArtistsList = (props) => {
 
   //Placheholder array of objects for the songs list items to be mapped over in the return statement below
   const { data, loading, error } = useFetch(currentUrl);
-  console.log(data.artists);
+  console.log(data?.items);
   const navigate = useNavigate();
   useEffect(() => {
-    if (data?.artists?.items) {
+    if (data?.items) {
       console.log(data);
       if (artistArray) {
         setLoadMoreIndex((prevState) => prevState * 2);
-        setArtistArray([...artistArray, ...data?.artists?.items]);
+        setArtistArray([...artistArray, ...data?.items]);
       } else {
-        setArtistArray(data?.artists?.items);
+        setArtistArray(data?.items);
       }
-      setNextUrl(data?.artists?.next);
+      setNextUrl(data?.next);
     }
   }, [data]);
 
@@ -35,21 +35,24 @@ const FollowedArtistsList = (props) => {
   }, [inView]);
   return (
     <ul className="grid grid-cols-3 mt-4 gap-y-5 gap-x-2">
-      {!loading && data?.artists?.items.length > 0 ? (
-        artistArray &&
-        artistArray?.map((item, i) =>
-          //If element index is loadMore, then load more
-          i === loadMoreIndex && nextUrl ? (
-            <InView key={i} onChange={setInView}>
-              {({ ref }) => (
-                <div ref={ref}>
-                  <Artist key={item.id} id={item.id} item={item} />
-                </div>
-              )}
-            </InView>
-          ) : (
-            <Artist key={item.id} id={item.id} item={item} />
+      {artistArray && data?.items.length > 0 ? (
+        !loading ? (
+          artistArray?.map((item, i) =>
+            //If element index is loadMore, then load more
+            i === loadMoreIndex && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ ref }) => (
+                  <div ref={ref}>
+                    <Artist key={item.id} id={item.id} item={item} />
+                  </div>
+                )}
+              </InView>
+            ) : (
+              <Artist key={item.id} id={item.id} item={item} />
+            )
           )
+        ) : (
+          <p>Loading...</p>
         )
       ) : (
         <div className="mt-[15%] col-start-1 col-end-4">
@@ -68,4 +71,4 @@ const FollowedArtistsList = (props) => {
   );
 };
 
-export default FollowedArtistsList;
+export default ArtistList;
