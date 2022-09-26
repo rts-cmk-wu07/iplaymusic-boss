@@ -34,7 +34,7 @@ const Layout = ({ audioControls }) => {
 					// x: { delay: 0, duration: 0.5 },
 					// opacity: { delay: 0, duration: 0.5 },
 				}}
-				className="py-20"
+				className="pt-20 pb-40"
 			>
 				<Outlet />
 			</motion.main>

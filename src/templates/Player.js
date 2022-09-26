@@ -4,22 +4,34 @@ import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
 import useFetch from '../hooks/useFetch';
 import ReactAudioPlayer from 'react-audio-player';
+import { useEffect } from 'react';
 
 const Player = ({ song }) => {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const { data, loading, error } = useFetch(
 		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
 	);
-	console.log(data);
-	console.log('%cPlayer rerender', 'color: #ff0000');
+
+	const audioPlayer = useRef();
+
 	const [isOpen, setIsOpen] = useState(false);
 	const audioUrl = data?.preview_url;
-	console.log(audioUrl);
-	const audioPlayer = useRef();
+
 	const [dragStart, setDragStart] = useState(0);
 	const [dragCurrent, setDragCurrent] = useState(0);
 	const [paddingTop, setPaddingTop] = useState(isOpen ? '0px' : '4px');
 	const [paddingBottom, setPaddingBottom] = useState(isOpen ? '0px' : '4px');
+
+	useEffect(() => {
+		if (isOpen) {
+			setPaddingTop('0px');
+			setPaddingBottom('0px');
+		} else {
+			setPaddingTop('4px');
+			setPaddingBottom('4px');
+		}
+	}, [isOpen]);
+
 	return (
 		<motion.section
 			drag="y"
