@@ -24,6 +24,7 @@ const NavigationTop = () => {
 		'/settings': 'Settings',
 		'/categories': 'All Categories',
 		'/category': 'Category',
+		'/following': 'Following',
 	};
 
 	const pathsWithoutBack = ['/login', '/', '/events', '/trends', '/settings'];

@@ -9,7 +9,7 @@ export default function Login() {
     response_type: "code",
     client_id: clientId,
     scope:
-      "user-read-private user-read-email user-library-read user-library-modify user-top-read user-read-recently-played user-read-currently-playing user-read-playback-state user-modify-playback-state user-read-playback-position ",
+      "user-read-private user-read-email user-library-read user-library-modify user-top-read user-follow-read user-read-recently-played user-read-currently-playing user-read-playback-state user-modify-playback-state user-read-playback-position ",
     redirect_uri: "http://127.0.0.1:8888/callback",
     state: "324y732467234763284678324htr",
   });
