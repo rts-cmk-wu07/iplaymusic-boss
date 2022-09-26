@@ -4,19 +4,24 @@ import { motion } from "framer-motion"
 import TagList from "./lists/TagList"
 
 // Setting the things we want to search for
-const searchStates = ["Best Results", "Artist", "Album", "Playlist", "Track"]
+const searchStates = [
+  "Best Results",
+  "Tracks",
+  "Playlists",
+  "Artists",
+  "Albums",
+]
 
 const Search = () => {
   const [currentUrl, setCurrentUrl] = useState(null)
   const [inputValue, setInputValue] = useState("")
+  const [activeSearchState, setActiveSearchState] = useState(searchStates[0])
 
   const { data, loading, error } = useFetch(currentUrl)
 
   useEffect(() => {
     console.log(data)
   }, [data])
-
-  //https://api.spotify.com/v1/search?type=album&include_external=audio&q=hej
 
   function onSubmitSearch(event) {
     event.preventDefault()
@@ -46,14 +51,17 @@ const Search = () => {
           autoFocus
           initial={{ borderRadius: 3 }}
           whileFocus={{ borderRadius: 15 }}
-          className="text-center border-2 outline-none w-full h-[55px] bg-white text-black dark:bg-secondary dark:text-white border-black dark:border-white"
+          className="text-center border-2 outline-none w-full h-[55px] bg-white text-black dark:bg-secondary dark:text-white border-primary"
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
       </form>
-      <TagList tags={[...searchStates]} />
-      <div>search results</div>
+      <TagList
+        tags={[...searchStates]}
+        activeTag={activeSearchState}
+        setActiveTag={setActiveSearchState}
+      />
     </motion.div>
   )
 }

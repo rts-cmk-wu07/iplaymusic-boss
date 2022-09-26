@@ -1,13 +1,29 @@
 import Tag from "../subcomponents/Tag"
 const TagList = (props) => {
-  const { tags } = props
+  const { tags, activeTag, setActiveTag } = props
   return (
-    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap pb-6">
-      {tags.map((tag, i) => (
-        <Tag key={i} content={tag} />
-      ))}
+    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap pb-2">
+      {tags.map((tag, i) => {
+        if (activeTag !== null) {
+          return (
+            <Tag
+              key={i}
+              content={tag}
+              activeTag={activeTag}
+              setActiveTag={setActiveTag}
+            />
+          )
+        } else {
+          return <Tag key={i} content={tag} />
+        }
+      })}
     </ul>
   )
+}
+
+TagList.defaultProps = {
+  tags: ["Put in", "some tags"],
+  setActiveTag: () => {},
 }
 
 export default TagList
