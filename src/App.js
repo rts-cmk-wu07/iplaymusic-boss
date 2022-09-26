@@ -24,6 +24,7 @@ import { useState, useContext } from "react";
 import { useEffect } from "react";
 import Callback from "./pages/Callback";
 import TokenContext from "./contexts/TokenContext";
+import Following from "./pages/Following";
 
 function App() {
   const location = useLocation();
@@ -53,6 +54,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/categories" element={<AllCategories />} />
               <Route path="/category/:id" element={<Category />} />
+              <Route path="/following" element={<Following />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           ) : (
