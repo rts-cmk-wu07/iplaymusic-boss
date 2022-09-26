@@ -1,37 +1,37 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import Layout from "./Layout";
-import { AnimatePresence } from "framer-motion";
+import { Routes, Route, useLocation } from "react-router-dom"
+import Layout from "./Layout"
+import { AnimatePresence } from "framer-motion"
 
 // Import pages
-import Home from "./pages/Home";
-import LogIn from "./pages/LogIn";
-import EventFeed from "./pages/EventFeed";
-import AlbumDetails from "./pages/AlbumDetails";
-import AllAlbums from "./pages/AllAlbums";
-import AllArtists from "./pages/AllArtists";
-import AllPlaylists from "./pages/AllPlaylists";
-import Playlist from "./pages/Playlist";
-import AllSongs from "./pages/AllSongs";
-import Featured from "./pages/Featured";
-import Search from "./pages/Search";
-import LatestTrends from "./pages/LatestTrends";
-import NotFound from "./pages/NotFound";
-import Settings from "./pages/Settings";
-import AllCategories from "./pages/AllCategories";
-import Category from "./pages/Category";
-import loaderModalContext from "./contexts/loaderModalContext";
-import { useState, useContext } from "react";
-import { useEffect } from "react";
-import Callback from "./pages/Callback";
-import TokenContext from "./contexts/TokenContext";
-import Following from "./pages/Following";
+import Home from "./pages/Home"
+import LogIn from "./pages/LogIn"
+import EventFeed from "./pages/EventFeed"
+import AlbumDetails from "./pages/AlbumDetails"
+import AllAlbums from "./pages/AllAlbums"
+import AllArtists from "./pages/AllArtists"
+import AllPlaylists from "./pages/AllPlaylists"
+import Playlist from "./pages/Playlist"
+import AllSongs from "./pages/AllSongs"
+import Featured from "./pages/Featured"
+import Search from "./pages/Search"
+import LatestTrends from "./pages/LatestTrends"
+import NotFound from "./pages/NotFound"
+import Settings from "./pages/Settings"
+import AllCategories from "./pages/AllCategories"
+import Category from "./pages/Category"
+import loaderModalContext from "./contexts/loaderModalContext"
+import { useState, useContext } from "react"
+import { useEffect } from "react"
+import Callback from "./pages/Callback"
+import TokenContext from "./contexts/TokenContext"
+import Following from "./pages/Following"
 
 function App() {
-  const location = useLocation();
-  const [loaderModal, setLoaderModal] = useState(false);
+  const location = useLocation()
+  const [loaderModal, setLoaderModal] = useState(false)
 
-  const { tokenData } = useContext(TokenContext);
-  const { accessToken } = tokenData;
+  const { tokenData } = useContext(TokenContext)
+  const { accessToken } = tokenData
 
   return (
     <loaderModalContext.Provider value={{ loaderModal, setLoaderModal }}>
@@ -67,7 +67,7 @@ function App() {
         </Routes>
       </AnimatePresence>
     </loaderModalContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App

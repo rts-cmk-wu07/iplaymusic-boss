@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { IoPause, IoPlay } from "react-icons/io5";
-const SongListItem = ({ item }) => {
+import { useState } from "react"
+import { IoPause, IoPlay } from "react-icons/io5"
+import millisToTime from "../../functions/millisToTime"
+
+const SongListItem = ({ track }) => {
+  const { name, artists, duration_ms } = track
   // State for the play/pause button
-  const [isPlaying, setIsPlaying] = useState(false);
-  function millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  }
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const artistNames = artists.map((artist) => artist.name).join(", ")
+
   return (
     <li className="flex items-center">
       <button
@@ -20,22 +21,17 @@ const SongListItem = ({ item }) => {
           <IoPlay size="15" color="#fff" />
         )}
       </button>
-      <div className="flex flex-col ml-4 w-full">
-        <p className="dark:text-white font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-[260px]">
-          {item.name}
+      <div className="flex flex-col ml-6 w-full whitespace-nowrap max-w-[65%]">
+        <p className="dark:text-white font-bold text-ellipsis overflow-hidden ">
+          {name}
         </p>
-        <p className="dark:text-white text-xs">
-          {item.artists[0] ? item.artists[0].name : ""}
-          {item.artists[1] ? ", " + item.artists[1].name : ""}
-          {item.artists[2] ? ", " + item.artists[2].name : ""}
-          {item.artists[3] ? ", " + item.artists[3].name : ""}
+        <p className="dark:text-white text-xs text-ellipsis overflow-hidden ">
+          {artistNames}
         </p>
       </div>
-      <p className="dark:text-white ml-auto">
-        {millisToMinutesAndSeconds(item.duration_ms)}
-      </p>
+      <p className="dark:text-white ml-auto">{millisToTime(duration_ms)}</p>
     </li>
-  );
-};
+  )
+}
 
-export default SongListItem;
+export default SongListItem
