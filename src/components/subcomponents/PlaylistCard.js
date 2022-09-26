@@ -1,6 +1,6 @@
 // The playlist card
 const PlaylistCard = (props) => {
-  const { isImage, images, name, setIsImage } = props;
+  const { isImage, images, name, setIsImage } = props
   return (
     <>
       <div className="relative aspect-square">
@@ -8,7 +8,7 @@ const PlaylistCard = (props) => {
           <div className="bg-slate-500 w-full aspect-square z-30 opacity-50 absolute rounded-md" />
         )}
         <img
-          className="mb-2 aspect-square fit-content -z-1 absolute rounded-md"
+          className="mb-2 aspect-square object-cover fit-content -z-1 absolute rounded-md"
           style={{ opacity: isImage ? 1 : 0 }}
           src={images[1]?.url || images[0]?.url}
           onLoad={() => setIsImage(true)}
@@ -19,7 +19,7 @@ const PlaylistCard = (props) => {
         {name}
       </p>
     </>
-  );
-};
+  )
+}
 
-export default PlaylistCard;
+export default PlaylistCard
