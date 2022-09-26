@@ -15,7 +15,7 @@ const Playlist = (props) => {
     <motion.li
       whileTap={{ scale: 1.1 }}
       className="flex flex-col h-[200px]"
-      onClick={() => navigate(`/playlist/${id}`)}
+      onClick={() => navigate(`/playlist/${id}?title=${name}`)}
     >
       {loading && (
         <>
