@@ -35,7 +35,7 @@ const FollowedArtistsList = (props) => {
   }, [inView]);
   return (
     <ul className="grid grid-cols-3 mt-4 gap-y-5 gap-x-2">
-      {data?.artists?.items.length > 0 ? (
+      {!loading && data?.artists?.items.length > 0 ? (
         artistArray &&
         artistArray?.map((item, i) =>
           //If element index is loadMore, then load more

@@ -43,7 +43,8 @@ const List = (props) => {
     <>
       <h1 className="heading gradient-text">{header ? header : title}</h1>
       <ul className="flex flex-col gap-4 mt-4 mx-auto overflow-y-auto h-[100vh] mb-[4rem]">
-        {songArray &&
+        {!loading &&
+          songArray &&
           songArray?.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track
             if (i === loadMoreIndex && nextUrl) {
