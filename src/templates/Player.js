@@ -1,21 +1,27 @@
 import { motion } from 'framer-motion';
-import { useState, memo, useRef } from 'react';
+import { useState, memo, useRef, useContext } from 'react';
 import MiniPlayer from './MiniPlayer';
 import LargePlayer from './LargePlayer';
 import useFetch from '../hooks/useFetch';
 import ReactAudioPlayer from 'react-audio-player';
 import { useEffect } from 'react';
+import SongContext from '../contexts/SongContext';
 
 const Player = () => {
+	const { songData, setSongData } = useContext(SongContext);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const { data } = useFetch(
 		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
 	);
 
+	const [song, setSong] = useState(songData || data);
+
+	console.log(song);
+
 	const audioPlayer = useRef();
 
 	const [isOpen, setIsOpen] = useState(false);
-	const audioUrl = data?.preview_url;
+	const audioUrl = song?.preview_url;
 
 	const [dragStart, setDragStart] = useState(0);
 	const [dragCurrent, setDragCurrent] = useState(0);
@@ -98,7 +104,7 @@ const Player = () => {
 				setIsOpen={setIsOpen}
 				isPlaying={isPlaying}
 				setIsPlaying={setIsPlaying}
-				song={data}
+				song={song}
 				controls={audioPlayer.current?.audioEl.current}
 			/>
 			<MiniPlayer
@@ -106,7 +112,7 @@ const Player = () => {
 				setIsOpen={setIsOpen}
 				isPlaying={isPlaying}
 				setIsPlaying={setIsPlaying}
-				song={data}
+				song={song}
 				controls={audioPlayer.current?.audioEl.current}
 			/>
 		</motion.section>

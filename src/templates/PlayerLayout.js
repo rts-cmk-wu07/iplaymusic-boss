@@ -6,7 +6,7 @@ import { default as refreshTokenFunction } from '../functions/refreshToken';
 import SongContext from '../contexts/SongContext';
 
 const PlayerLayout = ({ children }) => {
-	const [songData, setSongData] = useState({});
+	const [songData, setSongData] = useState();
 
 	const [tokenData, setTokenData] = useState({
 		accessToken: '',
