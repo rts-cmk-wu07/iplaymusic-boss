@@ -1,7 +1,5 @@
 import ColoredListItem from "../components/lists/ColoredListItem";
-import FeaturedItem from "../components/lists/FeaturedItem";
-import List from "../components/lists/List";
-import useFetch from "../hooks/useFetch";
+import FeaturedItemsList from "../components/lists/FeaturedItemsList";
 const Home = () => {
   const getTimeOfDay = () => {
     const date = new Date();
@@ -55,7 +53,6 @@ const Home = () => {
     },
   ];
 
-  console.log(data);
   return (
     <>
       <div className="p-6">
@@ -66,15 +63,11 @@ const Home = () => {
           ))}
         </div>
         <h1 className="heading gradient-text mt-16 mb-4">Featured</h1>
-        {!loading ? (
-          <List gap="gap-12">
-            {data?.playlists?.items?.map((item, index) => (
-              <FeaturedItem key={index} item={item} />
-            ))}
-          </List>
-        ) : (
-          <p>Loading...</p>
-        )}
+
+        <FeaturedItemsList
+          startUrl="https://api.spotify.com/v1/browse/featured-playlists?limit=3"
+          loadMoreOnIndex={2}
+        />
       </div>
     </>
   );

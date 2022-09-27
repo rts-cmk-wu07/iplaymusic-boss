@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const FeaturedItem = (props) => {
+const FeaturedItem = ({ item }) => {
   return (
     <li
       className={`w-full aspect-3/4 rounded-lg bg-cover bg-center overflow-hidden shadow-xl shadow-additional/40 dark:shadow-additional/80`}
