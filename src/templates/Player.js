@@ -19,7 +19,7 @@ const Player = () => {
 	);
 
 	useEffect(() => {
-		setSong(songData === null ? data : songData);
+		setSong(songData.preview_url === null ? data : songData);
 		setIsPlaying(true);
 	}, [songData]);
 
