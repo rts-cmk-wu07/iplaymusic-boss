@@ -131,7 +131,9 @@ const LargePlayer = ({
 									style={{ textShadow: '0 2px 8px #00000030' }}
 									className="text-white text-xl text-center mt-2"
 								>
-									{song?.artist || 'Rick Astley'}
+									{song?.artists
+										? song.artists.map(artist => artist.name).join(', ')
+										: 'Rick Astley'}
 								</motion.h2>
 							</motion.div>
 							<motion.div>
