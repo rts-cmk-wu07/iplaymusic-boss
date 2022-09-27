@@ -15,7 +15,7 @@ const CategoryPlaylists = () => {
             <motion.li
               whileTap={{ scale: 1.1 }}
               onClick={() => {
-                navigate("/playlist/" + playlist.id);
+                navigate(`/playlist/${playlist.id}?title=${playlist.name}`);
               }}
               key={index}
             >

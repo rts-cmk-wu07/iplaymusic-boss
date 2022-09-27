@@ -16,7 +16,6 @@ const Home = () => {
   };
 
   const greeting = getTimeOfDay();
-
   const topLinks = [
     {
       id: 1,
@@ -56,9 +55,6 @@ const Home = () => {
     },
   ];
 
-  const { data, loading } = useFetch(
-    "https://api.spotify.com/v1/browse/featured-playlists?limit=3"
-  );
   console.log(data);
   return (
     <>
