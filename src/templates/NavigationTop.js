@@ -1,12 +1,17 @@
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import { IoChevronBackOutline, IoSearch } from "react-icons/io5";
+import { useNavigate, useLocation, NavLink } from "react-router-dom"
+import { IoChevronBackOutline, IoSearch } from "react-icons/io5"
+import { useState } from "react"
+import { AnimatePresence } from "framer-motion"
+import Search from "../components/Search"
 
 const NavigationTop = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const [searchOpen, setSearchOpen] = useState(false)
 
   // only use first location pathname
-  const path = `/${location.pathname.split("/")[1]}`;
+  const path = `/${location.pathname.split("/")[1]}`
 
   const paths = {
     "/": "Home",
@@ -26,12 +31,12 @@ const NavigationTop = () => {
     "/category": "Category",
     "/following": "Following",
     "/artist": "Artist",
-  };
+  }
 
-  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"];
-  const pathsWithOnlyWhiteText = ["/playlists"];
+  const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"]
+  const pathsWithOnlyWhiteText = ["/playlists"]
 
-  const currentPath = paths[path] || "404";
+  const currentPath = paths[path] || "404"
 
   return (
     <div
@@ -54,16 +59,15 @@ const NavigationTop = () => {
       <h1 className="text-lg col-span-2 mx-auto uppercase tracking-wider">
         {currentPath}
       </h1>
-      {location.pathname !== "/search" && (
-        <NavLink
-          to="/search"
-          className="p-2 mr-2 ml-auto w-fit h-fit rounded-full"
-        >
-          <IoSearch className="h-6 w-6 stroke-3" />
-        </NavLink>
-      )}
+      <>
+        <IoSearch
+          onClick={() => setSearchOpen((prevState) => !prevState)}
+          className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full"
+        />
+        <AnimatePresence>{searchOpen && <Search />}</AnimatePresence>
+      </>
     </div>
-  );
-};
+  )
+}
 
-export default NavigationTop;
+export default NavigationTop
