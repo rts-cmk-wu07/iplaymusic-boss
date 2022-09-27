@@ -19,7 +19,11 @@ const SearchCard = (props) => {
     if (type === "playlist") navigate(`/playlist/${id}?title=${title}`)
     if (type === "album") navigate(`/album/${id}?title=${title}`)
     if (type === "artist") navigate(`/artist/${id}`)
-    if (type === "track") console.log("%cNOT PLAYING TRACK", "color: red;")
+    if (type === "track")
+      console.log(
+        "%cFunction not implemented yet... playTrack in SearchCard",
+        "color: red;"
+      )
   }
 
   return (
