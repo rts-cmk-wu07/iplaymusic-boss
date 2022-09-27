@@ -1,8 +1,12 @@
+import { useEffect, useLayoutEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { FiChevronRight } from "react-icons/fi"
+import { motion } from "framer-motion"
 
 const SearchCard = (props) => {
-  const { title, type, img } = props
+  const { title, type, img, id } = props
+  const navigate = useNavigate()
 
   // Giving different classnames to the different types of search results
   let thing
@@ -11,10 +15,26 @@ const SearchCard = (props) => {
 
   const [isLoaded, setIsLoaded] = useState(false)
 
+  function handleClick() {
+    if (type === "playlist") navigate(`/playlist/${id}?title=${title}`)
+    if (type === "album") navigate(`/album/${id}?title=${title}`)
+    if (type === "artist") navigate(`/artist/${id}`)
+    if (type === "track") console.log("%cNOT PLAYING TRACK", "color: red;")
+  }
+
   return (
-    <li className="flex items-center">
+    <motion.li
+      onClick={handleClick}
+      whileTap={{ scale: 0.95 }}
+      className="flex items-center"
+    >
       <div className="w-12 h-12 relative mr-2 aspect-square">
-        {!isLoaded && !img && (
+        {!img && (
+          <div
+            className={"bg-gray-500 w-full h-full absolute z-10 " + thing}
+          ></div>
+        )}
+        {!isLoaded && (
           <div
             className={"bg-gray-500 w-full h-full absolute z-10 " + thing}
           ></div>
@@ -37,7 +57,7 @@ const SearchCard = (props) => {
       <p className="ml-auto text-2xl">
         <FiChevronRight />
       </p>
-    </li>
+    </motion.li>
   )
 }
 

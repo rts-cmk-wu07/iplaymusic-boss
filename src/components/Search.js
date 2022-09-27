@@ -1,5 +1,6 @@
 import useFetch from "../hooks/useFetch"
 import { useState, useEffect } from "react"
+import arrayShuffle from "array-shuffle"
 import { motion } from "framer-motion"
 import TagList from "./lists/TagList"
 import SearchInput from "./subcomponents/SearchInput"
@@ -16,16 +17,38 @@ const Search = () => {
   const [activeSearchState, setActiveSearchState] = useState(tags[0]) // Best Results
   const [searchOpen, setSearchOpen] = useState(false)
   const [printData, setPrintData] = useState(null)
+  const [showErr, setShowErr] = useState(false)
 
   const { data, loading, error } = useFetch(currentUrl)
 
   useEffect(() => {
-    if (data) {
+    setShowErr(false)
+    if (JSON.stringify(data).length > 2) {
       if (activeSearchState !== "Best Results") {
         setPrintData(data[activeSearchState.toLowerCase()]?.items)
       } else {
-        const topTracks = data.tracks?.items.filter((item, i) => i < 5)
-        console.log(topTracks)
+        const topTracks = data?.tracks?.items.filter(
+          (item, i) => i <= 5 && i >= 2
+        )
+        const topArtists = data?.artists?.items.filter(
+          (item, i) => i <= 5 && i >= 2
+        )
+        const firstFour = [
+          ...data?.tracks?.items.filter((item, i) => i <= 1),
+          ...data?.artists?.items.filter((item, i) => i <= 1),
+        ]
+        const topPlaylists = data?.playlists?.items.filter((item, i) => i <= 5)
+        const topAlbums = data?.albums?.items.filter((item, i) => i <= 5)
+        const allTop = [
+          ...topTracks,
+          ...topArtists,
+          ...topPlaylists,
+          ...topAlbums,
+        ]
+        if (allTop.length == 0) {
+          setShowErr(true)
+        }
+        setPrintData([...firstFour, ...arrayShuffle([...allTop])])
       }
     }
   }, [data, activeSearchState])
@@ -81,6 +104,7 @@ const Search = () => {
               return (
                 <SearchCard
                   key={item.id}
+                  id={item.id}
                   title={item.name}
                   type={type}
                   img={image} //item.album.images[2].url
@@ -88,6 +112,11 @@ const Search = () => {
               )
             })}
           </ul>
+          {showErr && (
+            <p className="text-center -translate-y-3 text-primary">
+              No results
+            </p>
+          )}
         </>
       )}
     </motion.div>
