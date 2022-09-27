@@ -13,7 +13,7 @@ const SongListItem = ({ track }) => {
 	const updateSong = useSong(track.id);
 
 	return (
-		<li className="flex items-center" onClick={() => updateSong()}>
+		<li className="flex items-center" onClick={updateSong}>
 			<button
 				onClick={() => setIsPlaying(!isPlaying)}
 				className="gradient p-2 rounded-full"
