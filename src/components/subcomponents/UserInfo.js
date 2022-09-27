@@ -6,9 +6,17 @@ const UserInfo = ({ data }) => {
     <>
       <div className="flex flex-col items-center">
         {data.images[0] ? (
-          <img src={data?.images[0]?.url} alt="profile avatar" className="max-w-[12rem] rounded-full" />
+          <img
+            src={data?.images[0]?.url}
+            alt="profile avatar"
+            className="max-w-[12rem] rounded-full"
+          />
         ) : (
-          <IoPerson className="rounded-full bg-[#C9CCD1]" color="white" size="12rem" />
+          <IoPerson
+            className="rounded-full bg-[#C9CCD1]"
+            color="white"
+            size="12rem"
+          />
         )}
 
         <h2 className="text-4xl ml-6 font-semibold flex gap-1 items-center">
@@ -28,7 +36,9 @@ const UserInfo = ({ data }) => {
           {data?.product}
         </p>
       </div>
-      <p className="text-neutral-800 dark:text-zinc-300 text-sm text-center">{data?.email}</p>
+      <p className="text-neutral-800 dark:text-zinc-300 text-sm text-center">
+        {data?.email}
+      </p>
     </>
   );
 };
