@@ -1,5 +1,5 @@
-import TagList from "../components/lists/TagList";
-import EventArticle from "../components/subcomponents/EventArticle";
+import TagList from "../components/lists/TagList"
+import EventArticle from "../components/subcomponents/EventArticle"
 
 const EventFeed = () => {
   const eventArticles = [
@@ -31,19 +31,38 @@ const EventFeed = () => {
       tags: ["#spotify", "#music", "#lofi"],
       likes: 5281,
     },
-  ];
+  ]
 
   return (
     <div className="py-6 pl-6">
       <h1 className="heading gradient-text mb-6">Events Feed</h1>
-      <TagList />
+      <TagList
+        tags={[
+          "#spotify",
+          "#music",
+          "#lofi",
+          "#chill",
+          "#jazz",
+          "#rock",
+          "#pop",
+          "#hip-hop",
+          "#rap",
+          "#edm",
+        ]}
+      />
       <section className="pr-6 flex flex-col gap-6">
         {eventArticles.map((article) => (
-          <EventArticle key={article.id} image={article.image} heading={article.title} tags={article.tags} likes={article.likes} />
+          <EventArticle
+            key={article.id}
+            image={article.image}
+            heading={article.title}
+            tags={article.tags}
+            likes={article.likes}
+          />
         ))}
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default EventFeed;
+export default EventFeed
