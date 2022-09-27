@@ -9,12 +9,12 @@ import SongContext from '../contexts/SongContext';
 
 const Player = () => {
 	const { songData, setSongData } = useContext(SongContext);
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const { data } = useFetch(
 		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
 	);
 
-	const [song, setSong] = useState(songData === undefined ? data : songData);
+	const [song, setSong] = useState(songData === null ? data : songData);
 
 	useEffect(() => {
 		setSong(songData);

@@ -12,11 +12,16 @@ const Progress = ({ current, setProgress, controls }) => {
 
 	const progress = (currentValue / maxValue) * 100;
 
+	const containerRef = useRef();
+	console.log(containerRef?.current?.offsetWidth);
 	const progressRef = useRef();
+	console.log(progressRef?.current?.offsetWidth);
+	const progressButton = useRef();
 
 	return (
 		<div className="flex flex-col w-full mt-12">
 			<motion.div
+				ref={containerRef}
 				variants={progressV.bar}
 				className="w-full h-1 bg-primary/50 rounded-full"
 			>
@@ -30,6 +35,7 @@ const Progress = ({ current, setProgress, controls }) => {
 					className="h-full gradient rounded-full shadow-glow shadow-gradientColors-right/50 flex items-center relative"
 				>
 					<motion.div
+						ref={progressButton}
 						drag="x"
 						whileDrag={{
 							scale: 2.5,
@@ -48,7 +54,11 @@ const Progress = ({ current, setProgress, controls }) => {
 						dragElastic={0}
 						onDragStart={() => controls.pause()}
 						onDrag={(e, info) => {
-							const newCurrent = (info.point.x / 400) * maxValue;
+							// const newCurrent = (info.point.x / 400) * maxValue;
+							const newCurrent =
+								((info.point.x - 35) / containerRef.current.offsetWidth) *
+								maxValue;
+							console.log(newCurrent);
 							if (newCurrent < 0) {
 								setProgress(0);
 							} else if (newCurrent > maxValue) {
