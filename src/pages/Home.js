@@ -1,20 +1,21 @@
-import ColoredListItem from "../components/lists/ColoredListItem"
-import FeaturedItem from "../components/lists/FeaturedItem"
-import List from "../components/lists/List"
+import ColoredListItem from "../components/lists/ColoredListItem";
+import FeaturedItem from "../components/lists/FeaturedItem";
+import List from "../components/lists/List";
+import useFetch from "../hooks/useFetch";
 const Home = () => {
   const getTimeOfDay = () => {
-    const date = new Date()
-    const hours = date.getHours()
+    const date = new Date();
+    const hours = date.getHours();
     if (hours < 12) {
-      return "Good morning"
+      return "Good morning";
     } else if (hours >= 12 && hours <= 17) {
-      return "Good afternoon"
+      return "Good afternoon";
     } else {
-      return "Good evening"
+      return "Good evening";
     }
-  }
+  };
 
-  const greeting = getTimeOfDay()
+  const greeting = getTimeOfDay();
 
   const topLinks = [
     {
@@ -53,34 +54,12 @@ const Home = () => {
       colorStart: "from-extra-100",
       colorEnd: "to-extra-200",
     },
-  ]
+  ];
 
-  const tempArticles = [
-    {
-      id: 1,
-      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      category: "Lorem ipsum",
-      date: "2021-09-01",
-      image: "https://picsum.photos/200/300",
-      link: "/article/1",
-    },
-    {
-      id: 2,
-      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      category: "Lorem ipsum",
-      date: "2021-09-01",
-      image: "https://picsum.photos/200/300",
-      link: "/article/2",
-    },
-    {
-      id: 3,
-      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      category: "Lorem ipsum",
-      date: "2021-09-01",
-      image: "https://picsum.photos/200/300",
-      link: "/article/3",
-    },
-  ]
+  const { data, loading } = useFetch(
+    "https://api.spotify.com/v1/browse/featured-playlists?limit=3"
+  );
+  console.log(data);
   return (
     <>
       <div className="p-6">
@@ -91,14 +70,18 @@ const Home = () => {
           ))}
         </div>
         <h1 className="heading gradient-text mt-16 mb-4">Featured</h1>
-        <List gap="gap-12">
-          {tempArticles.map((article) => (
-            <FeaturedItem key={article.id} {...article} />
-          ))}
-        </List>
+        {!loading ? (
+          <List gap="gap-12">
+            {data?.playlists?.items?.map((item, index) => (
+              <FeaturedItem key={index} item={item} />
+            ))}
+          </List>
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
