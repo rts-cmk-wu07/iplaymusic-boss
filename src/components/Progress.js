@@ -13,9 +13,7 @@ const Progress = ({ current, setProgress, controls }) => {
 	const progress = (currentValue / maxValue) * 100;
 
 	const containerRef = useRef();
-	console.log(containerRef?.current?.offsetWidth);
 	const progressRef = useRef();
-	console.log(progressRef?.current?.offsetWidth);
 	const progressButton = useRef();
 
 	return (
@@ -55,6 +53,7 @@ const Progress = ({ current, setProgress, controls }) => {
 						onDragStart={() => controls.pause()}
 						onDrag={(e, info) => {
 							// const newCurrent = (info.point.x / 400) * maxValue;
+							console.log(progressButton.current.offsetWidth);
 							const newCurrent =
 								((info.point.x - 35) / containerRef.current.offsetWidth) *
 								maxValue;
@@ -68,7 +67,9 @@ const Progress = ({ current, setProgress, controls }) => {
 							}
 						}}
 						onDragEnd={(e, info) => {
-							controls.currentTime = (info.point.x / 400) * maxValue;
+							controls.currentTime =
+								((info.point.x - 35) / containerRef.current.offsetWidth) *
+								maxValue;
 							controls.play();
 						}}
 						className="absolute -right-2 w-4 h-4 bg-gradientColors-right rounded-full"

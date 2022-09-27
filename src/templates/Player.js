@@ -82,8 +82,13 @@ const Player = () => {
 						);
 					}}
 					onDragEnd={(event, info) => {
-						setPaddingTop('4px');
-						setPaddingBottom('4px');
+						if (!isOpen) {
+							setPaddingTop('4px');
+							setPaddingBottom('4px');
+						} else {
+							setPaddingTop('0px');
+							setPaddingBottom('0px');
+						}
 						if (dragCurrent - dragStart > 200 && !isOpen) {
 							setSongData({});
 						} else if (info.point.y - dragStart > 300) {
