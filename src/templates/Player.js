@@ -9,15 +9,17 @@ import SongContext from '../contexts/SongContext';
 
 const Player = () => {
 	const { songData, setSongData } = useContext(SongContext);
-	const [isPlaying, setIsPlaying] = useState(true);
+	const [isPlaying, setIsPlaying] = useState(false);
 	const { data } = useFetch(
 		'https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT'
 	);
 
-	const [song, setSong] = useState(songData === undefined ? data : songData);
+	const [song, setSong] = useState(
+		songData.preview_url === null ? data : songData
+	);
 
 	useEffect(() => {
-		setSong(songData);
+		setSong(songData.preview_url === null ? data : songData);
 		setIsPlaying(true);
 	}, [songData]);
 
@@ -80,8 +82,13 @@ const Player = () => {
 						);
 					}}
 					onDragEnd={(event, info) => {
-						setPaddingTop('4px');
-						setPaddingBottom('4px');
+						if (!isOpen) {
+							setPaddingTop('4px');
+							setPaddingBottom('4px');
+						} else {
+							setPaddingTop('0px');
+							setPaddingBottom('0px');
+						}
 						if (dragCurrent - dragStart > 200 && !isOpen) {
 							setSongData({});
 						} else if (info.point.y - dragStart > 300) {
