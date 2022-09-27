@@ -7,6 +7,7 @@ import SongContext from '../contexts/SongContext';
 
 const PlayerLayout = ({ children }) => {
 	const [songData, setSongData] = useState({});
+	console.log(songData);
 
 	const [tokenData, setTokenData] = useState({
 		accessToken: '',
