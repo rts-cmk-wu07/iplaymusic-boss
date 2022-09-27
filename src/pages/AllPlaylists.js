@@ -11,7 +11,9 @@ const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0);
 
 //sfc => for printing users playlists out
 const AllPlaylists = () => {
-  const [currentUrl, setCurrentUrl] = useState("https://api.spotify.com/v1/me/playlists");
+  const [currentUrl, setCurrentUrl] = useState(
+    "https://api.spotify.com/v1/me/playlists"
+  );
   const [nextUrl, setNextUrl] = useState(null);
   const [playlistData, setPlaylistData] = useState(null);
 
@@ -39,35 +41,38 @@ const AllPlaylists = () => {
   return (
     <div className="mb-[5rem]">
       <SoundWaveHeader />
-      {!loading && data?.items.length > 0 ? (
-        data ? (
-          <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
-            {playlistData?.map((playlist, i) =>
-              i === 16 && nextUrl ? (
-                <InView key={i} onChange={setInView}>
-                  {({ inView, ref, entry }) => (
-                    <div ref={ref}>
-                      <Playlist key={playlist.id} {...playlist} />
-                    </div>
-                  )}
-                </InView>
-              ) : (
-                <Playlist key={playlist.id} {...playlist} />
-              )
-            )}
-          </ul>
-        ) : (
-          <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-screen">
-            {loadingPlaceholderAmount.map((_, i) => (
-              <Playlist key={i} loading />
-            ))}
-          </ul>
-        )
-      ) : (
+      {!loading && data?.items.length <= 0 && (
         <div className="text-additional dark:text-white mt-[75%]">
-          <h2 className="text-4xl font-bold text-center mb-2">You don't have any playlists yet.</h2>
-          <h3 className="text-2xl font-semibold text-center">Create a playlist to see it here.</h3>
+          <h2 className="text-4xl font-bold text-center mb-2">
+            You don't have any playlists yet.
+          </h2>
+          <h3 className="text-2xl font-semibold text-center">
+            Create a playlist to see it here.
+          </h3>
         </div>
+      )}
+      {data ? (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
+          {playlistData?.map((playlist, i) =>
+            i === 16 && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ inView, ref, entry }) => (
+                  <div ref={ref}>
+                    <Playlist key={playlist.id} {...playlist} />
+                  </div>
+                )}
+              </InView>
+            ) : (
+              <Playlist key={playlist.id} {...playlist} />
+            )
+          )}
+        </ul>
+      ) : (
+        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-screen">
+          {loadingPlaceholderAmount.map((_, i) => (
+            <Playlist key={i} loading />
+          ))}
+        </ul>
       )}
     </div>
   );
