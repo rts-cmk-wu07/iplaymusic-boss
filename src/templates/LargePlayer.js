@@ -115,7 +115,7 @@ const LargePlayer = ({
 									}
 									src={song?.album.images[0].url}
 									alt="album art"
-									className="h-64 w-64 rounded-full"
+									className="h-64 w-64 rounded-full user-select-none user-drag-none"
 								/>
 							</motion.div>
 							<motion.div>
