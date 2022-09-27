@@ -19,19 +19,20 @@ import {
 } from '../assets/variants/LargePlayer';
 import Progress from '../components/Progress';
 import PlayBackButton from '../components/buttons/PlayBackButton';
+import useFetch from '../hooks/useFetch';
 
-const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
-	// let progress = 0;
-	// const [progressState, setProgressState] = useState(0);
-	// const updateProgress = () => {
-	// 	setTimeout(() => {
-	// 		if (progress < 213) {
-	// 			progress++;
-	// 			setProgressState(progress);
-	// 			updateProgress();
-	// 		}
-	// 	}, 1000);
-	// };
+const LargePlayer = ({
+	isOpen,
+	setIsOpen,
+	song,
+	isPlaying,
+	controls,
+	songProgress,
+	setSongProgress,
+}) => {
+	const { data } = useFetch(
+		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
+	);
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -44,7 +45,7 @@ const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 				>
 					<motion.img
 						variants={imgV}
-						src={song?.album.images[0].url}
+						src={data?.images[0].url}
 						className="w-full h-full object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					/>
 
@@ -64,7 +65,54 @@ const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 								variants={albumArtV.bg}
 							>
 								<motion.img
-									variants={albumArtV.art}
+									variants={{
+										initial: {
+											opacity: 0,
+										},
+										open: {
+											opacity: 1,
+											transition: {
+												delay: 0.5,
+												ease: 'easeOut',
+												rotate: {
+													duration: 10,
+													repeat: Infinity,
+													ease: 'linear',
+												},
+											},
+										},
+									}}
+									animate={
+										isPlaying
+											? {
+													rotate: ['0deg', '360deg'],
+													opacity: 1,
+													transition: {
+														delay: 0.5,
+														ease: 'easeOut',
+														rotate: {
+															delay: 0,
+															duration: 10,
+															repeat: Infinity,
+															ease: 'linear',
+														},
+													},
+											  }
+											: {
+													rotate: '0deg',
+													opacity: 1,
+													transition: {
+														delay: 0.5,
+														ease: 'easeOut',
+														rotate: {
+															delay: 0,
+															type: 'spring',
+															stiffness: 100,
+															damping: 10,
+														},
+													},
+											  }
+									}
 									src={song?.album.images[0].url}
 									alt="album art"
 									className="h-64 w-64 rounded-full"
@@ -83,31 +131,17 @@ const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 									style={{ textShadow: '0 2px 8px #00000030' }}
 									className="text-white text-xl text-center mt-2"
 								>
-									{song?.artist || 'Rick Astley'}
+									{song?.artists
+										? song.artists.map(artist => artist.name).join(', ')
+										: 'Rick Astley'}
 								</motion.h2>
 							</motion.div>
 							<motion.div>
-								<Progress />
-								{/* <motion.div
-									variants={progressV.bar}
-									className="w-full h-1 bg-primary/50 rounded-full mt-12"
-									onClick={updateProgress}
-								>
-									<motion.div
-										initial={{ width: 0 }}
-										animate={{ width: `${progressState}%` }}
-										className="h-full gradient rounded-full shadow-glow shadow-gradientColors-right/50"
-									/>
-								</motion.div> */}
-								{/* </motion.div> */}
-								{/* <motion.div>
-								<motion.div
-									variants={progressV.time}
-									className="flex justify-between text-white text-sm mt-2"
-								>
-									<span>0:00</span>
-									<span>3:33</span>
-								</motion.div> */}
+								<Progress
+									current={songProgress}
+									setProgress={setSongProgress}
+									controls={controls}
+								/>
 							</motion.div>
 							<motion.div>
 								<motion.div
@@ -126,18 +160,6 @@ const LargePlayer = ({ isOpen, setIsOpen, song, isPlaying, controls }) => {
 									>
 										<IoPlayBack className="text-white w-full h-full" />
 									</motion.button>
-									{/* <motion.button
-										variants={controlV.play}
-										animate={{ scale: 1 }}
-										whileTap={{ scale: 0.75 }}
-										transition={{
-											type: 'spring',
-											stiffness: 500,
-										}}
-										className="rounded-full w-24 h-24 flex justify-center items-center"
-									>
-										<IoPlayCircle className="text-white w-full h-full" />
-									</motion.button> */}
 									<PlayBackButton
 										size="xl"
 										variants={controlV.play}

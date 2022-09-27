@@ -1,37 +1,14 @@
-import { useEffect, useState } from 'react';
 import villager from '../assets/sounds/villager.mp3';
 import villagerImg from '../assets/images/villager.png';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import H1 from '../components/subcomponents/H1';
 import { motion } from 'framer-motion';
-import { useCallback } from 'react';
 
 const NotFound = () => {
-	const [firstSoundHasPlayed, setFirstSoundHasPlayed] = useState(false);
-	const randomWait = useCallback(() => {
-		setTimeout(() => {
-			const audio = new Audio(villager);
-			audio.play();
-			setFirstSoundHasPlayed(true);
-			randomWait();
-		}, Math.random() * 10000 + 100);
-	}, []);
-
-	useEffect(() => {
-		randomWait();
-	}, [randomWait]);
-
-	// check if url has changed, if so, stop audio
-	const location = useLocation();
-	useEffect(() => {
-		const audio = new Audio(villager);
-		audio.pause();
-	}, [location]);
-
 	return (
 		<div className="p-4">
 			<H1 text="404" />
-			<h2 className="text-xl font-semibold mb-4">
+			<h2 className="text-xl font-semibold mb-4 dark:text-white">
 				Oops, we couldn't find this page
 			</h2>
 			<motion.button
@@ -54,18 +31,15 @@ const NotFound = () => {
 				</Link>
 			</motion.button>
 			<motion.img
-				animate={
-					firstSoundHasPlayed
-						? {
-								y: '0%',
-								rotate: [5, -5, 5],
-								scale: 1,
-								transition: {
-									rotate: { repeat: Infinity, ease: 'easeInOut', duration: 2 },
-								},
-						  }
-						: { y: '100%' }
-				}
+				initial={{ y: '100%' }}
+				animate={{
+					y: '0%',
+					rotate: [5, -5, 5],
+					scale: 1,
+					transition: {
+						rotate: { repeat: Infinity, ease: 'easeInOut', duration: 2 },
+					},
+				}}
 				src={villagerImg}
 				alt="villager"
 				whileTap={{

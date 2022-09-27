@@ -13,6 +13,7 @@ import AllPlaylists from "./pages/AllPlaylists"
 import Playlist from "./pages/Playlist"
 import AllSongs from "./pages/AllSongs"
 import Featured from "./pages/Featured"
+import Search from "./pages/Search"
 import LatestTrends from "./pages/LatestTrends"
 import NotFound from "./pages/NotFound"
 import Settings from "./pages/Settings"
@@ -23,6 +24,7 @@ import { useState, useContext } from "react"
 import Callback from "./pages/Callback"
 import TokenContext from "./contexts/TokenContext"
 import Following from "./pages/Following"
+import Artist from "./pages/Artist"
 
 function App() {
   const location = useLocation()
@@ -43,10 +45,12 @@ function App() {
               <Route path="/albumdetails" element={<AlbumDetails />} />
               <Route path="/albums" element={<AllAlbums />} />
               <Route path="/artists" element={<AllArtists />} />
+              <Route path="/artist/:id" element={<Artist />} />
               <Route path="/playlists" element={<AllPlaylists />} />
               <Route path="/playlist/:id" element={<Playlist />} />
               <Route path="/songs" element={<AllSongs />} />
               <Route path="/featured" element={<Featured />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/trends" element={<LatestTrends />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/categories" element={<AllCategories />} />

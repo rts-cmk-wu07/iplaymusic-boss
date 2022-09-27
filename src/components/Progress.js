@@ -1,15 +1,18 @@
 import { motion } from 'framer-motion';
 import { progressV } from '../assets/variants/LargePlayer';
+import { useRef } from 'react';
 
-const Progress = ({ current, min, max }) => {
-	const maxValue = max || 123;
+const Progress = ({ current, setProgress, controls }) => {
+	const maxValue = 30;
 	const maxValueMinutes = Math.floor(maxValue / 60);
 	const maxValueSeconds = maxValue % 60;
-	const currentValue = current || 33;
+	const currentValue = current || 0;
 	const currentValueMinutes = Math.floor(currentValue / 60);
-	const currentValueSeconds = currentValue % 60;
+	const currentValueSeconds = Math.floor(currentValue % 60);
 
 	const progress = (currentValue / maxValue) * 100;
+
+	const progressRef = useRef();
 
 	return (
 		<div className="flex flex-col w-full mt-12">
@@ -18,11 +21,43 @@ const Progress = ({ current, min, max }) => {
 				className="w-full h-1 bg-primary/50 rounded-full"
 			>
 				<motion.div
-					initial={{ width: 0 }}
-					animate={{ width: `${progress}%`, transition: { duration: 1 } }}
+					ref={progressRef}
+					initial={{ width: 4 }}
+					animate={{
+						width: `${progress}%`,
+						transition: { duration: 0.1, ease: 'linear' },
+					}}
 					className="h-full gradient rounded-full shadow-glow shadow-gradientColors-right/50 flex items-center relative"
 				>
-					<div className="absolute -right-2 w-4 h-4 bg-gradientColors-right rounded-full"></div>
+					<motion.div
+						drag="x"
+						whileDrag={{
+							scale: 2.5,
+							transition: { type: 'spring', stiffness: 500, damping: 30 },
+						}}
+						animate={{
+							scale: 1,
+							transition: { type: 'spring', stiffness: 500, damping: 15 },
+						}}
+						dragConstraints={{ left: 0, right: 0 }}
+						dragElastic={0}
+						onDragStart={() => controls.pause()}
+						onDrag={(e, info) => {
+							const newCurrent = (info.point.x / 400) * maxValue;
+							if (newCurrent < 0) {
+								setProgress(0);
+							} else if (newCurrent > maxValue) {
+								setProgress(maxValue);
+							} else {
+								setProgress(newCurrent);
+							}
+						}}
+						onDragEnd={(e, info) => {
+							controls.currentTime = (info.point.x / 400) * maxValue;
+							controls.play();
+						}}
+						className="absolute -right-2 w-4 h-4 bg-gradientColors-right rounded-full"
+					></motion.div>
 				</motion.div>
 			</motion.div>
 			<motion.div

@@ -1,8 +1,5 @@
 import { useNavigate, useLocation, NavLink } from "react-router-dom"
-import { useState } from "react"
 import { IoChevronBackOutline, IoSearch } from "react-icons/io5"
-import { AnimatePresence } from "framer-motion"
-import Search from "../components/Search"
 
 const NavigationTop = () => {
   const navigate = useNavigate()
@@ -30,6 +27,7 @@ const NavigationTop = () => {
     "/categories": "All Categories",
     "/category": "Category",
     "/following": "Following",
+    "/artist": "Artist",
   }
 
   const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"]
@@ -58,15 +56,13 @@ const NavigationTop = () => {
       <h1 className="text-lg col-span-2 mx-auto uppercase tracking-wider">
         {currentPath}
       </h1>
-      {location.pathname !== "/search" && (
-        <>
-          <IoSearch
-            onClick={() => setSearchOpen((prevState) => !prevState)}
-            className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full"
-          />
-          <AnimatePresence>{searchOpen && <Search />}</AnimatePresence>
-        </>
-      )}
+      <>
+        <IoSearch
+          onClick={() => setSearchOpen((prevState) => !prevState)}
+          className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full"
+        />
+        <AnimatePresence>{searchOpen && <Search />}</AnimatePresence>
+      </>
     </div>
   )
 }
