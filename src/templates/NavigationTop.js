@@ -1,5 +1,8 @@
 import { useNavigate, useLocation, NavLink } from "react-router-dom"
 import { IoChevronBackOutline, IoSearch } from "react-icons/io5"
+import { useState } from "react"
+import { AnimatePresence } from "framer-motion"
+import Search from "../components/Search"
 
 const NavigationTop = () => {
   const navigate = useNavigate()
