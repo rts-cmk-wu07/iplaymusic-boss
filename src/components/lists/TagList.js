@@ -2,7 +2,7 @@ import Tag from "../subcomponents/Tag"
 const TagList = (props) => {
   const { tags, activeTag, setActiveTag } = props
   return (
-    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap pb-2">
+    <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap">
       {tags.map((tag, i) => {
         if (activeTag !== null) {
           return (
