@@ -33,7 +33,12 @@ const Progress = ({ current, setProgress, controls }) => {
 						drag="x"
 						whileDrag={{
 							scale: 2.5,
-							transition: { type: 'spring', stiffness: 500, damping: 30 },
+							transition: {
+								type: 'spring',
+								stiffness: 500,
+								damping: 30,
+								right: '-2px',
+							},
 						}}
 						animate={{
 							scale: 1,
