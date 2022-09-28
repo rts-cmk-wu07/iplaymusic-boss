@@ -6,6 +6,7 @@ const AllSongs = () => {
 				startUrl="https://api.spotify.com/v1/me/top/tracks"
 				loadMoreOnIndex={16}
 				header="Your Top Songs"
+				showTitle
 			/>
 		</div>
 	);
