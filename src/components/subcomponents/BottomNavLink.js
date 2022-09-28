@@ -1,23 +1,25 @@
 import { NavLink } from 'react-router-dom';
 import Icon from './Icon';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const BottomNavLink = ({ icon, href, location }) => {
 	return (
 		<li className="relative w-12 h-12 rounded-full">
-			{location === href ? (
-				<motion.div
-					layoutId="backgroundGradient"
-					transition={{
-						type: 'spring',
-						stiffness: 500,
-						damping: 30,
-						scaleX: [1, 1.5, 1],
-					}}
-				>
-					<div className="absolute top-0 left-0 w-12 h-12 rounded-full gradient"></div>
-				</motion.div>
-			) : null}
+			<AnimatePresence>
+				{location === href ? (
+					<motion.div
+						layoutId="bottom-nav-active"
+						transition={{
+							type: 'spring',
+							stiffness: 500,
+							damping: 30,
+							scaleX: [1, 1.5, 1],
+						}}
+					>
+						<div className="absolute top-0 left-0 w-12 h-12 rounded-full gradient"></div>
+					</motion.div>
+				) : null}
+			</AnimatePresence>
 			<NavLink
 				className={navData =>
 					navData.isActive
