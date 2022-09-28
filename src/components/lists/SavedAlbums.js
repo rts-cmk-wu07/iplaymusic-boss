@@ -36,13 +36,16 @@ const SavedAlbums = (props) => {
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex gap-3 overflow-x-auto -mr-6 pr-6 pl-4 -ml-4"
+          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4"
         >
           {myAlbums?.map((album, index) => {
             const albumData = album.album
-            console.log(albumData)
             return (
-              <motion.div key={index} variants={listItem}>
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                key={index}
+                variants={listItem}
+              >
                 <AlbumArt
                   artwork={albumData.images[1].url}
                   widthHeight="130px"
