@@ -26,6 +26,7 @@ import Following from './pages/Following';
 import Artist from './pages/Artist';
 import NavBgContext from './contexts/NavBgContext';
 import { useEffect } from 'react';
+import User from './pages/User';
 
 function App() {
 	const location = useLocation();
@@ -64,6 +65,7 @@ function App() {
 								<Route path="/categories" element={<AllCategories />} />
 								<Route path="/category/:id" element={<Category />} />
 								<Route path="/following" element={<Following />} />
+								<Route path="/user/:id" element={<User />} />
 								<Route path="*" element={<NotFound />} />
 							</Route>
 						) : (
