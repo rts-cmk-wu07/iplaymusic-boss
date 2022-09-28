@@ -35,14 +35,14 @@ const NavigationTop = () => {
 	};
 
 	const pathsWithoutBack = ['/login', '/', '/events', '/trends', '/settings'];
-	const pathsWithOnlyWhiteText = ['/playlists'];
+	const pathsWithOnlyWhiteText = ['/playlists', '/album'];
 
 	const currentPath = paths[path] || '404';
 
 	return (
 		<div
 			className={
-				pathsWithOnlyWhiteText.includes(location.pathname)
+				pathsWithOnlyWhiteText.includes(path)
 					? 'h-16 w-screen fixed grid grid-cols-4 items-center bg-transparent text-white z-20'
 					: 'h-16 w-screen fixed grid grid-cols-4 items-center bg-white dark:bg-secondary text-black dark:text-white shadow-xl shadow-additional/5 dark:shadow-additional/50 z-20'
 			}
