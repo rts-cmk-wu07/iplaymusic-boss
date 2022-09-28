@@ -11,7 +11,7 @@ const FeaturedItem = ({ item }) => {
         to={`/playlist/${item?.id}?title=${item?.name}`}
       >
         <div className="flex flex-col justify-end px-8 py-12 h-3/4 mt-auto w-full text-white bg-gradient-to-t from-black/95 to-black/0">
-          <h2 className="text-3xl font-bold mb-2">{item?.name}</h2>
+          <h2 className="text-3xl font-bold mb-2 drop-shadow-2xl">{item?.name}</h2>
           <p className="text-lg font-medium mb-4">{item?.description}</p>
           <p className="opacity-70">Made by: {item?.owner?.display_name}</p>
         </div>
