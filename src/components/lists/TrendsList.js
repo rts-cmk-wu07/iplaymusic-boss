@@ -3,24 +3,24 @@ import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import FeaturedItem from "./FeaturedItem";
 
-const FeaturedItemsList = (props) => {
+const TrendsList = (props) => {
   const { startUrl, loadMoreOnIndex } = props;
   const [currentUrl, setCurrentUrl] = useState(startUrl);
-  const [featuredArray, setFeaturedArray] = useState(null);
+  const [trendsArray, setTrendsArray] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
   const [inView, setInView] = useState(false);
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
   const { data, loading } = useFetch(currentUrl);
 
   useEffect(() => {
-    if (data?.playlists?.items) {
-      if (featuredArray) {
+    if (data?.albums?.items) {
+      if (trendsArray) {
         setLoadMoreIndex((prevState) => prevState * 2);
-        setFeaturedArray([...featuredArray, ...data?.playlists?.items]);
+        setTrendsArray([...trendsArray, ...data?.albums?.items]);
       } else {
-        setFeaturedArray(data?.playlists?.items);
+        setTrendsArray(data?.albums?.items);
       }
-      setNextUrl(data?.playlists?.next);
+      setNextUrl(data?.albums?.next);
     }
   }, [data]);
 
@@ -30,16 +30,16 @@ const FeaturedItemsList = (props) => {
   }, [inView]);
   return (
     <ul className="flex flex-col gap-12">
-      {featuredArray?.length <= 0 && !loading && (
+      {trendsArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
-            No featured items here :(
+            There are no trends here :( Come back later
           </p>
         </div>
       )}
 
       {!loading ? (
-        featuredArray?.map((item, i) =>
+        trendsArray?.map((item, i) =>
           //If element index is loadMore, then load more
           i === loadMoreIndex && nextUrl ? (
             <InView key={i} onChange={setInView}>
@@ -60,4 +60,4 @@ const FeaturedItemsList = (props) => {
   );
 };
 
-export default FeaturedItemsList;
+export default TrendsList;

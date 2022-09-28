@@ -1,6 +1,6 @@
-import Tag from "../subcomponents/Tag"
+import Tag from "../subcomponents/Tag";
 const TagList = (props) => {
-  const { tags, activeTag, setActiveTag } = props
+  const { tags, activeTag, setActiveTag } = props;
   return (
     <ul className="flex gap-3 overflow-y-hidden overflow-x-scroll whitespace-nowrap">
       {tags.map((tag, i) => {
@@ -12,18 +12,18 @@ const TagList = (props) => {
               activeTag={activeTag}
               setActiveTag={setActiveTag}
             />
-          )
+          );
         } else {
-          return <Tag key={i} content={tag} />
+          return <Tag key={i} content={tag} />;
         }
       })}
     </ul>
-  )
-}
+  );
+};
 
 TagList.defaultProps = {
   tags: ["Put in", "some tags"],
   setActiveTag: () => {},
-}
+};
 
-export default TagList
+export default TagList;
