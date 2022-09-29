@@ -9,6 +9,7 @@ const useSongList = () => {
 		if (newSongList[0].track) {
 			newSongList = newSongList.map(song => song.track);
 		}
+		console.log(newSongList);
 
 		const originalList = newSongList;
 		let currentList = newSongList;

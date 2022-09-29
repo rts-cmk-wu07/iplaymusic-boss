@@ -8,14 +8,26 @@ const useControls = () => {
 	const { songData, setSongData } = useContext(SongContext);
 	const { songList, setSongList } = useContext(SongListContext);
 	const { controls, setControls } = useContext(ControlsContext);
+	console.log(controls);
 
-	const nextSong = () => {
+	const nextSong = setOpen => {
 		const { currentList } = songList;
 		const currentIndex = currentList.findIndex(song => song.id === songData.id);
 		const nextIndex = currentIndex + 1;
-		const nextSong =
-			currentList[nextIndex > currentList.length - 1 ? 0 : nextIndex];
-		setSongData(nextSong);
+
+		if (nextIndex < currentList.length) {
+			setSongData(currentList[nextIndex]);
+		} else {
+			if (controls.isRepeat) {
+				setSongData(currentList[0]);
+			} else {
+				setSongData({});
+				setOpen(false);
+			}
+		}
+		// const nextSong =
+		// 	currentList[nextIndex > currentList.length - 1 ? 0 : nextIndex];
+		// setSongData(nextSong);
 	};
 
 	const previousSong = () => {

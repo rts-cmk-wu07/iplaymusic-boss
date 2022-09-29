@@ -7,6 +7,7 @@ import { IoPlay, IoShuffle } from "react-icons/io5";
 import useSongList from "../hooks/useSongList";
 import ControlsContext from "../contexts/ControlsContext";
 import useControls from "../hooks/useControls";
+import PlayButtons from "./buttons/PlayButtons";
 
 const SongListHeader = ({ playlist }) => {
 	const { controls, setControls } = useContext(ControlsContext);
@@ -105,28 +106,7 @@ const SongListHeader = ({ playlist }) => {
 					)}
 				</div>
 			</section>
-			<section className="mt-8 flex gap-2">
-				<button
-					className="w-full h-12 gradient rounded-full font-bold text-white flex justify-center items-center gap-2"
-					onClick={() => {
-						updateSongList(playlist.tracks.items);
-						toggleShuffle(false);
-					}}
-				>
-					<IoPlay />
-					Play
-				</button>
-				<button
-					className="w-full h-12 border-2 border-primary box-border rounded-full font-bold text-primary dark:text-primary flex justify-center items-center gap-2"
-					onClick={() => {
-						updateSongList(playlist.tracks.items, { shuffle: true });
-						toggleShuffle(true);
-					}}
-				>
-					<IoShuffle size={20} />
-					Shuffle
-				</button>
-			</section>
+			<PlayButtons trackList={playlist?.tracks?.items} />
 		</header>
 	);
 };

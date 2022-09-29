@@ -60,7 +60,7 @@ const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
 						<PlayBackButton
 							initial={{ opacity: 0, x: -16 }}
 							animate={{ opacity: 1, x: 0, transition: { delay: 0.75 } }}
-							callback={() => nextSong()}
+							callback={() => nextSong(setIsOpen)}
 						>
 							<IoPlayForward size={24} />
 						</PlayBackButton>

@@ -54,7 +54,7 @@ const LargePlayer = ({
 				>
 					<motion.img
 						variants={imgV}
-						src={data?.images[0].url}
+						src={data?.images[0]?.url}
 						className="w-full h-full object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					/>
 
@@ -209,7 +209,7 @@ const LargePlayer = ({
 										size="lg"
 										variants={controlV.next}
 										animate={{ scale: 1 }}
-										callback={() => nextSong()}
+										callback={() => nextSong(setIsOpen)}
 									>
 										<IoPlayForward className="text-white w-full h-full" />
 									</PlayBackButton>

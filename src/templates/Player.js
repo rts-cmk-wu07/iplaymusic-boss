@@ -133,7 +133,7 @@ const Player = () => {
 						autoPlay={isPlaying}
 						onPause={() => setIsPlaying(false)}
 						onPlay={() => setIsPlaying(true)}
-						onEnded={() => nextSong()}
+						onEnded={() => nextSong(setIsOpen)}
 						listenInterval={100}
 						onListen={e => setSongProgress(e)}
 					/>

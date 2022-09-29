@@ -16,7 +16,6 @@ const PlayerLayout = ({ children }) => {
 	});
 
 	useEffect(() => {
-		console.log(songList.currentList[0]);
 		if (songList.currentList[0]) {
 			setSongData(songList.currentList[0]);
 		}
