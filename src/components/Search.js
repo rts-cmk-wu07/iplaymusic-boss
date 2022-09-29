@@ -44,10 +44,12 @@ const Search = ({ setSearchOpen }) => {
   function onSubmitSearch(event) {
     event.preventDefault();
     const inputToQuery = inputValue.replace(" ", "%20");
-    setCurrentUrl(`https://api.spotify.com/v1/search?type=${searchStates.join(",")}&include_external=audio&q=${inputToQuery}`);
-    setSearchResultsOpen(true);
+
     if (inputValue === "") {
       setSearchOpen(false);
+    } else {
+      setCurrentUrl(`https://api.spotify.com/v1/search?type=${searchStates.join(",")}&include_external=audio&q=${inputToQuery}`);
+      setSearchResultsOpen(true);
     }
   }
 

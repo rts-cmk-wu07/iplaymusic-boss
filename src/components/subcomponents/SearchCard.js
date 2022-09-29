@@ -3,26 +3,30 @@ import { useState } from "react";
 import { FiChevronRight } from "react-icons/fi";
 import { motion } from "framer-motion";
 import useSong from "../../hooks/useSong";
+import { useEffect } from "react";
 
 const SearchCard = (props) => {
   const { title, type, img, id } = props;
   const navigate = useNavigate();
-  const updateSong = useSong(id);
-
+  const [song, setSong] = useState(null);
+  const updateSong = useSong(song);
   // Giving different classnames to the different types of search results
   let borderRadius;
   if (type === "artist") borderRadius = "rounded-full";
   if (type === "track") borderRadius = "rounded-md";
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   function handleClick() {
     if (type === "playlist") navigate(`/playlist/${id}?title=${title}`);
     if (type === "album") navigate(`/album/${id}?title=${title}`);
     if (type === "artist") navigate(`/artist/${id}`);
-    if (type === "track") updateSong();
+    if (type === "track") setSong(id);
   }
-
+  useEffect(() => {
+    if (song) {
+      updateSong(song);
+    }
+  }, [handleClick]);
   return (
     <motion.li onClick={handleClick} whileTap={{ scale: 0.95 }} className="flex items-center">
       <div className="w-12 h-12 relative mr-2 aspect-square">
