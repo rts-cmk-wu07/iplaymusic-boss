@@ -1,28 +1,19 @@
 import { AnimatePresence, motion } from "framer-motion";
-import {
-	IoChevronDown,
-	IoPlayBack,
-	IoPlayForward,
-	IoPlayCircle,
-	IoPauseCircle,
-	IoShuffle,
-	IoRepeat,
-} from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 import {
 	containerV,
 	albumArtV,
 	titleV,
 	closeV,
-	progressV,
 	imgV,
-	controlV,
 } from "../assets/variants/LargePlayer";
 import Progress from "../components/Progress";
-import PlayBackButton from "../components/buttons/PlayBackButton";
 import useFetch from "../hooks/useFetch";
 import useControls from "../hooks/useControls";
 import { useContext } from "react";
 import ControlsContext from "../contexts/ControlsContext";
+import PlayBackButtons from "../components/buttons/PlayBackButtons";
+import AnimatedText from "../components/subcomponents/text/AnimatedText";
 
 const LargePlayer = ({
 	isOpen,
@@ -33,9 +24,6 @@ const LargePlayer = ({
 	songProgress,
 	setSongProgress,
 }) => {
-	const { nextSong, previousSong, toggleShuffle, toggleRepeat } = useControls();
-	const { controls: playBackControls } = useContext(ControlsContext);
-	const { isShuffle, isRepeat } = playBackControls;
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
 	);
@@ -65,7 +53,7 @@ const LargePlayer = ({
 								<IoChevronDown size={24} className="-mb-px text-white" />
 							</motion.button>
 						</nav>
-						<div className="px-6">
+						<div className="px-6 w-[calc(100vw-24px)]">
 							<motion.div
 								className="flex justify-center items-center w-64 h-64 mb-8 mx-auto rounded-full shadow-2xl shadow-additional/50"
 								variants={albumArtV.bg}
@@ -125,22 +113,26 @@ const LargePlayer = ({
 								/>
 							</motion.div>
 							<motion.div>
-								<motion.h1
-									variants={titleV.name}
-									style={{ textShadow: "0 2px 8px #00000030" }}
-									className="text-white font-bold text-3xl text-center"
-								>
-									{song?.name || "Never Gonna Give You Up"}
-								</motion.h1>
-								<motion.h2
-									variants={titleV.artist}
-									style={{ textShadow: "0 2px 8px #00000030" }}
-									className="text-white text-xl text-center mt-2"
-								>
-									{song?.artists
-										? song.artists.map(artist => artist.name).join(", ")
-										: "Rick Astley"}
-								</motion.h2>
+								<AnimatedText alignment="center">
+									<motion.h1
+										variants={titleV.artist}
+										style={{ textShadow: "0 2px 8px #00000030" }}
+										className="text-white font-bold text-3xl text-center"
+									>
+										{song?.name || "Never Gonna Give You Up"}
+									</motion.h1>
+								</AnimatedText>
+								<AnimatedText alignment="center">
+									<motion.h2
+										variants={titleV.artist}
+										style={{ textShadow: "0 2px 8px #00000030" }}
+										className="text-white text-xl text-center mt-2"
+									>
+										{song?.artists
+											? song.artists.map(artist => artist.name).join(", ")
+											: "Rick Astley"}
+									</motion.h2>
+								</AnimatedText>
 							</motion.div>
 							<motion.div>
 								<Progress
@@ -150,93 +142,11 @@ const LargePlayer = ({
 								/>
 							</motion.div>
 							<motion.div>
-								<motion.div
-									variants={progressV.controls}
-									className="flex justify-center items-center mt-8 gap-2"
-								>
-									<PlayBackButton
-										variants={controlV.skipBack}
-										callback={() => toggleShuffle()}
-									>
-										<AnimatePresence>
-											{isShuffle ? (
-												<motion.div
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 1 }}
-													exit={{ opacity: 0 }}
-													className={`w-full h-full flex justify-center items-center p-2 rounded-full gradient`}
-												>
-													<IoShuffle className="w-6 h-6" />
-												</motion.div>
-											) : (
-												<motion.div
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 1 }}
-													exit={{ opacity: 0 }}
-													className={`w-full h-full flex justify-center items-center p-2 rounded-full`}
-												>
-													<IoShuffle className="w-6 h-6" />
-												</motion.div>
-											)}
-										</AnimatePresence>
-									</PlayBackButton>
-									<PlayBackButton
-										size="lg"
-										variants={controlV.back}
-										animate={{ scale: 1 }}
-										callback={() => previousSong()}
-									>
-										<IoPlayBack className="text-white w-full h-full" />
-									</PlayBackButton>
-									<PlayBackButton
-										size="xl"
-										variants={controlV.play}
-										animate={{ scale: 1 }}
-										callback={() =>
-											isPlaying ? controls.pause() : controls.play()
-										}
-									>
-										{isPlaying ? (
-											<IoPauseCircle className="w-full h-full" />
-										) : (
-											<IoPlayCircle className="w-full h-full" />
-										)}
-									</PlayBackButton>
-									<PlayBackButton
-										size="lg"
-										variants={controlV.next}
-										animate={{ scale: 1 }}
-										callback={() => nextSong(setIsOpen)}
-									>
-										<IoPlayForward className="text-white w-full h-full" />
-									</PlayBackButton>
-									<PlayBackButton
-										variants={controlV.skipNext}
-										callback={() => toggleRepeat()}
-									>
-										<AnimatePresence>
-											{isRepeat ? (
-												<motion.div
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 1 }}
-													exit={{ opacity: 0 }}
-													className={`w-full h-full flex justify-center items-center p-2 rounded-full gradient`}
-												>
-													<IoRepeat className="w-6 h-6" />
-												</motion.div>
-											) : (
-												<motion.div
-													initial={{ opacity: 0 }}
-													animate={{ opacity: 1 }}
-													exit={{ opacity: 0 }}
-													className={`w-full h-full flex justify-center items-center p-2 rounded-full`}
-												>
-													<IoRepeat className="w-6 h-6" />
-												</motion.div>
-											)}
-										</AnimatePresence>
-									</PlayBackButton>
-								</motion.div>
+								<PlayBackButtons
+									isPlaying={isPlaying}
+									audioControls={controls}
+									setIsOpen={setIsOpen}
+								/>
 							</motion.div>
 						</div>
 					</motion.div>

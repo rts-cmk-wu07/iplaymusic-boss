@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IoPlayCircle, IoPlayForward, IoPauseCircle } from "react-icons/io5";
 import PlayBackButton from "../components/buttons/PlayBackButton";
 import AlbumArt from "../components/subcomponents/AlbumArt";
+import AnimatedText from "../components/subcomponents/text/AnimatedText";
 import useControls from "../hooks/useControls";
 
 const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
@@ -32,14 +33,18 @@ const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
 						widthHeight="64px"
 					/>
 					<motion.div className="min-w-0" onClick={() => setIsOpen(true)}>
-						<h2 className="text-white font-bold w-full whitespace-nowrap overflow-hidden text-ellipsis">
-							{song?.name || "Never gonna let you down"}
-						</h2>
-						<p className="text-sm text-white opacity-75 whitespace-nowrap overflow-hidden text-ellipsis">
-							{song?.artists
-								? song.artists.map(artist => artist.name).join(", ")
-								: "Rick Astley"}
-						</p>
+						<AnimatedText>
+							<h2 className="text-white font-bold w-full whitespace-nowrap overflow-hidden text-ellipsis">
+								{song?.name || "Never gonna let you down"}
+							</h2>
+						</AnimatedText>
+						<AnimatedText>
+							<p className="text-sm text-white opacity-75 whitespace-nowrap overflow-hidden text-ellipsis">
+								{song?.artists
+									? song.artists.map(artist => artist.name).join(", ")
+									: "Rick Astley"}
+							</p>
+						</AnimatedText>
 					</motion.div>
 					<motion.div
 						className={`flex gap-1 text-white items-center ${
