@@ -1,29 +1,28 @@
-import { useEffect, useLayoutEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { FiChevronRight } from "react-icons/fi"
-import { motion } from "framer-motion"
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FiChevronRight } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 const SearchCard = (props) => {
-  const { title, type, img, id } = props
-  const navigate = useNavigate()
+  const { title, type, img, id } = props;
+  const navigate = useNavigate();
 
   // Giving different classnames to the different types of search results
-  let thing
-  if (type === "artist") thing = "rounded-full"
-  if (type === "track") thing = "rounded-md"
+  let thing;
+  if (type === "artist") thing = "rounded-full";
+  if (type === "track") thing = "rounded-md";
 
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
 
   function handleClick() {
-    if (type === "playlist") navigate(`/playlist/${id}?title=${title}`)
-    if (type === "album") navigate(`/album/${id}?title=${title}`)
-    if (type === "artist") navigate(`/artist/${id}`)
+    if (type === "playlist") navigate(`/playlist/${id}?title=${title}`);
+    if (type === "album") navigate(`/album/${id}?title=${title}`);
+    if (type === "artist") navigate(`/artist/${id}`);
     if (type === "track")
       console.log(
         "%cFunction not implemented yet... playTrack in SearchCard",
         "color: red;"
-      )
+      );
   }
 
   return (
@@ -62,7 +61,7 @@ const SearchCard = (props) => {
         <FiChevronRight />
       </p>
     </motion.li>
-  )
-}
+  );
+};
 
-export default SearchCard
+export default SearchCard;

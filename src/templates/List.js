@@ -21,6 +21,7 @@ const List = (props) => {
   const [searchParams] = useSearchParams();
   const title = searchParams.get("title");
 
+  /* estlint-disable */
   useEffect(() => {
     if (data.items) {
       if (songArray) {
@@ -32,11 +33,12 @@ const List = (props) => {
       setNextUrl(data.next);
     }
   }, [data]);
+  /* estlint-enable */
 
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
-  }, [inView]);
+  }, [inView, nextUrl]);
 
   return (
     <>
