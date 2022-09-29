@@ -11,11 +11,11 @@ const searchStates = ["track", "playlist", "artist", "album"];
 // The tags
 const tags = ["Best Results", "Tracks", "Artists", "Playlists", "Albums"];
 
-const Search = () => {
+const Search = ({ setSearchOpen }) => {
   const [currentUrl, setCurrentUrl] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [activeSearchState, setActiveSearchState] = useState(tags[0]); // Best Results
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchResultsOpen, setSearchResultsOpen] = useState(false);
   const [printData, setPrintData] = useState(null);
   const [showErr, setShowErr] = useState(false);
 
@@ -27,24 +27,12 @@ const Search = () => {
       if (activeSearchState !== "Best Results") {
         setPrintData(data[activeSearchState.toLowerCase()]?.items);
       } else {
-        const topTracks = data?.tracks?.items.filter(
-          (item, i) => i <= 5 && i >= 2
-        );
-        const topArtists = data?.artists?.items.filter(
-          (item, i) => i <= 5 && i >= 2
-        );
-        const firstFour = [
-          ...data?.tracks?.items.filter((item, i) => i <= 1),
-          ...data?.artists?.items.filter((item, i) => i <= 1),
-        ];
+        const topTracks = data?.tracks?.items.filter((item, i) => i <= 5 && i >= 2);
+        const topArtists = data?.artists?.items.filter((item, i) => i <= 5 && i >= 2);
+        const firstFour = [...data?.tracks?.items.filter((item, i) => i <= 1), ...data?.artists?.items.filter((item, i) => i <= 1)];
         const topPlaylists = data?.playlists?.items.filter((item, i) => i <= 5);
         const topAlbums = data?.albums?.items.filter((item, i) => i <= 5);
-        const allTop = [
-          ...topTracks,
-          ...topArtists,
-          ...topPlaylists,
-          ...topAlbums,
-        ];
+        const allTop = [...topTracks, ...topArtists, ...topPlaylists, ...topAlbums];
         if (allTop.length === 0) {
           setShowErr(true);
         }
@@ -56,12 +44,11 @@ const Search = () => {
   function onSubmitSearch(event) {
     event.preventDefault();
     const inputToQuery = inputValue.replace(" ", "%20");
-    setCurrentUrl(
-      `https://api.spotify.com/v1/search?type=${searchStates.join(
-        ","
-      )}&include_external=audio&q=${inputToQuery}`
-    );
-    setSearchOpen(true);
+    setCurrentUrl(`https://api.spotify.com/v1/search?type=${searchStates.join(",")}&include_external=audio&q=${inputToQuery}`);
+    setSearchResultsOpen(true);
+    if (inputValue === "") {
+      setSearchOpen(false);
+    }
   }
 
   return (
@@ -76,19 +63,11 @@ const Search = () => {
       }}
       className="flex flex-col top-[63px] overflow-hidden absolute w-full bg-white text-black dark:bg-secondary dark:text-white rounded-b-2xl shadow-2xl"
     >
-      <SearchInput
-        onSubmitSearch={onSubmitSearch}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-      />
-      {searchOpen && (
+      <SearchInput onSubmitSearch={onSubmitSearch} inputValue={inputValue} setInputValue={setInputValue} />
+      {searchResultsOpen && (
         <>
           <div className="ml-2">
-            <TagList
-              tags={tags}
-              activeTag={activeSearchState}
-              setActiveTag={setActiveSearchState}
-            />
+            <TagList tags={tags} activeTag={activeSearchState} setActiveTag={setActiveSearchState} />
           </div>
           <ul className="flex flex-col px-3 gap-2 mb-3 max-h-[400px] overflow-y-auto">
             {printData?.map((item) => {
@@ -112,11 +91,7 @@ const Search = () => {
               );
             })}
           </ul>
-          {showErr && (
-            <p className="text-center -translate-y-3 text-primary">
-              No results
-            </p>
-          )}
+          {showErr && <p className="text-center -translate-y-3 text-primary">No results</p>}
         </>
       )}
     </motion.div>
