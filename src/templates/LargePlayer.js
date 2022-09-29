@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from "framer-motion";
 import {
 	IoChevronDown,
 	IoPlaySkipBack,
@@ -7,7 +7,9 @@ import {
 	IoPlayCircle,
 	IoPlaySkipForward,
 	IoPauseCircle,
-} from 'react-icons/io5';
+	IoShuffle,
+	IoRepeat,
+} from "react-icons/io5";
 import {
 	containerV,
 	albumArtV,
@@ -16,10 +18,13 @@ import {
 	progressV,
 	imgV,
 	controlV,
-} from '../assets/variants/LargePlayer';
-import Progress from '../components/Progress';
-import PlayBackButton from '../components/buttons/PlayBackButton';
-import useFetch from '../hooks/useFetch';
+} from "../assets/variants/LargePlayer";
+import Progress from "../components/Progress";
+import PlayBackButton from "../components/buttons/PlayBackButton";
+import useFetch from "../hooks/useFetch";
+import useControls from "../hooks/useControls";
+import { useContext } from "react";
+import ControlsContext from "../contexts/ControlsContext";
 
 const LargePlayer = ({
 	isOpen,
@@ -30,6 +35,10 @@ const LargePlayer = ({
 	songProgress,
 	setSongProgress,
 }) => {
+	const { nextSong, previousSong, toggleShuffle, toggleRepeat } = useControls();
+	const { controls: playBackControls, setControls } =
+		useContext(ControlsContext);
+	const { isShuffle, isRepeat } = playBackControls;
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
 	);
@@ -73,11 +82,11 @@ const LargePlayer = ({
 											opacity: 1,
 											transition: {
 												delay: 0.5,
-												ease: 'easeOut',
+												ease: "easeOut",
 												rotate: {
 													duration: 10,
 													repeat: Infinity,
-													ease: 'linear',
+													ease: "linear",
 												},
 											},
 										},
@@ -85,28 +94,28 @@ const LargePlayer = ({
 									animate={
 										isPlaying
 											? {
-													rotate: ['0deg', '360deg'],
+													rotate: ["0deg", "360deg"],
 													opacity: 1,
 													transition: {
 														delay: 0.5,
-														ease: 'easeOut',
+														ease: "easeOut",
 														rotate: {
 															delay: 0,
 															duration: 10,
 															repeat: Infinity,
-															ease: 'linear',
+															ease: "linear",
 														},
 													},
 											  }
 											: {
-													rotate: '0deg',
+													rotate: "0deg",
 													opacity: 1,
 													transition: {
 														delay: 0.5,
-														ease: 'easeOut',
+														ease: "easeOut",
 														rotate: {
 															delay: 0,
-															type: 'spring',
+															type: "spring",
 															stiffness: 100,
 															damping: 10,
 														},
@@ -121,19 +130,19 @@ const LargePlayer = ({
 							<motion.div>
 								<motion.h1
 									variants={titleV.name}
-									style={{ textShadow: '0 2px 8px #00000030' }}
+									style={{ textShadow: "0 2px 8px #00000030" }}
 									className="text-white font-bold text-3xl text-center"
 								>
-									{song?.name || 'Never Gonna Give You Up'}
+									{song?.name || "Never Gonna Give You Up"}
 								</motion.h1>
 								<motion.h2
 									variants={titleV.artist}
-									style={{ textShadow: '0 2px 8px #00000030' }}
+									style={{ textShadow: "0 2px 8px #00000030" }}
 									className="text-white text-xl text-center mt-2"
 								>
 									{song?.artists
-										? song.artists.map(artist => artist.name).join(', ')
-										: 'Rick Astley'}
+										? song.artists.map(artist => artist.name).join(", ")
+										: "Rick Astley"}
 								</motion.h2>
 							</motion.div>
 							<motion.div>
@@ -146,20 +155,42 @@ const LargePlayer = ({
 							<motion.div>
 								<motion.div
 									variants={progressV.controls}
-									className="flex justify-center items-center mt-8 gap-4"
+									className="flex justify-center items-center mt-8 gap-2"
 								>
-									<motion.button
+									<PlayBackButton
 										variants={controlV.skipBack}
-										className="rounded-full w-8 h-8 flex justify-center items-center"
+										callback={() => toggleShuffle()}
 									>
-										<IoPlaySkipBack className="text-white w-full h-full" />
-									</motion.button>
-									<motion.button
+										<AnimatePresence>
+											{isShuffle ? (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+													className={`w-full h-full flex justify-center items-center p-2 rounded-full gradient`}
+												>
+													<IoShuffle className="w-6 h-6" />
+												</motion.div>
+											) : (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+													className={`w-full h-full flex justify-center items-center p-2 rounded-full`}
+												>
+													<IoShuffle className="w-6 h-6" />
+												</motion.div>
+											)}
+										</AnimatePresence>
+									</PlayBackButton>
+									<PlayBackButton
+										size="lg"
 										variants={controlV.back}
-										className="rounded-full w-12 h-12 flex justify-center items-center"
+										animate={{ scale: 1 }}
+										callback={() => previousSong()}
 									>
 										<IoPlayBack className="text-white w-full h-full" />
-									</motion.button>
+									</PlayBackButton>
 									<PlayBackButton
 										size="xl"
 										variants={controlV.play}
@@ -174,18 +205,46 @@ const LargePlayer = ({
 											<IoPlayCircle className="w-full h-full" />
 										)}
 									</PlayBackButton>
-									<motion.button
+									<PlayBackButton
+										size="lg"
 										variants={controlV.next}
-										className="rounded-full w-12 h-12 flex justify-center items-center"
+										animate={{ scale: 1 }}
+										callback={() => nextSong()}
 									>
 										<IoPlayForward className="text-white w-full h-full" />
-									</motion.button>
-									<motion.button
+									</PlayBackButton>
+									{/* <motion.button
 										variants={controlV.skipNext}
 										className="rounded-full w-8 h-8 flex justify-center items-center"
 									>
 										<IoPlaySkipForward className="text-white w-full h-full" />
-									</motion.button>
+									</motion.button> */}
+									<PlayBackButton
+										variants={controlV.skipNext}
+										callback={() => toggleRepeat()}
+									>
+										<AnimatePresence>
+											{isRepeat ? (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+													className={`w-full h-full flex justify-center items-center p-2 rounded-full gradient`}
+												>
+													<IoRepeat className="w-6 h-6" />
+												</motion.div>
+											) : (
+												<motion.div
+													initial={{ opacity: 0 }}
+													animate={{ opacity: 1 }}
+													exit={{ opacity: 0 }}
+													className={`w-full h-full flex justify-center items-center p-2 rounded-full`}
+												>
+													<IoRepeat className="w-6 h-6" />
+												</motion.div>
+											)}
+										</AnimatePresence>
+									</PlayBackButton>
 								</motion.div>
 							</motion.div>
 						</div>

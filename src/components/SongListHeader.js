@@ -2,11 +2,17 @@ import { motion } from "framer-motion";
 import { useState, useContext } from "react";
 import SongContext from "../contexts/SongContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { IoPlay, IoShuffle } from "react-icons/io5";
+import useSongList from "../hooks/useSongList";
+import ControlsContext from "../contexts/ControlsContext";
+import useControls from "../hooks/useControls";
 
 const SongListHeader = ({ playlist }) => {
+	const { controls, setControls } = useContext(ControlsContext);
+	const updateSongList = useSongList();
+	const { toggleShuffle } = useControls();
 	const { songData } = useContext(SongContext);
-	const navigate = useNavigate();
 	const isSongPlaying = playlist?.tracks?.items?.some(
 		song => song.track.id === songData.id
 	);
@@ -15,7 +21,7 @@ const SongListHeader = ({ playlist }) => {
 		setAlbumArtIsShown(isSongPlaying);
 	}, [songData, isSongPlaying]);
 	return (
-		<header className="pb-2 mb-6 border-b border-b-primary/25">
+		<header className="pb-2 mb-6">
 			<div className="relative h-48 w-48 flex justify-center items-center">
 				{playlist.images && (
 					<>
@@ -80,14 +86,12 @@ const SongListHeader = ({ playlist }) => {
 				</motion.div>
 				<p className="text-gray-400 dark:text-gray-600 text-sm">
 					By{" "}
-					<p
+					<Link
 						className="font-semibold text-primary z-50"
-						onClick={() => {
-							navigate(`/user/${playlist.owner.id}`);
-						}}
+						to={`/user/${playlist?.owner?.id}`}
 					>
 						{playlist.owner && playlist.owner.display_name}
-					</p>
+					</Link>
 				</p>
 				{playlist.description && (
 					<p className="my-4 text-black/75 dark:text-white/75 text-base">
@@ -100,6 +104,28 @@ const SongListHeader = ({ playlist }) => {
 						<p>{playlist.followers.total.toLocaleString()} followers</p>
 					)}
 				</div>
+			</section>
+			<section className="mt-8 flex gap-2">
+				<button
+					className="w-full h-12 gradient rounded-full font-bold text-white flex justify-center items-center gap-2"
+					onClick={() => {
+						updateSongList(playlist.tracks.items);
+						toggleShuffle(false);
+					}}
+				>
+					<IoPlay />
+					Play
+				</button>
+				<button
+					className="w-full h-12 border-2 border-primary box-border rounded-full font-bold text-primary dark:text-primary flex justify-center items-center gap-2"
+					onClick={() => {
+						updateSongList(playlist.tracks.items, { shuffle: true });
+						toggleShuffle(true);
+					}}
+				>
+					<IoShuffle size={20} />
+					Shuffle
+				</button>
 			</section>
 		</header>
 	);
