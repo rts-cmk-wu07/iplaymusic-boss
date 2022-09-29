@@ -16,7 +16,7 @@ const ArtistList = (props) => {
   const { data, loading } = useFetch(currentUrl);
   //Makes this component reusable for every artist list
 
-  /* estlint-disable */
+  /* eslint-disable */
   useEffect(() => {
     if (data?.items) {
       if (artistArray) {
@@ -43,7 +43,7 @@ const ArtistList = (props) => {
       setNextUrl(data?.artists?.next);
     }
   }, [data]);
-  /* estlint-enable */
+  /* eslint-enable */
 
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);

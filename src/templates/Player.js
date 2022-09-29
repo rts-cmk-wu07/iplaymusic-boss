@@ -18,12 +18,12 @@ const Player = () => {
     songData.preview_url === null ? data : songData
   );
 
-  /* estlint-disable */
+  /* eslint-disable */
   useEffect(() => {
     setSong(songData.preview_url === null ? data : songData);
     setIsPlaying(true);
   }, [songData]);
-  /* estlint-enable */
+  /* eslint-enable */
 
   const audioPlayer = useRef();
 
