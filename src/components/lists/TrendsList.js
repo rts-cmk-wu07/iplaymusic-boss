@@ -12,7 +12,7 @@ const TrendsList = (props) => {
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
   const { data, loading } = useFetch(currentUrl);
 
-  /* estlint-disable */
+  /* eslint-disable */
   useEffect(() => {
     if (data?.albums?.items) {
       if (trendsArray) {
@@ -24,7 +24,7 @@ const TrendsList = (props) => {
       setNextUrl(data?.albums?.next);
     }
   }, [data]);
-  /* estlint-enable */
+  /* eslint-enable */
 
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {

@@ -12,7 +12,7 @@ const FeaturedItemsList = (props) => {
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
   const { data, loading } = useFetch(currentUrl);
 
-  /* estlint-disable */
+  /* eslint-disable */
   useEffect(() => {
     if (data?.playlists?.items) {
       if (featuredArray) {
@@ -24,12 +24,12 @@ const FeaturedItemsList = (props) => {
       setNextUrl(data?.playlists?.next);
     }
   }, [data]);
-  /* estlint-enable */
+  /* eslint-enable */
 
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
-  }, [inView]);
+  }, [inView, nextUrl]);
   return (
     <ul className="flex flex-col gap-12">
       {featuredArray?.length <= 0 && !loading && (

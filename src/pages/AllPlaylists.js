@@ -19,7 +19,7 @@ const AllPlaylists = () => {
   // Get current users playlists
   const { data, loading } = useFetch(currentUrl);
 
-  /* estlint-disable */
+  /* eslint-disable */
   useEffect(() => {
     // Saves data to playlistData state and sets nextUrl for lazy loading
     if (data?.items) {
@@ -31,7 +31,7 @@ const AllPlaylists = () => {
       setNextUrl(data.next);
     }
   }, [data]);
-  /* estlint-enable */
+  /* eslint-enable */
 
   const [inView, setInView] = useState(false);
 

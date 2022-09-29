@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { motion } from "framer-motion";
 import AlbumListItem from "../subcomponents/AlbumListItem";
