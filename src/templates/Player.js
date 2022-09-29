@@ -121,8 +121,7 @@ const Player = () => {
             isOpen
               ? "top-0 bottom-0 left-0 right-0"
               : "bottom-20 left-2 right-2 p-1"
-          }`}
-        >
+          }`}>
           <ReactAudioPlayer
             src={audioUrl}
             ref={audioPlayer}
