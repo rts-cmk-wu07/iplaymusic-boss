@@ -2,13 +2,11 @@ import { useContext } from "react";
 import SongContext from "../contexts/SongContext";
 import SongListContext from "../contexts/SongListContext";
 import ControlsContext from "../contexts/ControlsContext";
-import arrayShuffle from "array-shuffle";
 
 const useControls = () => {
 	const { songData, setSongData } = useContext(SongContext);
-	const { songList, setSongList } = useContext(SongListContext);
+	const { songList } = useContext(SongListContext);
 	const { controls, setControls } = useContext(ControlsContext);
-	console.log(controls);
 
 	const nextSong = setOpen => {
 		const { currentList } = songList;
@@ -25,9 +23,6 @@ const useControls = () => {
 				setOpen(false);
 			}
 		}
-		// const nextSong =
-		// 	currentList[nextIndex > currentList.length - 1 ? 0 : nextIndex];
-		// setSongData(nextSong);
 	};
 
 	const previousSong = () => {
@@ -41,7 +36,6 @@ const useControls = () => {
 	};
 
 	const toggleShuffle = toggle => {
-		console.log(toggle);
 		if (toggle === "on") {
 			setControls({ ...controls, isShuffle: true });
 		} else if (toggle === "off") {
@@ -53,6 +47,7 @@ const useControls = () => {
 	};
 
 	const toggleRepeat = toggle => {
+		console.log("toggleRepeat");
 		if (toggle) {
 			setControls({ ...controls, isRepeat: toggle });
 		} else {

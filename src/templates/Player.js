@@ -6,12 +6,10 @@ import useFetch from "../hooks/useFetch";
 import ReactAudioPlayer from "react-audio-player";
 import { useEffect } from "react";
 import SongContext from "../contexts/SongContext";
-import SongListContext from "../contexts/SongListContext";
 import useControls from "../hooks/useControls";
 
 const Player = () => {
 	const { songData, setSongData } = useContext(SongContext);
-	const { songList, setSongList } = useContext(SongListContext);
 	const { nextSong } = useControls();
 	const [isPlaying, setIsPlaying] = useState(false);
 	const { data } = useFetch(

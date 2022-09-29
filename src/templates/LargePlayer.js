@@ -1,11 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
 	IoChevronDown,
-	IoPlaySkipBack,
 	IoPlayBack,
 	IoPlayForward,
 	IoPlayCircle,
-	IoPlaySkipForward,
 	IoPauseCircle,
 	IoShuffle,
 	IoRepeat,
@@ -36,8 +34,7 @@ const LargePlayer = ({
 	setSongProgress,
 }) => {
 	const { nextSong, previousSong, toggleShuffle, toggleRepeat } = useControls();
-	const { controls: playBackControls, setControls } =
-		useContext(ControlsContext);
+	const { controls: playBackControls } = useContext(ControlsContext);
 	const { isShuffle, isRepeat } = playBackControls;
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`

@@ -3,16 +3,9 @@ import { useState, useContext } from "react";
 import SongContext from "../contexts/SongContext";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoPlay, IoShuffle } from "react-icons/io5";
-import useSongList from "../hooks/useSongList";
-import ControlsContext from "../contexts/ControlsContext";
-import useControls from "../hooks/useControls";
 import PlayButtons from "./buttons/PlayButtons";
 
 const SongListHeader = ({ playlist }) => {
-	const { controls, setControls } = useContext(ControlsContext);
-	const updateSongList = useSongList();
-	const { toggleShuffle } = useControls();
 	const { songData } = useContext(SongContext);
 	const isSongPlaying = playlist?.tracks?.items?.some(
 		song => song.track.id === songData.id
