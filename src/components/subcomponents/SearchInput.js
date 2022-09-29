@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const SearchInput = (props) => {
-  function focusHandler(event) {
+  function focusHandler() {
     if (isFocused && inputValue === "") {
       setIsFocused(!isFocused);
     } else {
@@ -27,6 +27,7 @@ const SearchInput = (props) => {
           Search for Tracks, Artists, Playlists and Albums
         </span>
         <input
+          autoFocus
           className="text-center border-2 rounded-2xl outline-none w-full h-[55px] bg-white text-black dark:bg-secondary dark:text-white border-primary"
           type="text"
           value={inputValue}
