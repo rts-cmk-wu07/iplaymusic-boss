@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import SongListItem from '../components/subcomponents/SongListItem';
-import { InView } from 'react-intersection-observer';
-import useFetch from '../hooks/useFetch';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useState } from "react";
+import SongListItem from "../components/subcomponents/SongListItem";
+import { InView } from "react-intersection-observer";
+import useFetch from "../hooks/useFetch";
+import { useSearchParams } from "react-router-dom";
 const List = props => {
 	const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
 
@@ -19,8 +19,9 @@ const List = props => {
 
 	// Getting the title
 	const [searchParams] = useSearchParams();
-	const title = searchParams.get('title');
+	const title = searchParams.get("title");
 
+	/* eslint-disable */
 	useEffect(() => {
 		if (data.items) {
 			if (songArray) {
@@ -32,11 +33,12 @@ const List = props => {
 			setNextUrl(data.next);
 		}
 	}, [data]);
+	/* eslint-enable */
 
 	// When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
 	useEffect(() => {
 		if (inView) setCurrentUrl(nextUrl);
-	}, [inView]);
+	}, [inView, nextUrl]);
 
 	return (
 		<>

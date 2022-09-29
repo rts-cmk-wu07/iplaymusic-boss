@@ -12,6 +12,7 @@ const TrendsList = (props) => {
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
   const { data, loading } = useFetch(currentUrl);
 
+  /* eslint-disable */
   useEffect(() => {
     if (data?.albums?.items) {
       if (trendsArray) {
@@ -23,11 +24,12 @@ const TrendsList = (props) => {
       setNextUrl(data?.albums?.next);
     }
   }, [data]);
+  /* eslint-enable */
 
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
-  }, [inView]);
+  }, [inView, nextUrl]);
   return (
     <ul className="flex flex-col gap-12">
       {trendsArray?.length <= 0 && !loading && (

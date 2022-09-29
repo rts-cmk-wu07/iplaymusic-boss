@@ -1,42 +1,43 @@
-import { useEffect, useState, useRef } from "react"
-import { InView } from "react-intersection-observer"
-import { motion } from "framer-motion"
+import { useEffect, useState } from "react";
+import { InView } from "react-intersection-observer";
 /* Hooks */
-import useFetch from "../hooks/useFetch"
+import useFetch from "../hooks/useFetch";
 /* Components */
-import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader"
-import Playlist from "../components/subcomponents/Playlist"
+import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader";
+import Playlist from "../components/subcomponents/Playlist";
 
-const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0)
+const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0);
 
 //sfc => for printing users playlists out
 const AllPlaylists = () => {
   const [currentUrl, setCurrentUrl] = useState(
     "https://api.spotify.com/v1/me/playlists"
-  )
-  const [nextUrl, setNextUrl] = useState(null)
-  const [playlistData, setPlaylistData] = useState(null)
+  );
+  const [nextUrl, setNextUrl] = useState(null);
+  const [playlistData, setPlaylistData] = useState(null);
 
   // Get current users playlists
-  const { data, loading, error } = useFetch(currentUrl)
+  const { data, loading } = useFetch(currentUrl);
 
+  /* eslint-disable */
   useEffect(() => {
     // Saves data to playlistData state and sets nextUrl for lazy loading
     if (data?.items) {
       if (playlistData) {
-        setPlaylistData([...playlistData, ...data.items])
+        setPlaylistData([...playlistData, ...data.items]);
       } else {
-        setPlaylistData(data.items)
+        setPlaylistData(data.items);
       }
-      setNextUrl(data.next)
+      setNextUrl(data.next);
     }
-  }, [data])
+  }, [data]);
+  /* eslint-enable */
 
-  const [inView, setInView] = useState(false)
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (inView) setCurrentUrl(nextUrl)
-  }, [inView])
+    if (inView) setCurrentUrl(nextUrl);
+  }, [inView, nextUrl]);
 
   return (
     <div className="mb-[5rem]">
@@ -75,7 +76,7 @@ const AllPlaylists = () => {
         </ul>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AllPlaylists
+export default AllPlaylists;

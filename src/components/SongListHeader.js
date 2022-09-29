@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import H1 from "./subcomponents/H1";
 import { useState, useContext } from "react";
 import SongContext from "../contexts/SongContext";
 import { useEffect } from "react";
@@ -31,6 +30,9 @@ const SongListHeader = ({ playlist }) => {
 									type: "spring",
 									stiffness: 500,
 									damping: 25,
+									x: {
+										delay: 0,
+									},
 								},
 							}}
 							className="absolute w-44 h-44 rounded-full shadow-xl"

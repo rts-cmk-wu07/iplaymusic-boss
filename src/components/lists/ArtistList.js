@@ -3,7 +3,6 @@ import { useState } from "react";
 import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import ArtistListItem from "../subcomponents/ArtistListItem";
-import { useNavigate } from "react-router-dom";
 
 const ArtistList = props => {
 	const { startUrl, loadMoreOnIndex } = props;
@@ -15,8 +14,9 @@ const ArtistList = props => {
 
 	//Placheholder array of objects for the songs list items to be mapped over in the return statement below
 	const { data, loading } = useFetch(currentUrl);
-	const navigate = useNavigate();
 	//Makes this component reusable for every artist list
+
+	/* eslint-disable */
 	useEffect(() => {
 		if (data?.items) {
 			if (artistArray) {
@@ -43,12 +43,13 @@ const ArtistList = props => {
 			setNextUrl(data?.artists?.next);
 		}
 	}, [data]);
+	/* eslint-enable */
 
 	useEffect(() => {
 		if (inView) setCurrentUrl(nextUrl);
-	}, [inView]);
+	}, [inView, nextUrl]);
 	return (
-		<ul className="grid grid-cols-2 mt-4 gap-y-8 gap-x-4">
+		<ul className="grid grid-cols-3 mt-4 gap-y-5 gap-x-2">
 			{artistArray?.length <= 0 && !loading && (
 				<div className="mt-[15%] col-start-1 col-end-4">
 					<p className="text-center heading text-2xl text-black dark:text-white">
