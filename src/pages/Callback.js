@@ -26,7 +26,7 @@ export default function Callback() {
   useEffect(() => {
     axios
       .post(
-        "https://iplaymusik.netlify.app/.netlify/functions/token",
+        "/.netlify/functions/token",
         JSON.stringify({
           code,
           state,
