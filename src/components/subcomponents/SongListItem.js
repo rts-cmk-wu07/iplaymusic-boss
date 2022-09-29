@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import millisToTime from '../../functions/millisToTime';
-import useSong from '../../hooks/useSong';
+import { useNavigate } from "react-router-dom";
+import millisToTime from "../../functions/millisToTime";
+import useSong from "../../hooks/useSong";
 
-const SongListItem = ({ track, index, noImage }) => {
+const SongListItem = ({ track, index, noImage, largePadding }) => {
 	// State for the play/pause button
 	const navigate = useNavigate();
 	const updateSong = useSong(track.id);
@@ -11,12 +11,14 @@ const SongListItem = ({ track, index, noImage }) => {
 		<li
 			key={index || track.id}
 			onClick={updateSong}
-			className={`flex items-center gap-4 justify-between w-full py-2 text-additional
+			className={`flex items-center gap-2 justify-between w-full ${
+				largePadding ? "py-2" : "py-1"
+			} text-additional
       dark:text-white`}
 		>
 			<div className="flex justify-between items-center">
 				{index && (
-					<p className="text-xl text-left w-8 font-light tracking-widest">
+					<p className="w-6 font-light tracking-widest text-sm text-left shrink-0">
 						{index}
 					</p>
 				)}
@@ -40,19 +42,19 @@ const SongListItem = ({ track, index, noImage }) => {
 						return (
 							<p
 								key={index}
-								className="text-sm "
+								className="text-xs opacity-75"
 								onClick={e => {
 									e.stopPropagation();
 									navigate(`/artist/${artist.id}`);
 								}}
 							>
-								{(index ? ', ' : '') + artist.name}
+								{(index ? ", " : "") + artist.name}
 							</p>
 						);
 					})}
 				</div>
 			</div>
-			<p className="dark:text-white ml-auto">
+			<p className="text-black/75 dark:text-white/75 ml-auto text-sm">
 				{millisToTime(track.duration_ms)}
 			</p>
 		</li>
