@@ -4,6 +4,7 @@ import SongListItem from "../components/subcomponents/SongListItem";
 import { InView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
+import Loader from "../components/subcomponents/Loader";
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
 
@@ -42,14 +43,10 @@ const List = (props) => {
 
   return (
     <>
-      {showTitle && (
-        <h1 className="heading gradient-text">{header ? header : title}</h1>
-      )}
-      {loading && <p className="dark:text-white">Loading...</p>}
+      {showTitle && <h1 className="heading gradient-text">{header ? header : title}</h1>}
+      {loading && <Loader />}
       {songArray?.length <= 0 && !loading && (
-        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">
-          There are no songs here yet
-        </h2>
+        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">There are no songs here yet</h2>
       )}
       <ul className="flex flex-col gap-4 mt-4 mx-auto">
         {!loading &&
@@ -61,23 +58,13 @@ const List = (props) => {
                 <InView key={i} onChange={setInView}>
                   {({ inView, ref, entry }) => (
                     <div ref={ref}>
-                      <SongListItem
-                        key={trackData.id}
-                        id={trackData.id}
-                        track={trackData}
-                      />
+                      <SongListItem key={trackData.id} id={trackData.id} track={trackData} />
                     </div>
                   )}
                 </InView>
               );
             } else {
-              return (
-                <SongListItem
-                  key={trackData.id}
-                  id={trackData.id}
-                  track={trackData}
-                />
-              );
+              return <SongListItem key={trackData.id} id={trackData.id} track={trackData} />;
             }
           })}
       </ul>

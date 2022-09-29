@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { IoPerson } from "react-icons/io5";
 import UserPlaylists from "../components/subcomponents/UserPlaylists";
+import Loader from "../components/subcomponents/Loader";
 
 const User = () => {
   const { id } = useParams();
@@ -13,17 +14,9 @@ const User = () => {
       {!loading ? (
         <>
           {data?.images[0] ? (
-            <img
-              src={data?.images[0]?.url}
-              alt="profile avatar"
-              className="max-w-[12rem] rounded-full"
-            />
+            <img src={data?.images[0]?.url} alt="profile avatar" className="max-w-[12rem] rounded-full" />
           ) : (
-            <IoPerson
-              className="rounded-full bg-[#C9CCD1]"
-              color="white"
-              size="12rem"
-            />
+            <IoPerson className="rounded-full bg-[#C9CCD1]" color="white" size="12rem" />
           )}
           <p className="text-xl text-additional dark:text-white flex items-center justify-center">
             Followers: {data?.followers?.total.toLocaleString()} <IoPerson />{" "}
@@ -31,7 +24,7 @@ const User = () => {
           <UserPlaylists id={id} name={data?.display_name} />
         </>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </section>
   );

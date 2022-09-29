@@ -1,0 +1,70 @@
+.loader {
+  width: 6rem;
+  height: 6rem;
+}
+
+.spin {
+  background: transparent;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+  -webkit-animation: spin2 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.spin > div:not(.spin__blocker) {
+  width: 50%;
+  height: 50%;
+  z-index: -1;
+}
+.spin__blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  top: 3%;
+  left: 7%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+}
+.spin__bottom-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: -webkit-linear-gradient(top left, rgba(255, 156, 0, 1) 0%, rgba(238, 9, 121, 0.75) 100%);
+  background: linear-gradient(to bottom right, rgba(255, 156, 0, 1) 0%, rgba(238, 9, 121, 0.75) 100%);
+}
+.spin__bottom-right {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: -webkit-linear-gradient(bottom left, rgba(238, 9, 121, 0.75) 0%, rgba(238, 9, 121, 0.5) 100%);
+  background: linear-gradient(to top right, rgba(238, 9, 121, 0.75) 0%, rgba(238, 9, 121, 0.5) 100%);
+}
+.spin__top-left {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background: -webkit-linear-gradient(top left, rgba(255, 106, 0, 0.25) 0%, rgba(238, 9, 121, 0.5) 100%);
+  background: linear-gradient(to bottom right, rgba(255, 106, 0, 0.25) 0%, rgba(238, 9, 121, 0.5) 100%);
+}
+
+.spin__blocker {
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+}

@@ -1,10 +1,9 @@
 import useFetch from "../../hooks/useFetch";
+import Loader from "../subcomponents/Loader";
 import SongListItem from "../subcomponents/SongListItem";
 
 const TopTracksList = ({ id }) => {
-  const { data, loading } = useFetch(
-    `https://api.spotify.com/v1/artists/${id}/top-tracks?market=from_token`
-  );
+  const { data, loading } = useFetch(`https://api.spotify.com/v1/artists/${id}/top-tracks?market=from_token`);
   return (
     <>
       <h2 className="heading self-start mt-6">Top Tracks</h2>
@@ -15,7 +14,7 @@ const TopTracksList = ({ id }) => {
           ))}
         </ul>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </>
   );

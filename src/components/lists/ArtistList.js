@@ -3,6 +3,7 @@ import { useState } from "react";
 import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import ArtistListItem from "../subcomponents/ArtistListItem";
+import Loader from "../subcomponents/Loader";
 
 const ArtistList = (props) => {
   const { startUrl, loadMoreOnIndex } = props;
@@ -53,8 +54,7 @@ const ArtistList = (props) => {
       {artistArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
-            There are no artists here, you can search for artists in the search
-            bar above.
+            There are no artists here, you can search for artists in the search bar above.
           </p>
         </div>
       )}
@@ -75,7 +75,7 @@ const ArtistList = (props) => {
           )
         )
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </ul>
   );

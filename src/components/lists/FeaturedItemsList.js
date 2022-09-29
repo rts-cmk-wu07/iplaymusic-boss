@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
+import Loader from "../subcomponents/Loader";
 import FeaturedItem from "./FeaturedItem";
 
 const FeaturedItemsList = (props) => {
@@ -34,9 +35,7 @@ const FeaturedItemsList = (props) => {
     <ul className="flex flex-col gap-12">
       {featuredArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
-          <p className="text-center heading text-2xl text-black dark:text-white">
-            No featured items here :(
-          </p>
+          <p className="text-center heading text-2xl text-black dark:text-white">No featured items here :(</p>
         </div>
       )}
 
@@ -56,7 +55,7 @@ const FeaturedItemsList = (props) => {
           )
         )
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </ul>
   );

@@ -7,9 +7,7 @@ const NewReleases = (props) => {
 
   // Get current users saved albums
   const { data } = useFetch(url);
-  const newAlbums = data.albums?.items.filter(
-    (album) => album.album_type === "album"
-  );
+  const newAlbums = data.albums?.items.filter((album) => album.album_type === "album");
 
   const container = {
     hidden: { opacity: 0 },
@@ -29,15 +27,8 @@ const NewReleases = (props) => {
   return (
     newAlbums?.length > 0 && (
       <>
-        <h2 className="text-md font-bold mt-4 mb-3 text-black dark:text-white">
-          New Releases
-        </h2>
-        <motion.ul
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col gap-3"
-        >
+        <h2 className="text-md font-bold mt-4 mb-3 text-black dark:text-white">New Releases</h2>
+        <motion.ul variants={container} initial="hidden" animate="show" className="flex flex-col gap-3">
           {newAlbums?.map((album, index) => {
             console.log(album);
             return (
