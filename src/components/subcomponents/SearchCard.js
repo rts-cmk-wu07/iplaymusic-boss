@@ -6,10 +6,11 @@ import useSong from "../../hooks/useSong";
 import { useEffect } from "react";
 
 const SearchCard = (props) => {
-  const { title, type, img, id } = props;
+  const { title, type, img, id, albumId } = props;
   const navigate = useNavigate();
   const [song, setSong] = useState(null);
   const updateSong = useSong(song);
+
   // Giving different classnames to the different types of search results
   let borderRadius;
   if (type === "artist") borderRadius = "rounded-full";
@@ -38,7 +39,13 @@ const SearchCard = (props) => {
         <h1 className="text-base text-ellipsis max-w-[90%] overflow-hidden">{title}</h1>
         <p className="text-sm italic capitalize">{type}</p>
       </div>
-      <p className="ml-auto text-2xl">
+      <p
+        className="ml-auto text-2xl"
+        onClick={(event) => {
+          event.stopPropagation();
+          if (type === "track") navigate(`/album/${albumId}`);
+        }}
+      >
         <FiChevronRight />
       </p>
     </motion.li>

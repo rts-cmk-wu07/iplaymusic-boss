@@ -57,7 +57,13 @@ const NavigationTop = () => {
       )}
       <h1 className="text-lg col-span-2 mx-auto uppercase tracking-wider">{currentPath}</h1>
       <>
-        <IoSearch onClick={() => setSearchOpen((prevState) => !prevState)} className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full" />
+        <IoSearch
+          onClick={(e) => {
+            setSearchOpen((searchState) => !searchState);
+          }}
+          id="search-icon"
+          className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full"
+        />
         <AnimatePresence>{searchOpen && <Search setSearchOpen={setSearchOpen} />}</AnimatePresence>
       </>
     </div>

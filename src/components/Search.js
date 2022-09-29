@@ -1,5 +1,5 @@
 import useFetch from "../hooks/useFetch";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import arrayShuffle from "array-shuffle";
 import { motion } from "framer-motion";
 import TagList from "./lists/TagList";
@@ -10,7 +10,6 @@ import SearchCard from "./subcomponents/SearchCard";
 const searchStates = ["track", "playlist", "artist", "album"];
 // The tags
 const tags = ["Best Results", "Tracks", "Artists", "Playlists", "Albums"];
-
 const Search = ({ setSearchOpen }) => {
   const [currentUrl, setCurrentUrl] = useState(null);
   const [inputValue, setInputValue] = useState("");
@@ -18,9 +17,18 @@ const Search = ({ setSearchOpen }) => {
   const [searchResultsOpen, setSearchResultsOpen] = useState(false);
   const [printData, setPrintData] = useState(null);
   const [showErr, setShowErr] = useState(false);
+  const searchRef = useRef(null);
 
   const { data } = useFetch(currentUrl);
 
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+  }, []);
+  const handleClickOutside = (e) => {
+    if (searchRef.current && !searchRef.current.contains(e.target)) {
+      setSearchOpen(false);
+    }
+  };
   useEffect(() => {
     setShowErr(false);
     if (JSON.stringify(data).length > 2) {
@@ -52,9 +60,10 @@ const Search = ({ setSearchOpen }) => {
       setSearchResultsOpen(true);
     }
   }
-
+  console.log(printData);
   return (
     <motion.div
+      ref={searchRef}
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
@@ -89,6 +98,7 @@ const Search = ({ setSearchOpen }) => {
                   title={item.name}
                   type={type}
                   img={image} //item.album.images[2].url
+                  albumId={item?.album?.id}
                 />
               );
             })}
