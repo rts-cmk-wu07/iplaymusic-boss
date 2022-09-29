@@ -23,29 +23,54 @@ const SearchCard = (props) => {
     if (type === "artist") navigate(`/artist/${id}`);
     if (type === "track") setSong(id);
   }
+  /* eslint-disable */
   useEffect(() => {
     if (song) {
       updateSong(song);
     }
   }, [handleClick]);
+  /* eslint-enable */
   return (
-    <motion.li onClick={handleClick} whileTap={{ scale: 0.95 }} className="flex items-center">
+    <motion.li
+      onClick={handleClick}
+      whileTap={{ scale: 0.95 }}
+      className="flex items-center">
       <div className="w-12 h-12 relative mr-2 aspect-square">
-        {!img && <div className={"bg-gray-500 w-full h-full absolute z-10 " + borderRadius}></div>}
-        {!isLoaded && <div className={"bg-gray-500 w-full h-full absolute z-10 " + borderRadius}></div>}
-        {img && <img alt="Search item Cover" onLoad={() => setIsLoaded(true)} className={"w-full h-full absolute " + borderRadius} src={img} />}
+        {!img && (
+          <div
+            className={
+              "bg-gray-500 w-full h-full absolute z-10 " + borderRadius
+            }></div>
+        )}
+        {!isLoaded && (
+          <div
+            className={
+              "bg-gray-500 w-full h-full absolute z-10 " + borderRadius
+            }></div>
+        )}
+        {img && (
+          <img
+            alt="Search item Cover"
+            onLoad={() => setIsLoaded(true)}
+            className={"w-full h-full absolute " + borderRadius}
+            src={img}
+          />
+        )}
       </div>
       <div className="flex flex-col whitespace-nowrap overflow-hidden w-full">
-        <h1 className="text-base text-ellipsis max-w-[90%] overflow-hidden">{title}</h1>
+        <h1 className="text-base text-ellipsis max-w-[90%] overflow-hidden">
+          {title}
+        </h1>
         <p className="text-sm italic capitalize">{type}</p>
       </div>
       <p
         className="ml-auto text-2xl"
         onClick={(event) => {
-          event.stopPropagation();
-          if (type === "track") navigate(`/album/${albumId}`);
-        }}
-      >
+          if (type === "track") {
+            event.stopPropagation();
+            navigate(`/album/${albumId}`);
+          }
+        }}>
         <FiChevronRight />
       </p>
     </motion.li>
