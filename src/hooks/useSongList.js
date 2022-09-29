@@ -1,19 +1,20 @@
 import arrayShuffle from "array-shuffle";
 import { useContext } from "react";
+import ControlsContext from "../contexts/ControlsContext";
 import SongListContext from "../contexts/SongListContext";
 
 const useSongList = () => {
+	const { isShuffle } = useContext(ControlsContext);
 	const { setSongList } = useContext(SongListContext);
 
 	const updateSongList = (newSongList, config) => {
 		if (newSongList[0].track) {
 			newSongList = newSongList.map(song => song.track);
 		}
-		console.log(newSongList);
 
 		const originalList = newSongList;
 		let currentList = newSongList;
-		if (config && config.shuffle) {
+		if (isShuffle) {
 			currentList = arrayShuffle(newSongList);
 		}
 

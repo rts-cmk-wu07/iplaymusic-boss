@@ -41,10 +41,12 @@ const useControls = () => {
 	};
 
 	const toggleShuffle = toggle => {
-		if (toggle) {
-			setControls({ ...controls, isShuffle: toggle });
+		console.log(toggle);
+		if (toggle === "on") {
+			setControls({ ...controls, isShuffle: true });
+		} else if (toggle === "off") {
+			setControls({ ...controls, isShuffle: false });
 		} else {
-			console.log("toggleShuffle else");
 			const { isShuffle } = controls;
 			setControls({ ...controls, isShuffle: !isShuffle });
 		}

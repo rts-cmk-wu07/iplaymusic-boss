@@ -11,8 +11,8 @@ const PlayButtons = ({ trackList }) => {
 			<button
 				className="w-full h-12 gradient rounded-full font-bold text-white flex justify-center items-center gap-2"
 				onClick={() => {
-					updateSongList(trackList);
-					toggleShuffle(false);
+					updateSongList(trackList, { shuffle: false });
+					toggleShuffle("off");
 				}}
 			>
 				<IoPlay />
@@ -22,7 +22,7 @@ const PlayButtons = ({ trackList }) => {
 				className="w-full h-12 border-2 border-primary box-border rounded-full font-bold text-primary dark:text-primary flex justify-center items-center gap-2"
 				onClick={() => {
 					updateSongList(trackList, { shuffle: true });
-					toggleShuffle(true);
+					toggleShuffle("on");
 				}}
 			>
 				<IoShuffle size={20} />

@@ -213,12 +213,6 @@ const LargePlayer = ({
 									>
 										<IoPlayForward className="text-white w-full h-full" />
 									</PlayBackButton>
-									{/* <motion.button
-										variants={controlV.skipNext}
-										className="rounded-full w-8 h-8 flex justify-center items-center"
-									>
-										<IoPlaySkipForward className="text-white w-full h-full" />
-									</motion.button> */}
 									<PlayBackButton
 										variants={controlV.skipNext}
 										callback={() => toggleRepeat()}
