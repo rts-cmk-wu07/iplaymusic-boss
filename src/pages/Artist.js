@@ -17,7 +17,7 @@ const Artist = () => {
             <ArtistProfile data={data} />
             <TopTracksList id={id} />
             <div className="mt-12 w-full">
-              <h3 className="heading text-left">Related Artists</h3>
+              <h3 className="heading text-left mb-6">Related Artists</h3>
               <ArtistList id={id} startUrl={`https://api.spotify.com/v1/artists/${id}/related-artists`} />
             </div>
           </>

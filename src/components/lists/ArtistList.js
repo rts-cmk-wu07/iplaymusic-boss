@@ -50,7 +50,7 @@ const ArtistList = (props) => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
   return (
-    <ul className="grid grid-cols-3 mt-4 gap-y-5 gap-x-2">
+    <ul className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2">
       {artistArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
