@@ -1,6 +1,5 @@
 import { IoPerson } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useState } from "react";
 const ArtistListItem = ({ item }) => {
   const navigate = useNavigate();
