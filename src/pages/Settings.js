@@ -1,3 +1,4 @@
+import Loader from "../components/subcomponents/Loader";
 import UserProfile from "../components/subcomponents/UserProfile";
 
 import useFetch from "../hooks/useFetch";
@@ -7,7 +8,7 @@ const Settings = () => {
   return (
     <section className="p-4">
       <h1 className="heading gradient-text">User Overview</h1>
-      {!loading ? <UserProfile data={data} /> : <p>Loading...</p>}
+      {!loading ? <UserProfile data={data} /> : <Loader />}
     </section>
   );
 };

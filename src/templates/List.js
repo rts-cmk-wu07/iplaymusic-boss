@@ -4,6 +4,7 @@ import SongListItem from "../components/subcomponents/SongListItem";
 import { InView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
+import Loader from "../components/subcomponents/Loader";
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
 
@@ -45,7 +46,7 @@ const List = (props) => {
       {showTitle && (
         <h1 className="heading gradient-text">{header ? header : title}</h1>
       )}
-      {loading && <p className="dark:text-white">Loading...</p>}
+      {loading && <Loader />}
       {songArray?.length <= 0 && !loading && (
         <h2 className="heading text-addition dark:text-white text-center mt-[25%]">
           There are no songs here yet
