@@ -3,7 +3,7 @@ import { IoPerson } from "react-icons/io5";
 const ArtistProfile = ({ data }) => {
   const genres = data?.genres?.map((genre) => genre).join(", ");
   return (
-    <>
+    <div className="flex flex-col gap-4 items-center">
       {data?.images ? (
         <img
           src={
@@ -29,7 +29,7 @@ const ArtistProfile = ({ data }) => {
         </p>
       </div>
       <p className="uppercase tracking-widest text-center ">Genres: {genres}</p>
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
 import TopTracksList from "../components/lists/TopTracksList";
-
 import ArtistList from "../components/lists/ArtistList";
 import ArtistProfile from "../components/subcomponents/ArtistProfile";
 import useFetch from "../hooks/useFetch";
 import Loader from "../components/subcomponents/Loader";
-
+import SavedAlbums from "../components/lists/SavedAlbums";
 const Artist = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(
@@ -14,10 +13,14 @@ const Artist = () => {
   return (
     <>
       {!loading ? (
-        <section className="p-6 flex flex-col items-center gap-4 text-additional dark:text-white">
+        <section className="p-6 text-additional dark:text-white">
           <>
             <ArtistProfile data={data} />
             <TopTracksList id={id} />
+            <SavedAlbums
+              url={`https://api.spotify.com/v1/artists/${id}/albums?market=US&limit=50&include_groups=album,single,compilation,appears_on`}
+              artist={data.name}
+            />
             <div className="mt-12 w-full">
               <h3 className="heading text-left mb-6">Related Artists</h3>
               <ArtistList
