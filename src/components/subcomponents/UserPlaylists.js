@@ -19,7 +19,7 @@ const UserPlayLists = ({ id, name }) => {
           ))}
         </ul>
       ) : (
-        <p>Loading...</p>
+        <Loader />
       )}
     </div>
   );
