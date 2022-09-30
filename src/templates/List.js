@@ -7,7 +7,6 @@ import { useSearchParams } from "react-router-dom";
 import Loader from "../components/subcomponents/Loader";
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
-
   // States
   const [currentUrl, setCurrentUrl] = useState(startUrl);
   const [songArray, setSongArray] = useState(null);
@@ -63,7 +62,7 @@ const List = (props) => {
                   {({ inView, ref, entry }) => (
                     <div ref={ref}>
                       <SongListItem
-                        key={trackData?.id}
+                        key={i}
                         id={trackData?.id}
                         track={trackData}
                       />

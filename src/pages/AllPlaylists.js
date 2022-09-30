@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { InView } from "react-intersection-observer";
+import { motion } from "framer-motion";
 /* Hooks */
 import useFetch from "../hooks/useFetch";
 /* Components */
 import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader";
 import Playlist from "../components/subcomponents/Playlist";
-
-const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0);
+import Loader from "../components/subcomponents/Loader";
 
 //sfc => for printing users playlists out
 const AllPlaylists = () => {
@@ -23,10 +23,14 @@ const AllPlaylists = () => {
   useEffect(() => {
     // Saves data to playlistData state and sets nextUrl for lazy loading
     if (data?.items) {
+      // The filter is for removing playlists with 0 tracks
       if (playlistData) {
-        setPlaylistData([...playlistData, ...data.items]);
+        setPlaylistData([
+          ...playlistData,
+          ...data.items.filter((item) => item.tracks.total > 0),
+        ]);
       } else {
-        setPlaylistData(data.items);
+        setPlaylistData(data.items.filter((item) => item.tracks.total > 0));
       }
       setNextUrl(data.next);
     }
@@ -39,9 +43,29 @@ const AllPlaylists = () => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const listItem = {
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="mb-[5rem]">
+    <div className="mb-[1rem]">
       <SoundWaveHeader />
+      {loading && (
+        <div className="mt-[75%]">
+          <Loader />
+        </div>
+      )}
       {!loading && data?.items.length <= 0 && (
         <div className="text-additional dark:text-white mt-[75%]">
           <h2 className="text-4xl font-bold text-center mb-2">
@@ -52,28 +76,29 @@ const AllPlaylists = () => {
           </h3>
         </div>
       )}
-      {data ? (
-        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-[75vh]">
+      {playlistData && (
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto"
+        >
           {playlistData?.map((playlist, i) =>
             i === 16 && nextUrl ? (
               <InView key={i} onChange={setInView}>
                 {({ inView, ref, entry }) => (
-                  <div ref={ref}>
-                    <Playlist key={playlist.id} {...playlist} />
-                  </div>
+                  <motion.div key={playlist.id} ref={ref} variants={listItem}>
+                    <Playlist {...playlist} />
+                  </motion.div>
                 )}
               </InView>
             ) : (
-              <Playlist key={playlist.id} {...playlist} />
+              <motion.div key={playlist.id} variants={listItem}>
+                <Playlist {...playlist} />
+              </motion.div>
             )
           )}
-        </ul>
-      ) : (
-        <ul className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto h-screen">
-          {loadingPlaceholderAmount.map((_, i) => (
-            <Playlist key={i} loading />
-          ))}
-        </ul>
+        </motion.ul>
       )}
     </div>
   );
