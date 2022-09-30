@@ -14,6 +14,13 @@ const NotFound = () => {
 	const goal = 404;
 	const progress = (points / goal) * 100;
 
+	// every time a player clicks on the villager, a point will render where you clicked
+	const handleClick = e => {
+		const audio = new Audio(villager);
+		audio.play();
+		setPoints(points + 1);
+	};
+
 	return (
 		<div className="p-4 relative">
 			<AnimatePresence>
@@ -58,13 +65,9 @@ const NotFound = () => {
 					scale: 0.75,
 					transition: { type: "spring", stiffness: 500 },
 				}}
-				onPointerDown={() => {
-					const audio = new Audio(villager);
-					audio.play();
-				}}
 				onClick={() => {
 					if (gameHasStarted) {
-						setPoints(points + 1);
+						handleClick();
 					}
 				}}
 				className="absolute"
@@ -75,3 +78,27 @@ const NotFound = () => {
 };
 
 export default NotFound;
+
+// import { motion } from "framer-motion";
+// import { createRef, useRef } from "react";
+
+// const MinecraftHand = () => {
+//   const handRef = useRef(null);
+
+//   function givBoks() {
+//     handRef.target.click();
+//   }
+
+//   return (
+//     <motion.img
+//       ref={handRef}
+//       initial={{ y: 75 }}
+//       whileTap={{ y: -50, rotate: -60, scale: 1.25 }}
+//       className="absolute bottom-[35%] w-[200px] -right-8"
+//       src="https://i.ibb.co/28TVRFG/minecraft-hand.png"
+//       alt="hej"
+//     ></motion.img>
+//   );
+// };
+
+// export default MinecraftHand;
