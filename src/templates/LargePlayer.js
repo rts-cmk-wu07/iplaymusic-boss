@@ -14,6 +14,8 @@ import AnimatedText from "../components/subcomponents/text/AnimatedText";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActionMenu from "../components/ActionMenu";
+import VolumeSlider from "../components/VolumeSlider";
+import { memo } from "react";
 
 const LargePlayer = ({
 	isOpen,
@@ -23,6 +25,8 @@ const LargePlayer = ({
 	controls,
 	songProgress,
 	setSongProgress,
+	volume,
+	setVolume,
 }) => {
 	const navigate = useNavigate();
 	const [artistListOpen, setArtistListOpen] = useState(false);
@@ -37,6 +41,7 @@ const LargePlayer = ({
 			setIsOpen(false);
 		}
 	};
+
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -55,7 +60,7 @@ const LargePlayer = ({
 						/>
 
 						<motion.div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-additional/50">
-							<nav className="flex absolute top-0 left-0 w-full p-2 py-4">
+							<nav className="flex absolute top-0 left-0 w-full p-2 py-4 justify-between">
 								<motion.button
 									variants={closeV}
 									className="rounded-full bg-primary/50 w-10 h-10 flex justify-center items-center backdrop-blur-md shadow-md shadow-additional/5"
@@ -63,6 +68,7 @@ const LargePlayer = ({
 								>
 									<IoChevronDown size={24} className="-mb-px text-white" />
 								</motion.button>
+								<VolumeSlider current={volume} setCurrent={setVolume} />
 							</nav>
 							<div className="px-6 w-[calc(100vw-24px)]">
 								<motion.div
@@ -176,4 +182,4 @@ const LargePlayer = ({
 	);
 };
 
-export default LargePlayer;
+export default memo(LargePlayer);

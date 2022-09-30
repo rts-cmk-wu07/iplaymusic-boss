@@ -16,6 +16,10 @@ const Player = () => {
 		"https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
 	);
 
+	const localStoredVolume = localStorage.getItem("volume");
+
+	const [volume, setVolume] = useState(localStoredVolume || 0.5);
+
 	const [song, setSong] = useState(
 		songData.preview_url === null ? data : songData
 	);
@@ -49,6 +53,8 @@ const Player = () => {
 		}
 	}, [isOpen]);
 
+	const [shouldDrag, setShouldDrag] = useState(true);
+
 	return (
 		<AnimatePresence>
 			{Object.keys(song).length > 0 && (
@@ -67,25 +73,31 @@ const Player = () => {
 						},
 					}}
 					exit={{ y: 200, opacity: 0 }}
-					drag="y"
+					drag={shouldDrag ? "y" : false}
 					dragConstraints={{ top: 0, bottom: 0 }}
 					onDragStart={(e, info) => {
 						setDragStart(info.point.y);
 					}}
 					onDrag={(e, info) => {
+						if (e.target.className.includes("slider")) {
+							setShouldDrag(false);
+						} else {
+							setShouldDrag(true);
+							setPaddingTop(
+								(dragStart - dragCurrent) / 5 < 4
+									? "4px"
+									: `${parseInt((dragStart - dragCurrent) / 5)}px`
+							);
+							setPaddingBottom(
+								(dragStart - dragCurrent) / 10 < 4
+									? "4px"
+									: `${parseInt((dragStart - dragCurrent) / 10)}px`
+							);
+						}
 						setDragCurrent(info.point.y);
-						setPaddingTop(
-							(dragStart - dragCurrent) / 5 < 4
-								? "4px"
-								: `${parseInt((dragStart - dragCurrent) / 5)}px`
-						);
-						setPaddingBottom(
-							(dragStart - dragCurrent) / 10 < 4
-								? "4px"
-								: `${parseInt((dragStart - dragCurrent) / 10)}px`
-						);
 					}}
 					onDragEnd={(event, info) => {
+						setShouldDrag(true);
 						if (!isOpen) {
 							setPaddingTop("4px");
 							setPaddingBottom("4px");
@@ -134,6 +146,7 @@ const Player = () => {
 						onEnded={() => nextSong(setIsOpen)}
 						listenInterval={100}
 						onListen={e => setSongProgress(e)}
+						volume={volume}
 					/>
 					<LargePlayer
 						isOpen={isOpen}
@@ -144,6 +157,8 @@ const Player = () => {
 						controls={audioPlayer.current?.audioEl.current}
 						songProgress={songProgress}
 						setSongProgress={setSongProgress}
+						volume={volume}
+						setVolume={setVolume}
 					/>
 					<MiniPlayer
 						isOpen={isOpen}

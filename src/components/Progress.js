@@ -69,7 +69,8 @@ const Progress = ({ current, setProgress, controls }) => {
 								maxValue;
 							controls.play();
 						}}
-						className="absolute -right-2 w-4 h-4 bg-gradientColors-right rounded-full"
+						dragPropagation={false}
+						className="slider absolute -right-2 w-4 h-4 bg-gradientColors-right rounded-full"
 					></motion.div>
 				</motion.div>
 			</motion.div>
