@@ -9,13 +9,15 @@ const PlayButtons = ({ trackList }) => {
 	const updateSongList = useSongList();
 	const { setSongData } = useContext(SongContext);
 
+	console.log(trackList);
+
 	return (
 		<section className="mt-6 flex gap-2">
 			<button
 				className="w-full h-12 gradient rounded-full font-bold text-white flex justify-center items-center gap-2"
 				onClick={() => {
 					updateSongList(trackList, { shuffle: false });
-					setSongData(trackList[0].track);
+					setSongData(trackList[0]);
 					toggleShuffle("off");
 				}}
 			>
@@ -26,7 +28,7 @@ const PlayButtons = ({ trackList }) => {
 				className="w-full h-12 border-2 border-primary box-border rounded-full font-bold text-primary dark:text-primary flex justify-center items-center gap-2"
 				onClick={() => {
 					updateSongList(trackList, { shuffle: true });
-					setSongData(trackList[0].track);
+					setSongData(trackList[0]);
 					toggleShuffle("on");
 				}}
 			>

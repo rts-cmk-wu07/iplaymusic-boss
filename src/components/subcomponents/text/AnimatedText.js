@@ -13,13 +13,13 @@ const AnimatedText = ({ children, alignment }) => {
 	const calculatedDuration = containerRef?.current?.scrollWidth / 75;
 	const duration = baseAnimationDuration + calculatedDuration;
 
-	// if end keyframe should be 2 seconds before the end of the animation, calculate the end keyframe
+	// if end keyframe should be 1 second before the end of the animation, calculate the end keyframe
 	const endKeyframe = duration - 1;
 	const percentage = endKeyframe / duration;
 
 	return (
 		<div
-			className={`w-full flex overflow-x-hidden ${
+			className={`w-full flex overflow-x-hidden pointer-events-none ${
 				isOverFlowing
 					? "justify-start"
 					: alignment === "center"

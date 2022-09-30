@@ -14,6 +14,9 @@ const SongListHeader = ({ playlist }) => {
 	useEffect(() => {
 		setAlbumArtIsShown(isSongPlaying);
 	}, [songData, isSongPlaying]);
+
+	const arrayOfTracks = playlist?.tracks?.items.map(track => track.track);
+
 	return (
 		<header className="pb-2 mb-6">
 			<div className="relative h-48 w-48 flex justify-center items-center">
@@ -99,7 +102,7 @@ const SongListHeader = ({ playlist }) => {
 					)}
 				</div>
 			</section>
-			<PlayButtons trackList={playlist?.tracks?.items} />
+			<PlayButtons trackList={arrayOfTracks} />
 		</header>
 	);
 };
