@@ -1,38 +1,41 @@
 import useFetch from "../../hooks/useFetch";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import CategoryCard from "./CategoryCard";
 const CategoryPlaylists = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { data: playlistData, loading: playlistLoading } = useFetch(
     `https://api.spotify.com/v1/browse/categories/${id}/playlists`
   );
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const listItem = {
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
     <>
       {!playlistLoading && (
-        <ul className="mt-6 grid grid-cols-2 gap-4">
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="mt-6 grid grid-cols-2 gap-4"
+        >
           {playlistData?.playlists.items.map((playlist, index) => (
-            <motion.li
-              whileTap={{ scale: 1.1 }}
-              onClick={() => {
-                navigate(`/playlist/${playlist.id}?title=${playlist.name}`);
-              }}
-              key={index}
-            >
-              <div className="relative aspect-square">
-                <img
-                  className="mb-2 aspect-square fit-content -z-1 absolute rounded-md"
-                  src={playlist.images[0]?.url}
-                  alt={playlist.name}
-                />
-              </div>
-
-              <p className="text-additional dark:text-white text-center self-stretch mt-1 text-ellipsis overflow-hidden whitespace-nowrap">
-                {playlist.name}
-              </p>
-            </motion.li>
+            <CategoryCard playlist={playlist} key={index} listItem={listItem} />
           ))}
-        </ul>
+        </motion.ul>
       )}
     </>
   );
