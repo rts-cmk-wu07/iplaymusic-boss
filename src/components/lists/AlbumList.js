@@ -44,7 +44,7 @@ const AlbumList = (props) => {
           "single,compilation"
       );
     }
-  }, [activeTag]);
+  }, [activeTag, url]);
 
   return (
     albums?.length > 0 && (
