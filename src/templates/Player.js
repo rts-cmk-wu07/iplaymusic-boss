@@ -6,13 +6,17 @@ import useFetch from "../hooks/useFetch";
 import ReactAudioPlayer from "react-audio-player";
 import { useEffect } from "react";
 import SongContext from "../contexts/SongContext";
+import useControls from "../hooks/useControls";
 
 const Player = () => {
   const { songData, setSongData } = useContext(SongContext);
+  const { nextSong } = useControls();
   const [isPlaying, setIsPlaying] = useState(false);
   const { data } = useFetch(
     "https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
   );
+
+  console.log(songData);
 
   const [song, setSong] = useState(
     songData.preview_url === null ? data : songData
@@ -121,15 +125,14 @@ const Player = () => {
             isOpen
               ? "top-0 bottom-0 left-0 right-0"
               : "bottom-20 left-2 right-2 p-1"
-          }`}
-        >
+          }`}>
           <ReactAudioPlayer
             src={audioUrl}
             ref={audioPlayer}
             autoPlay={isPlaying}
             onPause={() => setIsPlaying(false)}
             onPlay={() => setIsPlaying(true)}
-            onEnded={() => console.log("ended")}
+            onEnded={() => nextSong(setIsOpen)}
             listenInterval={100}
             onListen={(e) => setSongProgress(e)}
           />

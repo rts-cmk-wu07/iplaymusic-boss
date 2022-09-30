@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { progressV } from '../assets/variants/LargePlayer';
-import { useRef } from 'react';
+import { motion } from "framer-motion";
+import { progressV } from "../assets/variants/LargePlayer";
+import { useRef } from "react";
 
 const Progress = ({ current, setProgress, controls }) => {
 	const maxValue = 30;
@@ -28,7 +28,7 @@ const Progress = ({ current, setProgress, controls }) => {
 					initial={{ width: 4 }}
 					animate={{
 						width: `${progress}%`,
-						transition: { duration: 0.1, ease: 'linear' },
+						transition: { duration: 0.1, ease: "linear" },
 					}}
 					className="h-full gradient rounded-full shadow-glow shadow-gradientColors-right/50 flex items-center relative"
 				>
@@ -38,26 +38,23 @@ const Progress = ({ current, setProgress, controls }) => {
 						whileDrag={{
 							scale: 2.5,
 							transition: {
-								type: 'spring',
+								type: "spring",
 								stiffness: 500,
 								damping: 30,
-								right: '-2px',
+								right: "-2px",
 							},
 						}}
 						animate={{
 							scale: 1,
-							transition: { type: 'spring', stiffness: 500, damping: 15 },
+							transition: { type: "spring", stiffness: 500, damping: 15 },
 						}}
 						dragConstraints={{ left: 0, right: 0 }}
 						dragElastic={0}
 						onDragStart={() => controls.pause()}
 						onDrag={(e, info) => {
-							// const newCurrent = (info.point.x / 400) * maxValue;
-							console.log(progressButton.current.offsetWidth);
 							const newCurrent =
 								((info.point.x - 35) / containerRef.current.offsetWidth) *
 								maxValue;
-							console.log(newCurrent);
 							if (newCurrent < 0) {
 								setProgress(0);
 							} else if (newCurrent > maxValue) {

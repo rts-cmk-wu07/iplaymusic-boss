@@ -43,10 +43,14 @@ const List = (props) => {
 
   return (
     <>
-      {showTitle && <h1 className="heading gradient-text">{header ? header : title}</h1>}
+      {showTitle && (
+        <h1 className="heading gradient-text">{header ? header : title}</h1>
+      )}
       {loading && <Loader />}
       {songArray?.length <= 0 && !loading && (
-        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">There are no songs here yet</h2>
+        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">
+          There are no songs here yet
+        </h2>
       )}
       <ul className="flex flex-col gap-2 mt-4 mx-auto">
         {!loading &&
@@ -58,13 +62,23 @@ const List = (props) => {
                 <InView key={i} onChange={setInView}>
                   {({ inView, ref, entry }) => (
                     <div ref={ref}>
-                      <SongListItem key={trackData.id} id={trackData.id} track={trackData} />
+                      <SongListItem
+                        key={trackData.id}
+                        id={trackData.id}
+                        track={trackData}
+                      />
                     </div>
                   )}
                 </InView>
               );
             } else {
-              return <SongListItem key={trackData.id} id={trackData.id} track={trackData} />;
+              return (
+                <SongListItem
+                  key={trackData.id}
+                  id={trackData.id}
+                  track={trackData}
+                />
+              );
             }
           })}
       </ul>
