@@ -7,21 +7,13 @@ import { useSearchParams } from "react-router-dom";
 import Loader from "../components/subcomponents/Loader";
 import Select from "react-select";
 const List = (props) => {
-  const {
-    startUrl,
-    loadMoreOnIndex,
-    trackLocation,
-    header,
-    showTitle,
-    allSongs,
-  } = props;
+  const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
   // States
   const [currentUrl, setCurrentUrl] = useState(startUrl);
   const [songArray, setSongArray] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
   const [inView, setInView] = useState(false);
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
-  const [selectState, setSelectState] = useState("Top Songs");
 
   //Placheholder array of objects for the songs list items to be mapped over in the return statement below
   const { data, loading } = useFetch(currentUrl);
@@ -48,35 +40,11 @@ const List = (props) => {
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
-  const options = [
-    { value: "top/tracks", label: "Top Songs" },
-    { value: "tracks", label: "Saved Songs" },
-  ];
-  const handleChange = (e) => {
-    setSelectState(e.label);
-    if (currentUrl !== `https://api.spotify.com/v1/me/${e.value}`) {
-      setSongArray(null);
-    }
-    setCurrentUrl(`https://api.spotify.com/v1/me/${e.value}`);
-  };
+
   return (
     <>
-      {showTitle && !allSongs && (
+      {showTitle && (
         <h1 className="heading gradient-text">{header ? header : title}</h1>
-      )}
-      {allSongs && (
-        <h1 className="heading gradient-text">Your {selectState}</h1>
-      )}
-      {allSongs && (
-        <Select
-          onChange={handleChange}
-          options={options}
-          className="my-react-select-container w-fit my-4"
-          classNamePrefix="my-react-select"
-          defaultValue={options.filter(
-            (option) => option.label === "Top Songs"
-          )}
-        />
       )}
       {loading && <Loader />}
       {songArray?.length <= 0 && !loading && (
@@ -88,13 +56,7 @@ const List = (props) => {
         {!loading &&
           songArray &&
           songArray?.map((track, i) => {
-            const trackData = trackLocation
-              ? track[trackLocation]
-              : track
-              ? selectState === "Saved Songs"
-                ? track["track"]
-                : track
-              : null;
+            const trackData = trackLocation ? track[trackLocation] : track;
             if (i === loadMoreIndex && nextUrl) {
               return (
                 <InView key={i} onChange={setInView}>
