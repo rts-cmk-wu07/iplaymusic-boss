@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { useState, useContext } from "react";
 import SongContext from "../contexts/SongContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PlayButtons from "./buttons/PlayButtons";
 
 const SongListHeader = ({ playlist }) => {
 	const { songData } = useContext(SongContext);
-	const navigate = useNavigate();
 	const isSongPlaying = playlist?.tracks?.items?.some(
 		song => song.track.id === songData.id
 	);
@@ -14,8 +14,11 @@ const SongListHeader = ({ playlist }) => {
 	useEffect(() => {
 		setAlbumArtIsShown(isSongPlaying);
 	}, [songData, isSongPlaying]);
+
+	const arrayOfTracks = playlist?.tracks?.items.map(track => track.track);
+
 	return (
-		<header className="pb-2 mb-6 border-b border-b-primary/25">
+		<header className="pb-2 mb-6">
 			<div className="relative h-48 w-48 flex justify-center items-center">
 				{playlist.images && (
 					<>
@@ -80,14 +83,12 @@ const SongListHeader = ({ playlist }) => {
 				</motion.div>
 				<p className="text-gray-400 dark:text-gray-600 text-sm">
 					By{" "}
-					<p
+					<Link
 						className="font-semibold text-primary z-50"
-						onClick={() => {
-							navigate(`/user/${playlist.owner.id}`);
-						}}
+						to={`/user/${playlist?.owner?.id}`}
 					>
 						{playlist.owner && playlist.owner.display_name}
-					</p>
+					</Link>
 				</p>
 				{playlist.description && (
 					<p className="my-4 text-black/75 dark:text-white/75 text-base">
@@ -101,6 +102,7 @@ const SongListHeader = ({ playlist }) => {
 					)}
 				</div>
 			</section>
+			<PlayButtons trackList={arrayOfTracks} />
 		</header>
 	);
 };

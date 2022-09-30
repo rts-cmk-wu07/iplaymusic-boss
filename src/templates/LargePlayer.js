@@ -1,25 +1,16 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import {
-	IoChevronDown,
-	IoPlaySkipBack,
-	IoPlayBack,
-	IoPlayForward,
-	IoPlayCircle,
-	IoPlaySkipForward,
-	IoPauseCircle,
-} from 'react-icons/io5';
+import { AnimatePresence, motion } from "framer-motion";
+import { IoChevronDown } from "react-icons/io5";
 import {
 	containerV,
 	albumArtV,
 	titleV,
 	closeV,
-	progressV,
 	imgV,
-	controlV,
-} from '../assets/variants/LargePlayer';
-import Progress from '../components/Progress';
-import PlayBackButton from '../components/buttons/PlayBackButton';
-import useFetch from '../hooks/useFetch';
+} from "../assets/variants/LargePlayer";
+import Progress from "../components/Progress";
+import useFetch from "../hooks/useFetch";
+import PlayBackButtons from "../components/buttons/PlayBackButtons";
+import AnimatedText from "../components/subcomponents/text/AnimatedText";
 
 const LargePlayer = ({
 	isOpen,
@@ -45,7 +36,7 @@ const LargePlayer = ({
 				>
 					<motion.img
 						variants={imgV}
-						src={data?.images[0].url}
+						src={data?.images[0]?.url}
 						className="w-full h-full object-cover absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
 					/>
 
@@ -59,7 +50,7 @@ const LargePlayer = ({
 								<IoChevronDown size={24} className="-mb-px text-white" />
 							</motion.button>
 						</nav>
-						<div className="px-6">
+						<div className="px-6 w-[calc(100vw-24px)]">
 							<motion.div
 								className="flex justify-center items-center w-64 h-64 mb-8 mx-auto rounded-full shadow-2xl shadow-additional/50"
 								variants={albumArtV.bg}
@@ -73,11 +64,11 @@ const LargePlayer = ({
 											opacity: 1,
 											transition: {
 												delay: 0.5,
-												ease: 'easeOut',
+												ease: "easeOut",
 												rotate: {
 													duration: 10,
 													repeat: Infinity,
-													ease: 'linear',
+													ease: "linear",
 												},
 											},
 										},
@@ -85,28 +76,28 @@ const LargePlayer = ({
 									animate={
 										isPlaying
 											? {
-													rotate: ['0deg', '360deg'],
+													rotate: ["0deg", "360deg"],
 													opacity: 1,
 													transition: {
 														delay: 0.5,
-														ease: 'easeOut',
+														ease: "easeOut",
 														rotate: {
 															delay: 0,
 															duration: 10,
 															repeat: Infinity,
-															ease: 'linear',
+															ease: "linear",
 														},
 													},
 											  }
 											: {
-													rotate: '0deg',
+													rotate: "0deg",
 													opacity: 1,
 													transition: {
 														delay: 0.5,
-														ease: 'easeOut',
+														ease: "easeOut",
 														rotate: {
 															delay: 0,
-															type: 'spring',
+															type: "spring",
 															stiffness: 100,
 															damping: 10,
 														},
@@ -119,22 +110,26 @@ const LargePlayer = ({
 								/>
 							</motion.div>
 							<motion.div>
-								<motion.h1
-									variants={titleV.name}
-									style={{ textShadow: '0 2px 8px #00000030' }}
-									className="text-white font-bold text-3xl text-center"
-								>
-									{song?.name || 'Never Gonna Give You Up'}
-								</motion.h1>
-								<motion.h2
-									variants={titleV.artist}
-									style={{ textShadow: '0 2px 8px #00000030' }}
-									className="text-white text-xl text-center mt-2"
-								>
-									{song?.artists
-										? song.artists.map(artist => artist.name).join(', ')
-										: 'Rick Astley'}
-								</motion.h2>
+								<AnimatedText alignment="center">
+									<motion.h1
+										variants={titleV.artist}
+										style={{ textShadow: "0 2px 8px #00000030" }}
+										className="text-white font-bold text-3xl text-center"
+									>
+										{song?.name || "Never Gonna Give You Up"}
+									</motion.h1>
+								</AnimatedText>
+								<AnimatedText alignment="center">
+									<motion.h2
+										variants={titleV.artist}
+										style={{ textShadow: "0 2px 8px #00000030" }}
+										className="text-white text-xl text-center mt-2"
+									>
+										{song?.artists
+											? song.artists.map(artist => artist.name).join(", ")
+											: "Rick Astley"}
+									</motion.h2>
+								</AnimatedText>
 							</motion.div>
 							<motion.div>
 								<Progress
@@ -144,49 +139,11 @@ const LargePlayer = ({
 								/>
 							</motion.div>
 							<motion.div>
-								<motion.div
-									variants={progressV.controls}
-									className="flex justify-center items-center mt-8 gap-4"
-								>
-									<motion.button
-										variants={controlV.skipBack}
-										className="rounded-full w-8 h-8 flex justify-center items-center"
-									>
-										<IoPlaySkipBack className="text-white w-full h-full" />
-									</motion.button>
-									<motion.button
-										variants={controlV.back}
-										className="rounded-full w-12 h-12 flex justify-center items-center"
-									>
-										<IoPlayBack className="text-white w-full h-full" />
-									</motion.button>
-									<PlayBackButton
-										size="xl"
-										variants={controlV.play}
-										animate={{ scale: 1 }}
-										callback={() =>
-											isPlaying ? controls.pause() : controls.play()
-										}
-									>
-										{isPlaying ? (
-											<IoPauseCircle className="w-full h-full" />
-										) : (
-											<IoPlayCircle className="w-full h-full" />
-										)}
-									</PlayBackButton>
-									<motion.button
-										variants={controlV.next}
-										className="rounded-full w-12 h-12 flex justify-center items-center"
-									>
-										<IoPlayForward className="text-white w-full h-full" />
-									</motion.button>
-									<motion.button
-										variants={controlV.skipNext}
-										className="rounded-full w-8 h-8 flex justify-center items-center"
-									>
-										<IoPlaySkipForward className="text-white w-full h-full" />
-									</motion.button>
-								</motion.div>
+								<PlayBackButtons
+									isPlaying={isPlaying}
+									audioControls={controls}
+									setIsOpen={setIsOpen}
+								/>
 							</motion.div>
 						</div>
 					</motion.div>
