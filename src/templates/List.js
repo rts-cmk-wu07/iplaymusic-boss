@@ -5,7 +5,6 @@ import { InView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../components/subcomponents/Loader";
-import Select from "react-select";
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
   // States
