@@ -15,26 +15,26 @@ const sun = {
 		light: {
 			opacity: 1,
 			scale: 1,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 		},
 		dark: {
 			opacity: 0,
 			scale: 0.5,
-			filter: 'blur(2px)',
+			filter: "blur(2px)",
 		},
 		auto: {
 			opacity: 0,
 			scale: 0.5,
-			filter: 'blur(2px)',
+			filter: "blur(2px)",
 		},
 	},
 	rays: {
 		light: i => ({
 			opacity: 1,
 			rotate: `${(360 / 8) * i}deg`,
-			x: 14,
-			width: 6,
-			filter: 'blur(0px)',
+			x: 12,
+			width: 5,
+			filter: "blur(0px)",
 			transition: {
 				delay: i * 0.01,
 			},
@@ -44,7 +44,7 @@ const sun = {
 			x: 0,
 			width: 4,
 			rotate: `${(360 / 8) * i}deg`,
-			filter: 'blur(2px)',
+			filter: "blur(2px)",
 			transition: {
 				duration: 0.2,
 				delay: i * 0.01,
@@ -55,7 +55,7 @@ const sun = {
 			opacity: 0.75,
 			width: 4,
 			rotate: `${(360 / 8) * i}deg`,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 			transition: {
 				duration: 0.25,
 				delay: i * 0.1,
@@ -68,20 +68,20 @@ const moon = {
 	light: {
 		opacity: 0,
 		scale: 0.5,
-		filter: 'blur(2px)',
-		rotate: '90deg',
+		filter: "blur(2px)",
+		rotate: "90deg",
 	},
 	dark: {
 		opacity: 1,
 		scale: 1,
-		filter: 'blur(0px)',
-		rotate: '0deg',
+		filter: "blur(0px)",
+		rotate: "0deg",
 	},
 	auto: {
 		opacity: 1,
 		scale: 0.75,
-		filter: 'blur(0px)',
-		rotate: '0deg',
+		filter: "blur(0px)",
+		rotate: "0deg",
 	},
 };
 
