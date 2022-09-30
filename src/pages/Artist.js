@@ -8,7 +8,9 @@ import Loader from "../components/subcomponents/Loader";
 
 const Artist = () => {
   const { id } = useParams();
-  const { data, loading } = useFetch(`https://api.spotify.com/v1/artists/${id}`);
+  const { data, loading } = useFetch(
+    `https://api.spotify.com/v1/artists/${id}`
+  );
   return (
     <>
       {!loading ? (
@@ -18,7 +20,10 @@ const Artist = () => {
             <TopTracksList id={id} />
             <div className="mt-12 w-full">
               <h3 className="heading text-left mb-6">Related Artists</h3>
-              <ArtistList id={id} startUrl={`https://api.spotify.com/v1/artists/${id}/related-artists`} />
+              <ArtistList
+                id={id}
+                startUrl={`https://api.spotify.com/v1/artists/${id}/related-artists`}
+              />
             </div>
           </>
         </section>

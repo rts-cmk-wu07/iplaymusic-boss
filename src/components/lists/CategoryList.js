@@ -29,19 +29,24 @@ const CategoryList = () => {
     "#F2BC06",
   ];
   const navigate = useNavigate();
-  const { data, loading } = useFetch("https://api.spotify.com/v1/browse/categories?limit=22&offset=2");
+  const { data, loading } = useFetch(
+    "https://api.spotify.com/v1/browse/categories?limit=22&offset=2"
+  );
   return (
     <ul className="mt-4 flex flex-col gap-4">
       {!loading ? (
         data.categories.items.map((category, index) => (
           <motion.li
-            whileTap={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             key={category.id}
             style={{ backgroundColor: colors[index] }}
             className={`rounded-lg flex justify-between items-center p-4 w-full text-white text-xl font-bold cursor-pointer`}
             onClick={() => navigate(`/category/${category.id}`)}
           >
-            {category.name} <IoChevronForward />
+            {category.name}{" "}
+            <motion.span>
+              <IoChevronForward />
+            </motion.span>
           </motion.li>
         ))
       ) : (
