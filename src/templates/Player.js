@@ -17,8 +17,8 @@ const Player = () => {
 	);
 
 	const localStoredVolume = localStorage.getItem("volume");
-
-	const [volume, setVolume] = useState(localStoredVolume || 0.5);
+	const convertedVolume = parseInt(localStoredVolume * 100) / 100;
+	const [volume, setVolume] = useState(convertedVolume || 0.5);
 
 	const [song, setSong] = useState(
 		songData.preview_url === null ? data : songData
