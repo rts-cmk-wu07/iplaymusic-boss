@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 
-const AnimatedText = ({ children, alignment }) => {
+const AnimatedText = ({ children, alignment, callback }) => {
 	const containerRef = useRef(null);
 
 	const isOverFlowing =
@@ -19,7 +19,9 @@ const AnimatedText = ({ children, alignment }) => {
 
 	return (
 		<div
-			className={`w-full flex overflow-x-hidden pointer-events-none ${
+			className={`w-full flex overflow-x-hidden ${
+				!callback ? "pointer-events-none" : null
+			} ${
 				isOverFlowing
 					? "justify-start"
 					: alignment === "center"
@@ -28,6 +30,7 @@ const AnimatedText = ({ children, alignment }) => {
 					? "justify-end"
 					: "justify-start"
 			}`}
+			onClick={callback}
 		>
 			<motion.div
 				// if text is overflowing, animate it to back and forth to create a marquee effect
