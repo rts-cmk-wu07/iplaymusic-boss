@@ -21,6 +21,7 @@ const List = (props) => {
   const [nextUrl, setNextUrl] = useState(null);
   const [inView, setInView] = useState(false);
   const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
+  const [selectState, setSelectState] = useState("Top Songs");
 
   //Placheholder array of objects for the songs list items to be mapped over in the return statement below
   const { data, loading } = useFetch(currentUrl);
@@ -49,29 +50,29 @@ const List = (props) => {
   }, [inView, nextUrl]);
   const options = [
     { value: "top/tracks", label: "Top Songs" },
-    { value: "tracks?market=US&limit=10&offset=0", label: "Saved Songs" },
+    { value: "tracks", label: "Saved Songs" },
   ];
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? "white" : "black",
-      backgroundColor: state.isSelected ? "#1DB954" : "white",
-    }),
+  const handleChange = (e) => {
+    setSelectState(e.label);
+    if (currentUrl !== `https://api.spotify.com/v1/me/${e.value}`) {
+      setSongArray(null);
+    }
+    setCurrentUrl(`https://api.spotify.com/v1/me/${e.value}`);
   };
   return (
     <>
-      {showTitle && (
+      {showTitle && !allSongs && (
         <h1 className="heading gradient-text">{header ? header : title}</h1>
       )}
       {allSongs && (
+        <h1 className="heading gradient-text">Your {selectState}</h1>
+      )}
+      {allSongs && (
         <Select
-          className="w-1/2 my-4"
-          onChange={(e) => {
-            setSongArray(null);
-            setCurrentUrl(`https://api.spotify.com/v1/me/${e.value}`);
-          }}
-          styles={customStyles}
+          onChange={handleChange}
           options={options}
+          className="my-react-select-container w-fit my-4"
+          classNamePrefix="my-react-select"
           defaultValue={options.filter(
             (option) => option.label === "Top Songs"
           )}
@@ -90,12 +91,10 @@ const List = (props) => {
             const trackData = trackLocation
               ? track[trackLocation]
               : track
-              ? currentUrl ===
-                "https://api.spotify.com/v1/me/tracks?market=US&limit=10&offset=0"
+              ? selectState === "Saved Songs"
                 ? track["track"]
                 : track
               : null;
-            console.log(trackData);
             if (i === loadMoreIndex && nextUrl) {
               return (
                 <InView key={i} onChange={setInView}>
