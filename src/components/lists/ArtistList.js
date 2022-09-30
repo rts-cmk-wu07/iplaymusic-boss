@@ -62,17 +62,12 @@ const ArtistList = (props) => {
   };
 
   const listItem = {
-    hidden: { opacity: 0, x: 50 },
-    show: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, scale: 1.25 },
+    show: { opacity: 1, scale: 1 },
   };
 
   return (
-    <motion.ul
-      variants={container}
-      initial="hidden"
-      animate="show"
-      className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2"
-    >
+    <>
       {artistArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
@@ -81,28 +76,33 @@ const ArtistList = (props) => {
           </p>
         </div>
       )}
-
-      {artistArray ? (
-        artistArray?.map((item, i) =>
-          //If element index is loadMore, then load more
-          i === loadMoreIndex && nextUrl ? (
-            <InView key={i} onChange={setInView}>
-              {({ ref }) => (
-                <motion.li ref={ref} variants={listItem}>
-                  <ArtistListItem key={i} id={item.id} item={item} />
-                </motion.li>
-              )}
-            </InView>
-          ) : (
-            <motion.li key={i} variants={listItem}>
-              <ArtistListItem key={i} id={item.id} item={item} />
-            </motion.li>
-          )
-        )
-      ) : (
-        <Loader />
+      {artistArray && !loading && (
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2"
+        >
+          {artistArray?.map((item, i) =>
+            //If element index is loadMore, then load more
+            i === loadMoreIndex && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ ref }) => (
+                  <motion.div ref={ref} variants={listItem}>
+                    <ArtistListItem key={i} id={item.id} item={item} />
+                  </motion.div>
+                )}
+              </InView>
+            ) : (
+              <motion.div key={i} variants={listItem}>
+                <ArtistListItem key={i} id={item.id} item={item} />
+              </motion.div>
+            )
+          )}
+        </motion.ul>
       )}
-    </motion.ul>
+      {loading && <Loader />}
+    </>
   );
 };
 
