@@ -36,7 +36,6 @@ function App() {
 	const { accessToken } = tokenData;
 
 	const [navBgOpen, setNavBgOpen] = useState(false);
-	console.log(navBgOpen);
 
 	/* eslint-disable */
 	useEffect(() => {

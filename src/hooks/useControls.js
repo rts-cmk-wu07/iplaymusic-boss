@@ -47,7 +47,6 @@ const useControls = () => {
 	};
 
 	const toggleRepeat = toggle => {
-		console.log("toggleRepeat");
 		if (toggle) {
 			setControls({ ...controls, isRepeat: toggle });
 		} else {

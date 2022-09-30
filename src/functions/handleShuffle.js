@@ -13,7 +13,6 @@ const handleShuffle = ({
 		const currentIndex = newCurrentList.findIndex(
 			song => song.id === currentId
 		);
-		console.log(newCurrentList[currentIndex].name, currentId);
 		setSongList({ ...songList, currentList: newCurrentList });
 		setSongData(newCurrentList[currentIndex]);
 	} else {
@@ -22,12 +21,8 @@ const handleShuffle = ({
 		const currentIndex = newCurrentList.findIndex(
 			song => song.id === currentId
 		);
-		console.log(newCurrentList[currentIndex].name, currentId);
 		setSongList({ ...songList, currentList: newCurrentList });
 		setSongData(newCurrentList[currentIndex]);
-		setTimeout(() => {
-			console.log("songData", newCurrentList[currentIndex].name);
-		}, 1000);
 	}
 };
 
