@@ -29,56 +29,59 @@ import { useEffect } from "react";
 import User from "./pages/User";
 
 function App() {
-  const location = useLocation();
-  const [loaderModal, setLoaderModal] = useState(false);
+	const location = useLocation();
+	const [loaderModal, setLoaderModal] = useState(false);
 
-  const { tokenData } = useContext(TokenContext);
-  const { accessToken } = tokenData;
+	const { tokenData } = useContext(TokenContext);
+	const { accessToken } = tokenData;
 
-  const [navBgOpen, setNavBgOpen] = useState(false);
+	const [navBgOpen, setNavBgOpen] = useState(false);
+	console.log(navBgOpen);
 
-  useEffect(() => {
-    setNavBgOpen(false);
-  }, [location.pathname, navBgOpen]);
+	/* eslint-disable */
+	useEffect(() => {
+		setNavBgOpen(false);
+	}, [location.pathname]);
+	/* eslint-enable */
 
-  return (
-    <NavBgContext.Provider value={{ navBgOpen, setNavBgOpen }}>
-      <loaderModalContext.Provider value={{ loaderModal, setLoaderModal }}>
-        <AnimatePresence mode="wait" initial={false}>
-          <Routes location={location} key={location.pathname}>
-            {accessToken.length > 0 ? (
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="/login" element={<LogIn />} />
-                <Route path="/events" element={<EventFeed />} />
-                <Route path="/albums" element={<AllAlbums />} />
-                <Route path="/album/:id" element={<Album />} />
-                <Route path="/artists" element={<AllArtists />} />
-                <Route path="/artist/:id" element={<Artist />} />
-                <Route path="/playlists" element={<AllPlaylists />} />
-                <Route path="/playlist/:id" element={<Playlist />} />
-                <Route path="/songs" element={<AllSongs />} />
-                <Route path="/featured" element={<Featured />} />
-                <Route path="/trends" element={<LatestTrends />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/categories" element={<AllCategories />} />
-                <Route path="/category/:id" element={<Category />} />
-                <Route path="/following" element={<Following />} />
-                <Route path="/user/:id" element={<User />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            ) : (
-              <>
-                <Route index element={<LogIn />} />
-                <Route path="/callback" element={<Callback />} />
-                <Route path="*" element={<NotFound />} />
-              </>
-            )}
-          </Routes>
-        </AnimatePresence>
-      </loaderModalContext.Provider>
-    </NavBgContext.Provider>
-  );
+	return (
+		<NavBgContext.Provider value={{ navBgOpen, setNavBgOpen }}>
+			<loaderModalContext.Provider value={{ loaderModal, setLoaderModal }}>
+				<AnimatePresence mode="wait" initial={false}>
+					<Routes location={location} key={location.pathname}>
+						{accessToken.length > 0 ? (
+							<Route path="/" element={<Layout />}>
+								<Route index element={<Home />} />
+								<Route path="/login" element={<LogIn />} />
+								<Route path="/events" element={<EventFeed />} />
+								<Route path="/albums" element={<AllAlbums />} />
+								<Route path="/album/:id" element={<Album />} />
+								<Route path="/artists" element={<AllArtists />} />
+								<Route path="/artist/:id" element={<Artist />} />
+								<Route path="/playlists" element={<AllPlaylists />} />
+								<Route path="/playlist/:id" element={<Playlist />} />
+								<Route path="/songs" element={<AllSongs />} />
+								<Route path="/featured" element={<Featured />} />
+								<Route path="/trends" element={<LatestTrends />} />
+								<Route path="/settings" element={<Settings />} />
+								<Route path="/categories" element={<AllCategories />} />
+								<Route path="/category/:id" element={<Category />} />
+								<Route path="/following" element={<Following />} />
+								<Route path="/user/:id" element={<User />} />
+								<Route path="*" element={<NotFound />} />
+							</Route>
+						) : (
+							<>
+								<Route index element={<LogIn />} />
+								<Route path="/callback" element={<Callback />} />
+								<Route path="*" element={<NotFound />} />
+							</>
+						)}
+					</Routes>
+				</AnimatePresence>
+			</loaderModalContext.Provider>
+		</NavBgContext.Provider>
+	);
 }
 
 export default App;
