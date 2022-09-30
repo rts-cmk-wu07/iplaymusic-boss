@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 import TagList from "./TagList";
 import { useEffect, useState } from "react";
 
-const SavedAlbums = (props) => {
+const AlbumList = (props) => {
   const { url, artist } = props;
   const navigate = useNavigate();
 
-  // Get current albums
+  // Get albums
   const [currentUrl, setCurrentUrl] = useState(url);
   const { data } = useFetch(currentUrl);
-  const myAlbums = data.items;
+  const albums = data.items;
   const [activeTag, setActiveTag] = useState("All");
   const container = {
     hidden: { opacity: 0 },
@@ -27,23 +27,27 @@ const SavedAlbums = (props) => {
     hidden: { opacity: 0, x: 50 },
     show: { opacity: 1, x: 0 },
   };
-  const tags = ["All", "Albums", "Singles"];
-
-  console.log(currentUrl);
+  const tags = ["All", "Albums", "Singles & EPs"];
   useEffect(() => {
     if (activeTag === "All") {
       setCurrentUrl(url);
-    } else {
+    } else if (activeTag === "Albums") {
       setCurrentUrl(
         url.split("include_groups=")[0] +
           "include_groups=" +
           activeTag.slice(0, -1).toLowerCase()
       );
+    } else if (activeTag === "Singles & EPs") {
+      setCurrentUrl(
+        url.split("include_groups=")[0] +
+          "include_groups=" +
+          "single,compilation"
+      );
     }
   }, [activeTag]);
 
   return (
-    myAlbums?.length > 0 && (
+    albums?.length > 0 && (
       <>
         <h2
           className={
@@ -51,7 +55,7 @@ const SavedAlbums = (props) => {
               ? "text-2xl text-left font-bold mt-12 mb-6"
               : "text-md font-bold mt-4 mb-3 text-black dark:text-white"
           }>
-          {artist ? artist + "'s discography" : "Saved Albums"}
+          {artist ? artist + "'s Discography" : "Saved Albums"}
         </h2>
         {artist && (
           <div className="flex my-2 gap-4 items-center">
@@ -67,7 +71,7 @@ const SavedAlbums = (props) => {
           initial="hidden"
           animate="show"
           className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4">
-          {myAlbums?.map((album, index) => {
+          {albums?.map((album, index) => {
             const albumData = artist ? album : album.album;
             return (
               <motion.div
@@ -88,4 +92,4 @@ const SavedAlbums = (props) => {
   );
 };
 
-export default SavedAlbums;
+export default AlbumList;

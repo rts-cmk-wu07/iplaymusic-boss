@@ -4,7 +4,7 @@ import ArtistList from "../components/lists/ArtistList";
 import ArtistProfile from "../components/subcomponents/ArtistProfile";
 import useFetch from "../hooks/useFetch";
 import Loader from "../components/subcomponents/Loader";
-import SavedAlbums from "../components/lists/SavedAlbums";
+import AlbumList from "../components/lists/AlbumList";
 const Artist = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(
@@ -17,7 +17,7 @@ const Artist = () => {
           <>
             <ArtistProfile data={data} />
             <TopTracksList id={id} />
-            <SavedAlbums
+            <AlbumList
               url={`https://api.spotify.com/v1/artists/${id}/albums?market=US&limit=50&include_groups=album,single,compilation,appears_on`}
               artist={data.name}
             />
