@@ -8,10 +8,6 @@ const useSongList = () => {
 	const { setSongList } = useContext(SongListContext);
 
 	const updateSongList = (newSongList, config) => {
-		if (newSongList[0].track) {
-			newSongList = newSongList.map(song => song.track);
-		}
-
 		const originalList = newSongList;
 		let currentList = newSongList;
 		if (isShuffle) {

@@ -7,8 +7,9 @@ import PlayButtons from "./buttons/PlayButtons";
 
 const SongListHeader = ({ playlist }) => {
 	const { songData } = useContext(SongContext);
+	console.log(playlist?.tracks?.items);
 	const isSongPlaying = playlist?.tracks?.items?.some(
-		song => song.track.id === songData.id
+		song => song?.track?.id === songData?.id
 	);
 	const [albumArtIsShown, setAlbumArtIsShown] = useState(isSongPlaying);
 	useEffect(() => {

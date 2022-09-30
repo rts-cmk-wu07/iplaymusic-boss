@@ -16,6 +16,8 @@ const PlayerLayout = ({ children }) => {
 		currentList: [],
 	});
 
+	console.log("songList", songList);
+
 	const [controls, setControls] = useState({
 		isPlaying: false,
 		isShuffle: false,

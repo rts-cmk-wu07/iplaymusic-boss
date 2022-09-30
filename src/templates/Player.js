@@ -16,8 +16,6 @@ const Player = () => {
 		"https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
 	);
 
-	console.log(songData);
-
 	const [song, setSong] = useState(
 		songData.preview_url === null ? data : songData
 	);

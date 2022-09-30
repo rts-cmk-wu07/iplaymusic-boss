@@ -9,8 +9,6 @@ const PlayButtons = ({ trackList }) => {
 	const updateSongList = useSongList();
 	const { setSongData } = useContext(SongContext);
 
-	console.log(trackList);
-
 	return (
 		<section className="mt-6 flex gap-2">
 			<button
