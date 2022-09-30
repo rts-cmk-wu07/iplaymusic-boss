@@ -23,9 +23,6 @@ const handleShuffle = ({
 		);
 		setSongList({ ...songList, currentList: newCurrentList });
 		setSongData(newCurrentList[currentIndex]);
-		setTimeout(() => {
-			console.log("songData", newCurrentList[currentIndex].name);
-		}, 1000);
 	}
 };
 
