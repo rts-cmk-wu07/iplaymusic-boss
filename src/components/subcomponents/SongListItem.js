@@ -1,10 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import millisToTime from "../../functions/millisToTime";
 import useSong from "../../hooks/useSong";
 
 const SongListItem = ({ track, index, noImage, largePadding }) => {
 	// State for the play/pause button
-	const navigate = useNavigate();
 	const updateSong = useSong(track.id);
 
 	return (
