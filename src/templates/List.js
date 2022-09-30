@@ -63,8 +63,8 @@ const List = (props) => {
                   {({ inView, ref, entry }) => (
                     <div ref={ref}>
                       <SongListItem
-                        key={trackData.id}
-                        id={trackData.id}
+                        key={trackData?.id}
+                        id={trackData?.id}
                         track={trackData}
                       />
                     </div>
@@ -74,8 +74,8 @@ const List = (props) => {
             } else {
               return (
                 <SongListItem
-                  key={trackData.id}
-                  id={trackData.id}
+                  key={trackData?.id}
+                  id={trackData?.id}
                   track={trackData}
                 />
               );

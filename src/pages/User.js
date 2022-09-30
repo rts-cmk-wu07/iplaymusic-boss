@@ -7,7 +7,6 @@ import Loader from "../components/subcomponents/Loader";
 const User = () => {
   const { id } = useParams();
   const { data, loading } = useFetch(`https://api.spotify.com/v1/users/${id}`);
-  console.log(data);
   return (
     <section className=" flex flex-col items-center gap-4 mt-6">
       <h1 className="heading gradient-text">{data?.display_name}</h1>

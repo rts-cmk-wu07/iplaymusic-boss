@@ -4,11 +4,11 @@ import useSong from "../../hooks/useSong";
 
 const SongListItem = ({ track, index, noImage, largePadding }) => {
   // State for the play/pause button
-  const updateSong = useSong(track.id);
+  const updateSong = useSong(track?.id);
 
   return (
     <li
-      key={index || track.id}
+      key={index || track?.id}
       onClick={updateSong}
       className={`flex items-center gap-2 justify-between w-full ${
         largePadding ? "py-2" : "py-1"
@@ -22,7 +22,7 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
         )}
         {!noImage && (
           <img
-            src={track.album.images[0].url}
+            src={track?.album?.images[0]?.url}
             alt="album cover"
             className="w-12 h-12 rounded-md"
           />
@@ -32,23 +32,23 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
         <p
           className="dark:text-white font-bold text-ellipsis overflow-hidden"
           onClick={updateSong}>
-          {track.name}
+          {track?.name}
         </p>
         <div className="flex min-w-0 text-ellipsis overflow-hidden whitespace-nowrap ">
-          {track.artists.map((artist, index) => {
+          {track?.artists?.map((artist, index) => {
             return (
               <Link
-                to={`/artist/${artist.id}`}
+                to={`/artist/${artist?.id}`}
                 key={index}
                 className="text-xs opacity-75">
-                {(index ? ", " : "") + artist.name}
+                {(index ? ", " : "") + artist?.name}
               </Link>
             );
           })}
         </div>
       </div>
       <p className="text-black/75 dark:text-white/75 ml-auto text-sm flex-shrink-0">
-        {millisToTime(track.duration_ms)}
+        {millisToTime(track?.duration_ms)}
       </p>
     </li>
   );
