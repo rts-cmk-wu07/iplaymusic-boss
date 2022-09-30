@@ -24,16 +24,12 @@ const AllSongs = () => {
         <List
           startUrl="https://api.spotify.com/v1/me/top/tracks"
           loadMoreOnIndex={16}
-          allSongs="true"
-          showTitle
         />
       )}
       {selectState === "Saved Songs" && (
         <List
           startUrl="https://api.spotify.com/v1/me/tracks"
           loadMoreOnIndex={16}
-          allSongs="true"
-          showTitle
           trackLocation="track"
         />
       )}

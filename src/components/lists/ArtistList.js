@@ -4,6 +4,7 @@ import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import ArtistListItem from "../subcomponents/ArtistListItem";
 import Loader from "../subcomponents/Loader";
+import { motion } from "framer-motion";
 
 const ArtistList = (props) => {
   const { startUrl, loadMoreOnIndex } = props;
@@ -49,35 +50,59 @@ const ArtistList = (props) => {
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const listItem = {
+    hidden: { opacity: 0, scale: 1.25 },
+    show: { opacity: 1, scale: 1 },
+  };
+
   return (
-    <ul className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2">
+    <>
       {artistArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
-            There are no artists here, you can search for artists in the search bar above.
+            There are no artists here, you can search for artists in the search
+            bar above.
           </p>
         </div>
       )}
-
-      {!loading ? (
-        artistArray?.map((item, i) =>
-          //If element index is loadMore, then load more
-          i === loadMoreIndex && nextUrl ? (
-            <InView key={i} onChange={setInView}>
-              {({ ref }) => (
-                <div ref={ref}>
-                  <ArtistListItem key={i} id={item.id} item={item} />
-                </div>
-              )}
-            </InView>
-          ) : (
-            <ArtistListItem key={i} id={item.id} item={item} />
-          )
-        )
-      ) : (
-        <Loader />
+      {artistArray && !loading && (
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2"
+        >
+          {artistArray?.map((item, i) =>
+            //If element index is loadMore, then load more
+            i === loadMoreIndex && nextUrl ? (
+              <InView key={i} onChange={setInView}>
+                {({ ref }) => (
+                  <motion.div ref={ref} variants={listItem}>
+                    <ArtistListItem key={i} id={item.id} item={item} />
+                  </motion.div>
+                )}
+              </InView>
+            ) : (
+              <motion.div key={i} variants={listItem}>
+                <ArtistListItem key={i} id={item.id} item={item} />
+              </motion.div>
+            )
+          )}
+        </motion.ul>
       )}
-    </ul>
+      {loading && <Loader />}
+    </>
   );
 };
 
