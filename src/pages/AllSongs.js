@@ -1,15 +1,16 @@
-import List from '../templates/List';
+import List from "../templates/List";
 const AllSongs = () => {
-	return (
-		<div className="p-6">
-			<List
-				startUrl="https://api.spotify.com/v1/me/top/tracks"
-				loadMoreOnIndex={16}
-				header="Your Top Songs"
-				showTitle
-			/>
-		</div>
-	);
+  return (
+    <div className="p-6">
+      <List
+        startUrl="https://api.spotify.com/v1/me/top/tracks"
+        loadMoreOnIndex={16}
+        header="Your Top Songs"
+        allSongs="true"
+        showTitle
+      />
+    </div>
+  );
 };
 
 export default AllSongs;
