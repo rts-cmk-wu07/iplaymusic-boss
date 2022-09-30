@@ -6,8 +6,7 @@ import useFetch from "../hooks/useFetch";
 /* Components */
 import SoundWaveHeader from "../components/subcomponents/SoundWaveHeader";
 import Playlist from "../components/subcomponents/Playlist";
-
-const loadingPlaceholderAmount = Array.from({ length: 20 }, () => 0);
+import Loader from "../components/subcomponents/Loader";
 
 //sfc => for printing users playlists out
 const AllPlaylists = () => {
@@ -42,7 +41,6 @@ const AllPlaylists = () => {
 
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
-    if (inView) console.log("%cNow loading more playlists", "color: green;");
   }, [inView, nextUrl]);
 
   const container = {
@@ -63,6 +61,11 @@ const AllPlaylists = () => {
   return (
     <div className="mb-[1rem]">
       <SoundWaveHeader />
+      {loading && (
+        <div className="mt-[75%]">
+          <Loader />
+        </div>
+      )}
       {!loading && data?.items.length <= 0 && (
         <div className="text-additional dark:text-white mt-[75%]">
           <h2 className="text-4xl font-bold text-center mb-2">
