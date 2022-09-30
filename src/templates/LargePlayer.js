@@ -9,9 +9,6 @@ import {
 } from "../assets/variants/LargePlayer";
 import Progress from "../components/Progress";
 import useFetch from "../hooks/useFetch";
-import useControls from "../hooks/useControls";
-import { useContext } from "react";
-import ControlsContext from "../contexts/ControlsContext";
 import PlayBackButtons from "../components/buttons/PlayBackButtons";
 import AnimatedText from "../components/subcomponents/text/AnimatedText";
 
