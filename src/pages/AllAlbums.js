@@ -1,5 +1,5 @@
-import SavedAlbums from "../components/lists/SavedAlbums"
-import NewReleases from "../components/lists/NewReleases"
+import SavedAlbums from "../components/lists/SavedAlbums";
+import NewReleases from "../components/lists/NewReleases";
 
 const AllAlbums = () => {
   return (
@@ -8,7 +8,7 @@ const AllAlbums = () => {
       <SavedAlbums url="https://api.spotify.com/v1/me/albums" />
       <NewReleases url="https://api.spotify.com/v1/browse/new-releases?country=US" />
     </div>
-  )
-}
+  );
+};
 
-export default AllAlbums
+export default AllAlbums;
