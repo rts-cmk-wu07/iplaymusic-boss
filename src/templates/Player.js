@@ -16,7 +16,9 @@ const Player = () => {
 		"https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
 	);
 
-	const [volume, setVolume] = useState(1);
+	const localStoredVolume = localStorage.getItem("volume");
+
+	const [volume, setVolume] = useState(localStoredVolume || 0.5);
 
 	const [song, setSong] = useState(
 		songData.preview_url === null ? data : songData

@@ -25,6 +25,10 @@ const VolumeSlider = ({ current, setCurrent }) => {
 		};
 	}, []);
 
+	const saveVolume = e => {
+		localStorage.setItem("volume", e);
+	};
+
 	return (
 		<motion.div
 			animate={{
@@ -92,6 +96,9 @@ const VolumeSlider = ({ current, setCurrent }) => {
 								} else {
 									setCurrent(startOffset - info.offset.y / 280);
 								}
+							}}
+							onDragEnd={(e, info) => {
+								saveVolume(startOffset - info.offset.y / 280);
 							}}
 						/>
 						<motion.div
