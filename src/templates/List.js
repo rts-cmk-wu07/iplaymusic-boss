@@ -28,7 +28,7 @@ const List = (props) => {
         setLoadMoreIndex((prevState) => prevState * 2);
         setSongArray([...songArray, ...data.items]);
       } else {
-        setSongArray(data.items);
+        setSongArray(data.items.filter((item) => item.track));
       }
       setNextUrl(data.next);
     }
