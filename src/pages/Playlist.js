@@ -8,8 +8,6 @@ const Playlist = () => {
 
   const { data } = useFetch(`https://api.spotify.com/v1/playlists/${id}`);
 
-  console.log(data);
-
   return (
     <div className="p-6">
       <SongListHeader playlist={data} />
