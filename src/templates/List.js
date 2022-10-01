@@ -28,7 +28,7 @@ const List = (props) => {
         setLoadMoreIndex((prevState) => prevState * 2);
         setSongArray([...songArray, ...data.items]);
       } else {
-        setSongArray(data.items);
+        setSongArray(data.items.filter((item) => item.track));
       }
       setNextUrl(data.next);
     }
@@ -38,6 +38,7 @@ const List = (props) => {
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
+    if (inView) console.log("%chenter flere", "color: red;");
   }, [inView, nextUrl]);
 
   return (
