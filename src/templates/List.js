@@ -38,7 +38,6 @@ const List = (props) => {
   // When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
-    if (inView) console.log("%chenter flere", "color: red;");
   }, [inView, nextUrl]);
 
   return (
