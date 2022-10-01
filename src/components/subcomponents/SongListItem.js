@@ -15,8 +15,7 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
       className={`flex items-center gap-2 justify-between w-full ${
         largePadding ? "py-2" : "py-1"
       } text-additional
-      dark:text-white`}
-    >
+      dark:text-white`}>
       <div className="flex justify-between items-center flex-shrink-0">
         {index && (
           <p className="w-6 font-light tracking-widest text-sm text-left shrink-0">
@@ -40,8 +39,7 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
       <div className="flex flex-col min-w-0 whitespace-nowrap">
         <p
           className="dark:text-white font-bold text-ellipsis overflow-hidden"
-          onClick={updateSong}
-        >
+          onClick={updateSong}>
           {track?.name}
         </p>
         <div className="flex min-w-0 text-ellipsis overflow-hidden whitespace-nowrap ">
@@ -51,7 +49,7 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
                 to={`/artist/${artist?.id}`}
                 key={index}
                 className="text-xs opacity-75"
-              >
+                onClick={(e) => e.stopPropagation()}>
                 {(index ? ", " : "") + artist?.name}
               </Link>
             );
