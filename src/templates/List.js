@@ -52,7 +52,7 @@ const List = (props) => {
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction onClick={() => console.info("swipe action triggered")}>
-        Action name
+        <div className="bg-red-500">leading</div>
       </SwipeAction>
     </LeadingActions>
   );
@@ -63,7 +63,7 @@ const List = (props) => {
         destructive={true}
         onClick={() => console.info("swipe action triggered")}
       >
-        Delete
+        <div className="bg-red-500">trailing</div>
       </SwipeAction>
     </TrailingActions>
   );
