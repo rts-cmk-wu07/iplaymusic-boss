@@ -5,6 +5,14 @@ import { InView } from "react-intersection-observer";
 import useFetch from "../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../components/subcomponents/Loader";
+import {
+  LeadingActions,
+  SwipeableList,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+} from "react-swipeable-list";
+import "react-swipeable-list/dist/styles.css";
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
   // States
@@ -40,6 +48,26 @@ const List = (props) => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
 
+  // Swipeable things
+  const leadingActions = () => (
+    <LeadingActions>
+      <SwipeAction onClick={() => console.info("swipe action triggered")}>
+        Action name
+      </SwipeAction>
+    </LeadingActions>
+  );
+
+  const trailingActions = () => (
+    <TrailingActions>
+      <SwipeAction
+        destructive={true}
+        onClick={() => console.info("swipe action triggered")}
+      >
+        Delete
+      </SwipeAction>
+    </TrailingActions>
+  );
+
   return (
     <>
       {showTitle && (
@@ -51,7 +79,15 @@ const List = (props) => {
           There are no songs here yet
         </h2>
       )}
-      <ul className="flex flex-col gap-2 mt-4 mx-auto">
+      <SwipeableList>
+        <SwipeableListItem
+          leadingActions={leadingActions()}
+          trailingActions={trailingActions()}
+        >
+          Item content
+        </SwipeableListItem>
+      </SwipeableList>
+      <ul className="flex flex-col gap-2 mt-4 mx-auto overflow-y-auto max-h-[80vw]">
         {!loading &&
           songArray &&
           songArray?.map((track, i) => {
