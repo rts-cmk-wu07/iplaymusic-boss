@@ -29,7 +29,7 @@ const SongListItem = ({
         className={`flex items-center gap-2 justify-between w-full ${
           largePadding ? "py-2" : "py-1"
         } text-additional
-      dark:text-white`}>
+      dark:text-white select-none`}>
         <div className="flex justify-between items-center flex-shrink-0">
           {index && (
             <p className="w-6 font-light tracking-widest text-sm text-left shrink-0">
@@ -51,13 +51,13 @@ const SongListItem = ({
           )}
         </div>
         <div className="flex flex-col min-w-0 whitespace-nowrap">
-          <div onClick={updateSong} className="flex items-center gap-1">
+          <div onClick={updateSong} className="flex items-baseline gap-1">
             {songData?.id === track?.id && <NowPlaying />}
             <p
               className={
                 songData?.id === track?.id
-                  ? "text-[#1db954] font-bold text-ellipsis overflow-hidden"
-                  : "dark:text-white font-bold text-ellipsis overflow-hidden"
+                  ? "gradient-text text-md font-bold text-ellipsis overflow-hidden"
+                  : "text-md font-bold text-ellipsis overflow-hidden"
               }>
               {track?.name}
             </p>

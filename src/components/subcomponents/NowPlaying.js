@@ -11,7 +11,7 @@ const styles = {
     span {
       width: 3px;
       height: 100%;
-      background-color: #1db954;
+      background-color: #ff1168;
       border-radius: 3px;
       transform-origin: bottom;
       animation: bounce 2.2s ease infinite alternate;
