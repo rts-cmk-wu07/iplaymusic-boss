@@ -21,7 +21,7 @@ const Layout = () => {
 				transition={{
 					duration: 0.25,
 				}}
-				className="pt-20 pb-40"
+				className="pt-20 pb-40 h-fit flex flex-col"
 			>
 				<Outlet />
 			</motion.main>

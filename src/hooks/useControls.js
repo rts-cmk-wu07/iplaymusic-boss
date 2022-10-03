@@ -5,7 +5,7 @@ import ControlsContext from "../contexts/ControlsContext";
 
 const useControls = () => {
 	const { songData, setSongData } = useContext(SongContext);
-	const { songList } = useContext(SongListContext);
+	const { songList, setSongList } = useContext(SongListContext);
 	const { controls, setControls } = useContext(ControlsContext);
 
 	const nextSong = setOpen => {
@@ -55,11 +55,29 @@ const useControls = () => {
 		}
 	};
 
+	const addToQueue = song => {
+		const { currentList } = songList;
+		const currentIndex = currentList.findIndex(song => song.id === songData.id);
+		const nextIndex = currentIndex + 1;
+
+		const newSongList = [
+			...currentList.slice(0, nextIndex),
+			song,
+			...currentList.slice(nextIndex),
+		];
+
+		setSongList({
+			originalList: newSongList,
+			currentList: newSongList,
+		});
+	};
+
 	return {
 		nextSong,
 		previousSong,
 		toggleShuffle,
 		toggleRepeat,
+		addToQueue,
 	};
 };
 export default useControls;
