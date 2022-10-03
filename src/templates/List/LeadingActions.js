@@ -1,11 +1,20 @@
 import { LeadingActions, SwipeAction } from "react-swipeable-list";
+import SwipeComponent from "./SwipeComponent";
 
-const leadingActions = () => (
-  <LeadingActions>
-    <SwipeAction onClick={() => console.info("swipe action triggered")}>
-      <div className="bg-green-500 text-center">ARCHIVE</div>
-    </SwipeAction>
-  </LeadingActions>
-);
+const leadingActions = (props) => {
+  const { action, destructive, text, bgColor, textColor } = props;
+  return (
+    <LeadingActions>
+      <SwipeAction onClick={action} destructive={destructive}>
+        <SwipeComponent
+          text={text}
+          textColor={textColor}
+          bgColor={bgColor}
+          margin="0 1rem 0 0"
+        />
+      </SwipeAction>
+    </LeadingActions>
+  );
+};
 
 export default leadingActions;

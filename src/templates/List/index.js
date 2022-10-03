@@ -5,12 +5,7 @@ import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../../components/subcomponents/Loader";
-import {
-  LeadingActions,
-  SwipeableList,
-  SwipeableListItem,
-  SwipeAction,
-} from "react-swipeable-list";
+import { SwipeableList, SwipeableListItem } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import trailingActions from "./TrailingActions";
 import leadingActions from "./LeadingActions";
@@ -72,14 +67,32 @@ const List = (props) => {
         >
           {songArray.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;
+
+            const leadingAction = () =>
+              leadingActions({
+                action: () => console.log("swiped right"),
+                destructive: false,
+                text: "QUIUE",
+                bgColor: "green",
+                textColor: "black",
+              });
+            const trailingAction = () =>
+              trailingActions({
+                action: () => console.log("swiped left"),
+                destructive: false,
+                text: "DELETE",
+                bgColor: "red",
+                textColor: "white",
+              });
+
             if (i === loadMoreIndex && nextUrl) {
               return (
                 <InView key={i} onChange={setInView}>
                   {({ inView, ref, entry }) => (
                     <div key={i} ref={ref}>
                       <SwipeableListItem
-                        leadingActions={leadingActions()}
-                        trailingActions={trailingActions()}
+                        leadingActions={leadingAction()}
+                        trailingActions={trailingAction()}
                       >
                         <SongListItem
                           key={i}
@@ -95,8 +108,8 @@ const List = (props) => {
               return (
                 <SwipeableListItem
                   key={i}
-                  leadingActions={leadingActions()}
-                  trailingActions={trailingActions()}
+                  leadingActions={leadingAction()}
+                  trailingActions={trailingAction()}
                 >
                   <SongListItem
                     key={trackData?.id}
