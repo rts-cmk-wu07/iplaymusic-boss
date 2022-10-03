@@ -5,9 +5,9 @@ const Following = () => {
     <section className="p-2">
       <h1 className="heading gradient-text">Following</h1>
       <ArtistList
-        startUrl="https://api.spotify.com/v1/me/following?type=artist&limit=50"
+        startUrl="https://api.spotify.com/v1/me/following?type=artist"
         artistsLocation="artists"
-        loadMoreOnIndex={49}
+        loadMoreOnIndex={19}
       />
     </section>
   );
