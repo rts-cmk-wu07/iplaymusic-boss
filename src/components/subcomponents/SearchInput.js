@@ -21,8 +21,8 @@ const SearchInput = (props) => {
         <span
           className={
             isFocused
-              ? "cursor-text text-primary absolute text-xs ml-3 transition-all overflow-hidden text-ellipsis whitespace-nowrap"
-              : "cursor-text text-primary transition-all absolute mt-4 ml-[23px] overflow-hidden text-ellipsis whitespace-nowrap"
+              ? "cursor-text text-primary absolute text-xs ml-3 transition-all overflow-hidden text-ellipsis whitespace-nowrap w-[calc(100%-23px)]"
+              : "cursor-text text-primary transition-all absolute mt-4 ml-[23px] overflow-hidden text-ellipsis whitespace-nowrap w-[calc(100%-23px)]"
           }>
           Search for Tracks, Artists, Playlists and Albums
         </span>
