@@ -10,7 +10,7 @@ const SavedAlbums = (props) => {
   // Get current users saved albums
   const { data } = useFetch(url);
   const myAlbums = data.items;
-
+  console.log(data);
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -36,20 +36,18 @@ const SavedAlbums = (props) => {
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4"
-        >
+          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4">
           {myAlbums?.map((album, index) => {
-            const albumData = album.album;
+            const albumData = album;
             return (
               <motion.div
                 whileTap={{ scale: 0.9 }}
                 key={index}
-                variants={listItem}
-              >
+                variants={listItem}>
                 <AlbumArt
-                  artwork={albumData.images[1].url}
+                  artwork={albumData?.images[1]?.url}
                   widthHeight="130px"
-                  callback={() => navigate(`/album/${albumData.id}`)}
+                  callback={() => navigate(`/album/${albumData?.id}`)}
                 />
               </motion.div>
             );

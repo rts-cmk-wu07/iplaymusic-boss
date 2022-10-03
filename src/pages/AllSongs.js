@@ -15,6 +15,7 @@ const AllSongs = () => {
       <h1 className="heading gradient-text">Your {selectState}</h1>
       <Select
         onChange={handleChange}
+        isSearchable={false}
         options={options}
         className="my-react-select-container w-fit my-4"
         classNamePrefix="my-react-select"
