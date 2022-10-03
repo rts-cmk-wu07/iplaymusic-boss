@@ -12,6 +12,9 @@ const SwipeComponent = (props) => {
     justify-content: center;
     margin: ${margin};
     border-radius: 0.5rem;
+    span {
+      padding: 0 0.2rem;
+    }
   `;
 
   return (

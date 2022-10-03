@@ -9,6 +9,7 @@ import { SwipeableList, SwipeableListItem } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 import trailingActions from "./TrailingActions";
 import leadingActions from "./LeadingActions";
+import useControls from "../../hooks/useControls";
 
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
@@ -21,6 +22,8 @@ const List = (props) => {
 
   //Placheholder array of objects for the songs list items to be mapped over in the return statement below
   const { data, loading } = useFetch(currentUrl);
+
+  const { addToQueue } = useControls();
 
   // Getting the title
   const [searchParams] = useSearchParams();
@@ -68,17 +71,18 @@ const List = (props) => {
           {songArray.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;
 
+            // on swipe right add song to queue
             const leadingAction = () =>
               leadingActions({
-                action: () => console.log("swiped right"),
+                action: () => addToQueue(trackData),
                 destructive: false,
-                text: "QUIUE",
-                bgColor: "green",
+                text: "Queue",
+                bgColor: "#93c572",
                 textColor: "black",
               });
             const trailingAction = () =>
               trailingActions({
-                action: () => console.log("swiped left"),
+                action: null,
                 destructive: false,
                 text: "DELETE",
                 bgColor: "red",
