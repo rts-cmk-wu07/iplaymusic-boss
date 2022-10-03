@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import TagList from "./lists/TagList";
 import SearchInput from "./subcomponents/SearchInput";
 import SearchCard from "./subcomponents/SearchCard";
-import SongListItem from "./subcomponents/SongListItem";
+import { SwipeableList } from "react-swipeable-list";
 
 // Setting the things we want to search for
 const searchStates = ["track", "playlist", "artist", "album"];
@@ -99,7 +99,7 @@ const Search = ({ setSearchOpen, transparent }) => {
               setActiveTag={setActiveSearchState}
             />
           </div>
-          <ul className="flex flex-col px-3 gap-2 mb-3 max-h-[400px] overflow-y-auto ">
+          <SwipeableList className="flex flex-col px-3 gap-2 mb-3 max-h-[400px] overflow-y-auto ">
             {printData?.map((item) => {
               const type = item.type.toLowerCase();
               let image;
@@ -110,32 +110,18 @@ const Search = ({ setSearchOpen, transparent }) => {
                 image = item?.images[0]?.url;
               }
 
-              if (type !== "track") {
-                return (
-                  <SearchCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.name}
-                    type={type}
-                    img={image} //item.album.images[2].url
-                    albumId={item?.album?.id}
-                  />
-                );
-              } else {
-                return (
-                  <SongListItem
-                    key={item.id}
-                    id={item.id}
-                    title={item.name}
-                    type={type}
-                    img={image} //item.album.images[2].url
-                    albumId={item?.album?.id}
-                    searchCard
-                  />
-                );
-              }
+              return (
+                <SearchCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.name}
+                  type={type}
+                  img={image} //item.album.images[2].url
+                  albumId={item?.album?.id}
+                />
+              );
             })}
-          </ul>
+          </SwipeableList>
           {showErr && (
             <p className="text-center -translate-y-3 text-primary">
               No results

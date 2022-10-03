@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import millisToTime from "../../functions/millisToTime";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useSong from "../../hooks/useSong";
 import { FiChevronRight } from "react-icons/fi";
+import SongContext from "../../contexts/SongContext";
+import NowPlaying from "./NowPlaying";
 
 const SongListItem = ({
   track,
@@ -15,7 +17,7 @@ const SongListItem = ({
   // State for the play/pause button
   const updateSong = useSong(track?.id);
   const [isImage, setIsImage] = useState(false);
-
+  const { songData } = useContext(SongContext);
   let isExists =
     track?.album?.images.length > 0 ? true : noImage ? true : false;
   const navigate = useNavigate();
@@ -49,12 +51,18 @@ const SongListItem = ({
           )}
         </div>
         <div className="flex flex-col min-w-0 whitespace-nowrap">
-          <p
-            className="dark:text-white font-bold text-ellipsis overflow-hidden"
-            onClick={updateSong}>
-            {track?.name}
-          </p>
-          <div className="flex min-w-0 text-ellipsis overflow-hidden whitespace-nowrap ">
+          <div onClick={updateSong} className="flex items-center gap-1">
+            {songData?.id === track?.id && <NowPlaying />}
+            <p
+              className={
+                songData?.id === track?.id
+                  ? "text-[#1db954] font-bold text-ellipsis overflow-hidden"
+                  : "dark:text-white font-bold text-ellipsis overflow-hidden"
+              }>
+              {track?.name}
+            </p>
+          </div>
+          <div className="flex min-w-0 text-ellipsis overflow-hidden whitespace-nowrap">
             {track?.artists?.map((artist, index) => {
               return (
                 <Link
