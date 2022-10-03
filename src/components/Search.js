@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import TagList from "./lists/TagList";
 import SearchInput from "./subcomponents/SearchInput";
 import SearchCard from "./subcomponents/SearchCard";
+import SongListItem from "./subcomponents/SongListItem";
 
 // Setting the things we want to search for
 const searchStates = ["track", "playlist", "artist", "album"];
@@ -109,16 +110,30 @@ const Search = ({ setSearchOpen, transparent }) => {
                 image = item?.images[0]?.url;
               }
 
-              return (
-                <SearchCard
-                  key={item.id}
-                  id={item.id}
-                  title={item.name}
-                  type={type}
-                  img={image} //item.album.images[2].url
-                  albumId={item?.album?.id}
-                />
-              );
+              if (type !== "track") {
+                return (
+                  <SearchCard
+                    key={item.id}
+                    id={item.id}
+                    title={item.name}
+                    type={type}
+                    img={image} //item.album.images[2].url
+                    albumId={item?.album?.id}
+                  />
+                );
+              } else {
+                return (
+                  <SongListItem
+                    key={item.id}
+                    id={item.id}
+                    title={item.name}
+                    type={type}
+                    img={image} //item.album.images[2].url
+                    albumId={item?.album?.id}
+                    searchCard
+                  />
+                );
+              }
             })}
           </ul>
           {showErr && (

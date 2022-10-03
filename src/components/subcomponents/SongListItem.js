@@ -1,16 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import millisToTime from "../../functions/millisToTime";
 import { useState } from "react";
 import useSong from "../../hooks/useSong";
+import { FiChevronRight } from "react-icons/fi";
 
-const SongListItem = ({ track, index, noImage, largePadding }) => {
+const SongListItem = ({
+  track,
+  index,
+  noImage,
+  largePadding,
+  searchCard,
+  albumId,
+}) => {
   // State for the play/pause button
   const updateSong = useSong(track?.id);
   const [isImage, setIsImage] = useState(false);
 
   let isExists =
     track?.album?.images.length > 0 ? true : noImage ? true : false;
-
+  const navigate = useNavigate();
   return (
     isExists && (
       <li
@@ -60,9 +68,20 @@ const SongListItem = ({ track, index, noImage, largePadding }) => {
             })}
           </div>
         </div>
-        <p className="text-black/75 dark:text-white/75 ml-auto text-sm flex-shrink-0">
-          {millisToTime(track?.duration_ms)}
-        </p>
+        {searchCard ? (
+          <p
+            className="ml-auto text-2xl"
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate(`/album/${albumId}`);
+            }}>
+            <FiChevronRight />
+          </p>
+        ) : (
+          <p className="text-black/75 dark:text-white/75 ml-auto text-sm flex-shrink-0">
+            {millisToTime(track?.duration_ms)}
+          </p>
+        )}
       </li>
     )
   );
