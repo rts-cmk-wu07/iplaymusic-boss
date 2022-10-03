@@ -59,12 +59,7 @@ const Album = () => {
 					</div>
 					<div>
 						<div className="flex items-center gap-2 text-white/75">
-							<p>
-								{/* {data?.release_date?.split('-')[2]} -{' '}
-								{data?.release_date?.split('-')[1]} -{' '}
-								{data?.release_date?.split('-')[0]} */}
-								{convertDate(data?.release_date)}
-							</p>
+							<p>{convertDate(data?.release_date)}</p>
 							<p>•</p>
 							<p>{data?.total_tracks} songs</p>
 						</div>
