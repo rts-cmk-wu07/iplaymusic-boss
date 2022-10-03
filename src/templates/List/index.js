@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import SongListItem from "../components/subcomponents/SongListItem";
+import SongListItem from "../../components/subcomponents/SongListItem";
 import { InView } from "react-intersection-observer";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
-import Loader from "../components/subcomponents/Loader";
+import Loader from "../../components/subcomponents/Loader";
 import {
   LeadingActions,
   SwipeableList,
   SwipeableListItem,
   SwipeAction,
-  TrailingActions,
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
+import trailingActions from "./TrailingActions";
+import leadingActions from "./LeadingActions";
+
 const List = (props) => {
   const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
   // States
@@ -48,26 +50,6 @@ const List = (props) => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
 
-  // Swipeable things
-  const leadingActions = () => (
-    <LeadingActions>
-      <SwipeAction onClick={() => console.info("swipe action triggered")}>
-        <div className="bg-red-500">leading</div>
-      </SwipeAction>
-    </LeadingActions>
-  );
-
-  const trailingActions = () => (
-    <TrailingActions>
-      <SwipeAction
-        destructive={true}
-        onClick={() => console.info("swipe action triggered")}
-      >
-        <div className="bg-red-500">trailing</div>
-      </SwipeAction>
-    </TrailingActions>
-  );
-
   return (
     <>
       {showTitle && (
@@ -79,44 +61,54 @@ const List = (props) => {
           There are no songs here yet
         </h2>
       )}
-      <SwipeableList>
-        <SwipeableListItem
-          leadingActions={leadingActions()}
-          trailingActions={trailingActions()}
+      {!loading && songArray && (
+        <SwipeableList
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.5rem",
+            marginTop: "1rem",
+          }}
         >
-          Item content
-        </SwipeableListItem>
-      </SwipeableList>
-      <ul className="flex flex-col gap-2 mt-4 mx-auto overflow-y-auto max-h-[80vw]">
-        {!loading &&
-          songArray &&
-          songArray?.map((track, i) => {
+          {songArray.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;
             if (i === loadMoreIndex && nextUrl) {
               return (
                 <InView key={i} onChange={setInView}>
                   {({ inView, ref, entry }) => (
-                    <div ref={ref}>
-                      <SongListItem
-                        key={i}
-                        id={trackData?.id}
-                        track={trackData}
-                      />
+                    <div key={i} ref={ref}>
+                      <SwipeableListItem
+                        leadingActions={leadingActions()}
+                        trailingActions={trailingActions()}
+                      >
+                        <SongListItem
+                          key={i}
+                          id={trackData?.id}
+                          track={trackData}
+                        />
+                      </SwipeableListItem>
                     </div>
                   )}
                 </InView>
               );
             } else {
               return (
-                <SongListItem
-                  key={trackData?.id}
-                  id={trackData?.id}
-                  track={trackData}
-                />
+                <SwipeableListItem
+                  key={i}
+                  leadingActions={leadingActions()}
+                  trailingActions={trailingActions()}
+                >
+                  <SongListItem
+                    key={trackData?.id}
+                    id={trackData?.id}
+                    track={trackData}
+                  />
+                </SwipeableListItem>
               );
             }
           })}
-      </ul>
+        </SwipeableList>
+      )}
     </>
   );
 };
