@@ -6,10 +6,7 @@ const AllSongs = () => {
   function handleChange(e) {
     setSelectState(e.label);
   }
-  const options = [
-    { value: "top/tracks", label: "Top Songs" },
-    { value: "tracks", label: "Saved Songs" },
-  ];
+  const options = [{ label: "Top Songs" }, { label: "Saved Songs" }];
   return (
     <div className="p-6">
       <h1 className="heading gradient-text">Your {selectState}</h1>
