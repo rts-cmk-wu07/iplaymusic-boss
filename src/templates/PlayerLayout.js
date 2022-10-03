@@ -7,58 +7,59 @@ import SongContext from "../contexts/SongContext";
 import SongListContext from "../contexts/SongListContext";
 import ControlsContext from "../contexts/ControlsContext";
 import handleShuffle from "../functions/handleShuffle";
+import useFetch from "../hooks/useFetch";
 
 const PlayerLayout = ({ children }) => {
-	const [songData, setSongData] = useState({});
+  const [songData, setSongData] = useState({});
 
-	const [songList, setSongList] = useState({
-		originalList: [],
-		currentList: [],
-	});
+  const [songList, setSongList] = useState({
+    originalList: [],
+    currentList: [],
+  });
 
-	const [controls, setControls] = useState({
-		isPlaying: false,
-		isShuffle: false,
-		isRepeat: false,
-	});
+  const [controls, setControls] = useState({
+    isPlaying: false,
+    isShuffle: false,
+    isRepeat: false,
+  });
 
-	/* eslint-disable */
-	useEffect(() => {
-		if (songList.originalList.length > 0) {
-			handleShuffle({
-				isShuffle: controls.isShuffle,
-				currentId: songData.id,
-				setSongData,
-				setSongList,
-				songList,
-			});
-		}
-	}, [controls.isShuffle]);
-	/* eslint-enable */
+  /* eslint-disable */
+  useEffect(() => {
+    if (songList.originalList.length > 0) {
+      handleShuffle({
+        isShuffle: controls.isShuffle,
+        currentId: songData.id,
+        setSongData,
+        setSongList,
+        songList,
+      });
+    }
+  }, [controls.isShuffle]);
+  /* eslint-enable */
 
-	const [tokenData, setTokenData] = useState({
-		accessToken: "",
-		refreshToken: "",
-		expiredDate: null,
-	});
-	const { accessToken } = tokenData;
+  const [tokenData, setTokenData] = useState({
+    accessToken: "",
+    refreshToken: "",
+    expiredDate: null,
+  });
+  const { accessToken } = tokenData;
 
-	useEffect(() => {
-		refreshTokenFunction(setTokenData);
-	}, []);
+  useEffect(() => {
+    refreshTokenFunction(setTokenData);
+  }, []);
 
-	return (
-		<ControlsContext.Provider value={{ controls, setControls }}>
-			<SongListContext.Provider value={{ songList, setSongList }}>
-				<SongContext.Provider value={{ songData, setSongData }}>
-					<TokenContext.Provider value={{ tokenData, setTokenData }}>
-						{children}
-						{accessToken && <Player />}
-					</TokenContext.Provider>
-				</SongContext.Provider>
-			</SongListContext.Provider>
-		</ControlsContext.Provider>
-	);
+  return (
+    <ControlsContext.Provider value={{ controls, setControls }}>
+      <SongListContext.Provider value={{ songList, setSongList }}>
+        <SongContext.Provider value={{ songData, setSongData }}>
+          <TokenContext.Provider value={{ tokenData, setTokenData }}>
+            {children}
+            {accessToken && <Player />}
+          </TokenContext.Provider>
+        </SongContext.Provider>
+      </SongListContext.Provider>
+    </ControlsContext.Provider>
+  );
 };
 
 export default PlayerLayout;
