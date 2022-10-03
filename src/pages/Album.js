@@ -30,6 +30,15 @@ const Album = () => {
 		};
 	});
 
+	const trackWithImage = track => {
+		return {
+			...track,
+			album: {
+				images: data?.images,
+			},
+		};
+	};
+
 	return (
 		<div className="-mt-20">
 			<NavBg />
@@ -94,7 +103,12 @@ const Album = () => {
 			<section className="py-6 pr-4 pl-2">
 				<List>
 					{data?.tracks?.items?.map(track => (
-						<SongListItem key={track.id} track={track} noImage />
+						<SongListItem
+							key={track.id}
+							track={track && trackWithImage(track)}
+							noImage
+							largePadding
+						/>
 					))}
 				</List>
 			</section>

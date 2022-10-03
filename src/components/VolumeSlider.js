@@ -25,8 +25,8 @@ const VolumeSlider = ({ current, setCurrent }) => {
 		};
 	}, []);
 
-	const saveVolume = e => {
-		localStorage.setItem("volume", e);
+	const saveVolume = volume => {
+		localStorage.setItem("volume", volume >= 1 ? 1 : volume <= 0 ? 0 : volume);
 	};
 
 	return (
