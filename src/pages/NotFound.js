@@ -6,14 +6,17 @@ import MinecraftButton from "../components/buttons/MinecraftButton";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import MinecraftProgress from "../components/minecraft/MinecraftProgress";
+import { useEffect } from "react";
+import Confetti from "react-confetti";
 
 const NotFound = () => {
 	const navigate = useNavigate();
 	const [gameHasStarted, setGameHasStarted] = useState(false);
 	const [points, setPoints] = useState(0);
-	const goal = 404;
+	const goal = 50;
 	const progress = (points / goal) * 100;
 	const [pointerIsDown, setPointerIsDown] = useState(false);
+	const [gameIsWon, setGameIsWon] = useState(false);
 
 	const handRef = useRef(null);
 
@@ -22,7 +25,9 @@ const NotFound = () => {
 		const audio = new Audio(villager);
 		audio.play();
 		handRef.current.click();
-		setPoints(points + 1);
+		if (points < goal) {
+			setPoints(points + 1);
+		}
 	};
 
 	const handlePointerDown = e => {
@@ -32,6 +37,12 @@ const NotFound = () => {
 	const handlePointerUp = e => {
 		setPointerIsDown(false);
 	};
+
+	useEffect(() => {
+		if (progress >= 100) {
+			setGameIsWon(true);
+		}
+	}, [progress]);
 
 	return (
 		<div className="p-4 relative h-[calc(100vh-10rem-5rem)]">
@@ -107,33 +118,32 @@ const NotFound = () => {
 					className="fixed bottom-[0%] w-[200px] -right-8"
 				/>
 			)}
+			{gameIsWon && (
+				<>
+					<Confetti
+						recycle={false}
+						numberOfPieces={1000}
+						tweenDuration={15000}
+					/>
+
+					<motion.div
+						initial={{ y: "100%" }}
+						animate={{ y: "0%", transition: { delay: 0.5 } }}
+						className="fixed bottom-0 left-0 w-full bg-white dark:bg-additional pb-20 pt-4 px-4 rounded-t-md"
+					>
+						<H1 text="Hooray"></H1>
+						<h2 className="text-xl font-semibold my-4 text-black/75 dark:text-white/75">
+							You have completed the game
+						</h2>
+						<MinecraftButton callback={() => navigate("/")}>
+							Please, take me home
+						</MinecraftButton>
+					</motion.div>
+				</>
+			)}
 			<audio src={villager} autoPlay />
 		</div>
 	);
 };
 
 export default NotFound;
-
-// import { motion } from "framer-motion";
-// import { createRef, useRef } from "react";
-
-// const MinecraftHand = () => {
-//   const handRef = useRef(null);
-
-//   function givBoks() {
-//     handRef.target.click();
-//   }
-
-//   return (
-//     <motion.img
-//       ref={handRef}
-//       initial={{ y: 75 }}
-//       whileTap={{ y: -50, rotate: -60, scale: 1.25 }}
-//       className="absolute bottom-[35%] w-[200px] -right-8"
-//       src="https://i.ibb.co/28TVRFG/minecraft-hand.png"
-//       alt="hej"
-//     ></motion.img>
-//   );
-// };
-
-// export default MinecraftHand;
