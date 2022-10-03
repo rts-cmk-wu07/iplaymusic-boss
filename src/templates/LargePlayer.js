@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import ActionMenu from "../components/ActionMenu";
 import VolumeSlider from "../components/VolumeSlider";
 import { memo } from "react";
-import Visualizer from "react-music-visualizer";
 
 const LargePlayer = ({
 	isOpen,
