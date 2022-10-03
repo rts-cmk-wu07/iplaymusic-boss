@@ -4,7 +4,7 @@ import H1 from "../components/subcomponents/H1";
 import { AnimatePresence, motion } from "framer-motion";
 import MinecraftButton from "../components/buttons/MinecraftButton";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MinecraftProgress from "../components/minecraft/MinecraftProgress";
 
 const NotFound = () => {
@@ -13,16 +13,28 @@ const NotFound = () => {
 	const [points, setPoints] = useState(0);
 	const goal = 404;
 	const progress = (points / goal) * 100;
+	const [pointerIsDown, setPointerIsDown] = useState(false);
+
+	const handRef = useRef(null);
 
 	// every time a player clicks on the villager, a point will render where you clicked
 	const handleClick = e => {
 		const audio = new Audio(villager);
 		audio.play();
+		handRef.current.click();
 		setPoints(points + 1);
 	};
 
+	const handlePointerDown = e => {
+		setPointerIsDown(true);
+	};
+
+	const handlePointerUp = e => {
+		setPointerIsDown(false);
+	};
+
 	return (
-		<div className="p-4 relative">
+		<div className="p-4 relative h-[calc(100vh-10rem-5rem)]">
 			<AnimatePresence>
 				{!gameHasStarted ? (
 					<motion.div
@@ -70,8 +82,31 @@ const NotFound = () => {
 						handleClick();
 					}
 				}}
+				onPointerDown={() => {
+					if (gameHasStarted) {
+						handlePointerDown();
+					}
+				}}
+				onPointerUp={() => {
+					if (gameHasStarted) {
+						handlePointerUp();
+					}
+				}}
 				className="absolute"
 			/>
+			{gameHasStarted && (
+				<motion.img
+					src="https://i.ibb.co/28TVRFG/minecraft-hand.png"
+					alt="Steve's hand"
+					ref={handRef}
+					animate={{
+						rotate: pointerIsDown ? -45 : 0,
+						y: pointerIsDown ? 0 : 10,
+						scale: pointerIsDown ? 1.2 : 1,
+					}}
+					className="fixed bottom-[0%] w-[200px] -right-8"
+				/>
+			)}
 			<audio src={villager} autoPlay />
 		</div>
 	);
