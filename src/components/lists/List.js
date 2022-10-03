@@ -9,7 +9,7 @@ const List = ({ children, gap }) => {
   console.log(children);
 
   return (
-    <SwipeableList className={`flex w-full ${gap || "gap-2"} flex-col`}>
+    <SwipeableList className={`flex w-full ${gap || "gap-2"} flex-col !h-fit`}>
       {children?.map((child, index) => {
         console.log(child);
         const leadingAction = () =>
