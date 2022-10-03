@@ -29,6 +29,7 @@
 		"react-scripts": "5.0.1",
 		"react-select": "^5.4.0",
 		"react-spotify-web-playback": "^0.10.0",
+		"react-swipeable-list": "^1.6.0",
 		"react-toastify": "^9.0.8",
 		"react-use-cookie": "^1.4.0",
 		"sass": "^1.54.9",
