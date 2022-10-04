@@ -56,7 +56,7 @@ const SongListItem = ({
             <p
               className={
                 songData?.id === track?.id
-                  ? "gradient-text text-md font-bold text-ellipsis overflow-hidden"
+                  ? "text-primary text-md font-bold text-ellipsis overflow-hidden"
                   : "text-md font-bold text-ellipsis overflow-hidden"
               }>
               {track?.name}
