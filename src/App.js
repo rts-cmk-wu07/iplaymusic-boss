@@ -26,7 +26,6 @@ import Artist from "./pages/Artist";
 import NavBgContext from "./contexts/NavBgContext";
 import { useEffect } from "react";
 import User from "./pages/User";
-import useDynamicFetch from "./hooks/useDynamicFetch";
 
 function App() {
   const location = useLocation();

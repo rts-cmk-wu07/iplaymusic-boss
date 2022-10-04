@@ -34,11 +34,9 @@ const Player = () => {
   /* eslint-enable */
 
   // Set song from spotify
-  const {
-    data: currentSong,
-    error: currentSongError,
-    loading: currentSongLoading,
-  } = useFetch("https://api.spotify.com/v1/me/player/currently-playing");
+  const { data: currentSong } = useFetch(
+    "https://api.spotify.com/v1/me/player/currently-playing"
+  );
   useEffect(() => {
     if (currentSong?.item) {
       console.log(currentSong);
