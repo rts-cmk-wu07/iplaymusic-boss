@@ -34,11 +34,9 @@ const Player = () => {
   /* eslint-enable */
 
   // Set song from spotify
-  const {
-    data: currentSong,
-    error: currentSongError,
-    loading: currentSongLoading,
-  } = useFetch("https://api.spotify.com/v1/me/player/currently-playing");
+  const { data: currentSong } = useFetch(
+    "https://api.spotify.com/v1/me/player/currently-playing"
+  );
   useEffect(() => {
     if (currentSong?.item) {
       console.log(currentSong);
@@ -150,8 +148,7 @@ const Player = () => {
             isOpen
               ? "top-0 bottom-0 left-0 right-0"
               : "bottom-20 left-2 right-2 p-1"
-          }`}
-        >
+          }`}>
           <ReactAudioPlayer
             src={audioUrl}
             ref={audioPlayer}

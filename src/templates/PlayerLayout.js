@@ -7,7 +7,6 @@ import SongContext from "../contexts/SongContext";
 import SongListContext from "../contexts/SongListContext";
 import ControlsContext from "../contexts/ControlsContext";
 import handleShuffle from "../functions/handleShuffle";
-import useFetch from "../hooks/useFetch";
 
 const PlayerLayout = ({ children }) => {
   const [songData, setSongData] = useState({});

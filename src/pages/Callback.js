@@ -8,12 +8,9 @@ import ThemeToggle from "../components/buttons/ThemeToggle";
 import axios from "axios";
 /* Context */
 import TokenContext from "../contexts/TokenContext";
-import loaderModalContext from "../contexts/loaderModalContext";
 
 export default function Callback() {
   const navigate = useNavigate();
-  const { loaderModal, setLoaderModal } = useContext(loaderModalContext);
-  setLoaderModal(true);
   // Get url params
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
@@ -48,7 +45,7 @@ export default function Callback() {
 
   return (
     <div>
-      {loaderModal && <LoaderModal />}
+      <LoaderModal />
       <div className="hidden">
         <ThemeToggle />
       </div>
