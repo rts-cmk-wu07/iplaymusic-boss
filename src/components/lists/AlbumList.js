@@ -70,7 +70,7 @@ const AlbumList = (props) => {
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-2">
+          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-4">
           {albums?.map((album, index) => {
             const albumData = artist ? album : album.album;
             return (
