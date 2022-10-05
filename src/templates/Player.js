@@ -65,6 +65,8 @@ const Player = () => {
       setPaddingBottom("4px");
     }
   }, [isOpen]);
+  
+  const [shouldDrag, setShouldDrag] = useState(true)
 
 
 	return (
