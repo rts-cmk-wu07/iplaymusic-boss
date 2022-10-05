@@ -9,65 +9,64 @@ import SongContext from "../contexts/SongContext";
 import useControls from "../hooks/useControls";
 
 const Player = () => {
-  const { songData, setSongData } = useContext(SongContext);
-  const { nextSong } = useControls();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const { data } = useFetch(
-    "https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
-  );
+	const { songData, setSongData } = useContext(SongContext);
+	const { nextSong } = useControls();
+	const [isPlaying, setIsPlaying] = useState(false);
+	const { data } = useFetch(
+		"https://api.spotify.com/v1/tracks/4cOdK2wGLETKBW3PvgPWqT"
+	);
 
-  const localStoredVolume = localStorage.getItem("volume");
-  const convertedVolume = parseInt(localStoredVolume * 100) / 100;
-  const [volume, setVolume] = useState(
-    convertedVolume === 0 ? 0 : convertedVolume || 0.5
-  );
+	const localStoredVolume = localStorage.getItem("volume");
+	const convertedVolume = parseInt(localStoredVolume * 100) / 100;
+	const [volume, setVolume] = useState(
+		convertedVolume === 0 ? 0 : convertedVolume || 0.5
+	);
 
-  const [song, setSong] = useState(
-    songData.preview_url === null ? data : songData
-  );
+	const [song, setSong] = useState(
+		songData.preview_url === null ? data : songData
+	);
 
-  /* eslint-disable */
-  useEffect(() => {
-    setSong(songData.preview_url === null ? data : songData);
-    setIsPlaying(true);
-  }, [songData]);
-  /* eslint-enable */
+	/* eslint-disable */
+	useEffect(() => {
+		setSong(songData.preview_url === null ? data : songData);
+		setIsPlaying(true);
+	}, [songData]);
+	/* eslint-enable */
 
-  // Set song from spotify
-  const { data: currentSong } = useFetch(
-    "https://api.spotify.com/v1/me/player/currently-playing"
-  );
-  useEffect(() => {
-    if (currentSong?.item) {
-      console.log(currentSong);
-      setSong(currentSong.item);
-    }
-  }, [currentSong]);
+	// Set song from spotify
+	const { data: currentSong } = useFetch(
+		"https://api.spotify.com/v1/me/player/currently-playing"
+	);
+	useEffect(() => {
+		if (currentSong?.item) {
+			console.log(currentSong);
+			setSong(currentSong.item);
+		}
+	}, [currentSong]);
 
-  const audioPlayer = useRef();
+	const audioPlayer = useRef();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const audioUrl = song?.preview_url;
+	const [isOpen, setIsOpen] = useState(false);
+	const audioUrl = song?.preview_url;
 
-  const [dragStart, setDragStart] = useState(0);
-  const [dragCurrent, setDragCurrent] = useState(0);
-  const [paddingTop, setPaddingTop] = useState(isOpen ? "0px" : "4px");
-  const [paddingBottom, setPaddingBottom] = useState(isOpen ? "0px" : "4px");
+	const [dragStart, setDragStart] = useState(0);
+	const [dragCurrent, setDragCurrent] = useState(0);
+	const [paddingTop, setPaddingTop] = useState(isOpen ? "0px" : "4px");
+	const [paddingBottom, setPaddingBottom] = useState(isOpen ? "0px" : "4px");
 
-  const [songProgress, setSongProgress] = useState(0);
+	const [songProgress, setSongProgress] = useState(0);
 
-  useEffect(() => {
-    if (isOpen) {
-      setPaddingTop("0px");
-      setPaddingBottom("0px");
-    } else {
-      setPaddingTop("4px");
-      setPaddingBottom("4px");
-    }
-  }, [isOpen]);
-  
-  const [shouldDrag, setShouldDrag] = useState(true)
+	useEffect(() => {
+		if (isOpen) {
+			setPaddingTop("0px");
+			setPaddingBottom("0px");
+		} else {
+			setPaddingTop("4px");
+			setPaddingBottom("4px");
+		}
+	}, [isOpen]);
 
+	const [shouldDrag, setShouldDrag] = useState(true);
 
 	return (
 		<AnimatePresence>

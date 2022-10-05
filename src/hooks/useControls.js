@@ -10,17 +10,47 @@ const useControls = () => {
 
 	const nextSong = setOpen => {
 		const { currentList } = songList;
-		const currentIndex = currentList.findIndex(song => song.id === songData.id);
-		const nextIndex = currentIndex + 1;
-
-		if (nextIndex < currentList.length) {
-			setSongData(currentList[nextIndex]);
+		const { playlist, upNext, referenceIndex } = currentList;
+		if (upNext.length > 0) {
+			const nextSong = upNext[0];
+			setSongData(nextSong);
+			setSongList({
+				...songList,
+				currentList: {
+					playlist,
+					upNext: upNext.slice(1),
+					referenceIndex,
+				},
+			});
 		} else {
-			if (controls.isRepeat) {
-				setSongData(currentList[0]);
+			const currentIndex = playlist.findIndex(song => song.id === songData.id);
+			const nextIndex = currentIndex + 1;
+
+			if (nextIndex < playlist.length) {
+				setSongData(playlist[nextIndex]);
+				setSongList({
+					...songList,
+					currentList: {
+						playlist,
+						upNext,
+						referenceIndex: nextIndex,
+					},
+				});
 			} else {
-				setSongData({});
-				setOpen(false);
+				if (controls.isRepeat) {
+					setSongData(playlist[0]);
+					setSongList({
+						...songList,
+						currentList: {
+							playlist,
+							upNext,
+							referenceIndex: 0,
+						},
+					});
+				} else {
+					setSongData({});
+					setOpen(false);
+				}
 			}
 		}
 	};
@@ -56,19 +86,18 @@ const useControls = () => {
 	};
 
 	const addToQueue = song => {
-		const { currentList } = songList;
-		const currentIndex = currentList.findIndex(song => song.id === songData.id);
-		const nextIndex = currentIndex + 1;
+		const { currentList, originalList } = songList;
+		const { upNext, playlist, referenceIndex } = currentList;
 
-		const newSongList = [
-			...currentList.slice(0, nextIndex),
-			song,
-			...currentList.slice(nextIndex),
-		];
+		const newSongList = [...upNext, song];
 
 		setSongList({
-			originalList: newSongList,
-			currentList: newSongList,
+			originalList,
+			currentList: {
+				playlist,
+				upNext: newSongList,
+				referenceIndex,
+			},
 		});
 	};
 
