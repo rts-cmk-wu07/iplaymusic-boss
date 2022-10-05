@@ -66,8 +66,7 @@ const List = (props) => {
             flexDirection: "column",
             gap: "0.5rem",
             marginTop: "1rem",
-          }}
-        >
+          }}>
           {songArray.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;
 
@@ -77,8 +76,8 @@ const List = (props) => {
                 action: () => addToQueue(trackData),
                 destructive: false,
                 text: "Queue",
-                bgColor: "#93c572",
-                textColor: "black",
+                bgColor: "#1db954",
+                textColor: "white",
               });
             const trailingAction = () =>
               trailingActions({
@@ -96,8 +95,7 @@ const List = (props) => {
                     <div key={i} ref={ref}>
                       <SwipeableListItem
                         leadingActions={leadingAction()}
-                        trailingActions={trailingAction()}
-                      >
+                        trailingActions={trailingAction()}>
                         <SongListItem
                           key={i}
                           id={trackData?.id}
@@ -113,8 +111,7 @@ const List = (props) => {
                 <SwipeableListItem
                   key={i}
                   leadingActions={leadingAction()}
-                  trailingActions={trailingAction()}
-                >
+                  trailingActions={trailingAction()}>
                   <SongListItem
                     key={trackData?.id}
                     id={trackData?.id}

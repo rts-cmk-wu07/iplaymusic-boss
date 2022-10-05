@@ -16,8 +16,7 @@ const Playlist = (props) => {
     <motion.li
       whileTap={{ scale: 0.9 }}
       className="flex flex-col h-[200px]"
-      onClick={() => navigate(`/playlist/${id}?title=${name}`)}
-    >
+      onClick={() => navigate(`/playlist/${id}?title=${name}`)}>
       {loading && (
         <>
           <div className="relative aspect-square">

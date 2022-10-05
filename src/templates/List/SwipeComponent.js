@@ -12,6 +12,7 @@ const SwipeComponent = (props) => {
     justify-content: center;
     margin: ${margin};
     border-radius: 0.5rem;
+    text-transform: uppercase;
     span {
       padding: 0 0.2rem;
     }
