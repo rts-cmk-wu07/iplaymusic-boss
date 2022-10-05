@@ -81,20 +81,23 @@ const Player = () => {
 						setDragStart(info.point.y);
 					}}
 					onDrag={(e, info) => {
-						if (e.target.className.includes("slider")) {
-							setShouldDrag(false);
-						} else {
-							setShouldDrag(true);
-							setPaddingTop(
-								(dragStart - dragCurrent) / 5 < 4
-									? "4px"
-									: `${parseInt((dragStart - dragCurrent) / 5)}px`
-							);
-							setPaddingBottom(
-								(dragStart - dragCurrent) / 10 < 4
-									? "4px"
-									: `${parseInt((dragStart - dragCurrent) / 10)}px`
-							);
+						const hasTargetClassName = e.target.className;
+						if (typeof hasTargetClassName === "string") {
+							if (e.target.className.includes("slider")) {
+								setShouldDrag(false);
+							} else {
+								setShouldDrag(true);
+								setPaddingTop(
+									(dragStart - dragCurrent) / 5 < 4
+										? "4px"
+										: `${parseInt((dragStart - dragCurrent) / 5)}px`
+								);
+								setPaddingBottom(
+									(dragStart - dragCurrent) / 10 < 4
+										? "4px"
+										: `${parseInt((dragStart - dragCurrent) / 10)}px`
+								);
+							}
 						}
 						setDragCurrent(info.point.y);
 					}}

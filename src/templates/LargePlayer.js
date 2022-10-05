@@ -33,6 +33,7 @@ const LargePlayer = ({
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
 	);
+
 	const handleArtistClick = () => {
 		if (song?.artists.length > 1) {
 			setArtistListOpen(true);
@@ -76,6 +77,7 @@ const LargePlayer = ({
 									variants={albumArtV.bg}
 								>
 									<motion.img
+										key={song?.id}
 										variants={{
 											initial: {
 												opacity: 0,
@@ -90,6 +92,12 @@ const LargePlayer = ({
 														repeat: Infinity,
 														ease: "linear",
 													},
+												},
+											},
+											exit: {
+												opacity: 0,
+												transition: {
+													ease: "easeOut",
 												},
 											},
 										}}
@@ -143,7 +151,7 @@ const LargePlayer = ({
 										<motion.h2
 											variants={titleV.artist}
 											style={{ textShadow: "0 2px 8px #00000030" }}
-											className="text-white text-xl text-center mt-2"
+											className="text-white/75 text-xl text-center mt-2"
 										>
 											{song?.artists
 												? song.artists.map(artist => artist.name).join(", ")

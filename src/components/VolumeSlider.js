@@ -35,11 +35,14 @@ const VolumeSlider = ({ current, setCurrent }) => {
 				width: isOpen ? 64 : 40,
 				height: isOpen ? 280 : 40,
 				borderRadius: isOpen ? 32 : 20,
+				boxShadow: isOpen
+					? "0 8px 24px 0 rgba(0, 0, 0, 0.15)"
+					: "0 8px 24px 0 rgba(0, 0, 0, 0.05)",
 				transition: {
 					duration: 0.3,
 				},
 			}}
-			className={`volume relative z-50 flex flex-col items-center rounded-full bg-primary/50 backdrop-blur-md overflow-hidden justify-end`}
+			className={`volume relative z-50 flex flex-col items-center rounded-full bg-primary/25 backdrop-blur-md overflow-hidden justify-end`}
 			onClick={() => setIsOpen(!isOpen)}
 		>
 			<AnimatePresence>

@@ -1,15 +1,15 @@
 const containerV = {
 	initial: {
 		opacity: 0,
-		height: '0%',
+		height: "0%",
 	},
 	open: {
 		opacity: 1,
-		height: '100%',
+		height: "100%",
 	},
 	exit: {
 		opacity: 0,
-		height: '0%',
+		height: "0%",
 	},
 };
 
@@ -23,17 +23,17 @@ const albumArtV = {
 			opacity: 1,
 			scale: 1,
 			y: 0,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 			transition: {
 				delay: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		},
 		exit: {
 			opacity: 0,
 			scale: 0.5,
 			y: 80,
-			filter: 'blur(24px)',
+			filter: "blur(24px)",
 		},
 	},
 	art: {
@@ -42,14 +42,14 @@ const albumArtV = {
 		},
 		open: {
 			opacity: 1,
-			rotate: ['0deg', '360deg'],
+			rotate: ["0deg", "360deg"],
 			transition: {
 				delay: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 				rotate: {
 					duration: 10,
 					repeat: Infinity,
-					ease: 'linear',
+					ease: "linear",
 				},
 			},
 		},
@@ -65,23 +65,23 @@ const titleV = {
 			scale: 0.75,
 			opacity: 0,
 			y: 8,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 		open: {
 			scale: 1,
 			opacity: 1,
 			y: 0,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 			transition: {
 				delay: 0.75,
 				duration: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		},
 		exit: {
 			scale: 0.5,
 			opacity: 0,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 	},
 	artist: {
@@ -89,23 +89,23 @@ const titleV = {
 			scale: 0.75,
 			opacity: 0,
 			y: 4,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 		open: {
 			scale: 1,
 			opacity: 1,
 			y: 0,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 			transition: {
 				delay: 1,
 				duration: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		},
 		exit: {
 			scale: 0.5,
 			opacity: 0,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 	},
 };
@@ -114,35 +114,35 @@ const controlV = {
 	skipBack: {
 		initial: {
 			opacity: 0,
-			x: '150%',
+			x: "150%",
 		},
 		open: {
 			opacity: 1,
-			x: '0%',
+			x: "0%",
 			transition: {
 				delay: 1,
 			},
 		},
 		exit: {
 			opacity: 0,
-			x: '150%',
+			x: "150%",
 		},
 	},
 	back: {
 		initial: {
 			opacity: 0,
-			x: '150%',
+			x: "150%",
 		},
 		open: {
 			opacity: 1,
-			x: '0%',
+			x: "0%",
 			transition: {
 				delay: 0.9,
 			},
 		},
 		exit: {
 			opacity: 0,
-			x: '150%',
+			x: "150%",
 		},
 	},
 	play: {
@@ -155,7 +155,7 @@ const controlV = {
 			scale: 1,
 			transition: {
 				delay: 0.5,
-				type: 'spring',
+				type: "spring",
 				stiffness: 150,
 			},
 		},
@@ -167,35 +167,35 @@ const controlV = {
 	next: {
 		initial: {
 			opacity: 0,
-			x: '-150%',
+			x: "-150%",
 		},
 		open: {
 			opacity: 1,
-			x: '0%',
+			x: "0%",
 			transition: {
 				delay: 0.9,
 			},
 		},
 		exit: {
 			opacity: 0,
-			x: '-150%',
+			x: "-150%",
 		},
 	},
 	skipNext: {
 		initial: {
 			opacity: 0,
-			x: '-150%',
+			x: "-150%",
 		},
 		open: {
 			opacity: 1,
-			x: '0%',
+			x: "0%",
 			transition: {
 				delay: 1,
 			},
 		},
 		exit: {
 			opacity: 0,
-			x: '-150%',
+			x: "-150%",
 		},
 	},
 };
@@ -203,29 +203,29 @@ const controlV = {
 const progressV = {
 	bar: {
 		initial: {
-			width: '0%',
+			width: "0%",
 		},
 		open: {
-			width: '100%',
+			width: "100%",
 			transition: {
 				delay: 0.5,
 				duration: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		},
 		exit: {
-			width: '0%',
+			width: "0%",
 		},
 	},
 	inner: {
 		initial: {
-			width: '0%',
+			width: "0%",
 		},
 		open: progressState => ({
 			width: `${progressState}%`,
 			transition: {
 				duration: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		}),
 	},
@@ -233,22 +233,22 @@ const progressV = {
 		initial: {
 			opacity: 0,
 			y: 8,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 		open: {
 			opacity: 1,
 			y: 0,
-			filter: 'blur(0px)',
+			filter: "blur(0px)",
 			transition: {
 				delay: 1.25,
 				duration: 0.5,
-				ease: 'easeOut',
+				ease: "easeOut",
 			},
 		},
 		exit: {
 			opacity: 0,
 			y: 8,
-			filter: 'blur(4px)',
+			filter: "blur(4px)",
 		},
 	},
 };
@@ -259,7 +259,7 @@ const closeV = {
 	},
 	open: {
 		opacity: 1,
-		filter: 'blur(0px)',
+		filter: "blur(0px)",
 		transition: {
 			delay: 0.5,
 		},
@@ -267,7 +267,7 @@ const closeV = {
 	exit: {
 		scale: 0.5,
 		opacity: 0,
-		filter: 'blur(2px)',
+		filter: "blur(2px)",
 	},
 };
 
@@ -277,7 +277,7 @@ const imgV = {
 	},
 	open: {
 		opacity: 0.5,
-		filter: 'blur(0px)',
+		filter: "blur(0px)",
 		transition: {
 			delay: 0.3,
 			duration: 0.25,
@@ -285,7 +285,7 @@ const imgV = {
 	},
 	exit: {
 		opacity: 0,
-		filter: 'blur(16px)',
+		filter: "blur(16px)",
 		transition: {
 			duration: 1,
 			delay: 0.5,
