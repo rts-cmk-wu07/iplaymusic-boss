@@ -8,7 +8,7 @@ const PlaylistCard = (props) => {
           <div className="bg-slate-500 w-full aspect-square z-30 opacity-50 absolute rounded-md" />
         )}
         <img
-          className="mb-2 aspect-square object-cover fit-content -z-1 absolute rounded-md"
+          className="aspect-square object-cover w-full h-full -z-1 absolute rounded-md"
           style={{ opacity: isImage ? 1 : 0 }}
           src={images[1]?.url || images[0]?.url}
           onLoad={() => setIsImage(true)}

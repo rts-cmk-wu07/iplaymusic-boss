@@ -39,7 +39,6 @@ const Player = () => {
   );
   useEffect(() => {
     if (currentSong?.item) {
-      console.log(currentSong);
       setSong(currentSong.item);
     }
   }, [currentSong]);

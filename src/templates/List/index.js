@@ -36,7 +36,7 @@ const List = (props) => {
         setLoadMoreIndex((prevState) => prevState * 2);
         setSongArray([...songArray, ...data.items]);
       } else {
-        setSongArray(data.items.filter((item) => item.track));
+        setSongArray(data.items.filter((item) => item));
       }
       setNextUrl(data.next);
     }
@@ -66,6 +66,7 @@ const List = (props) => {
             flexDirection: "column",
             gap: "0.5rem",
             marginTop: "1rem",
+            height: "auto",
           }}>
           {songArray.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;

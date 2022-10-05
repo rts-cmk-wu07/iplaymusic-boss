@@ -47,30 +47,30 @@ const AlbumList = (props) => {
   }, [activeTag, url]);
 
   return (
-    albums?.length > 0 && (
-      <>
-        <h2
-          className={
-            artist
-              ? "text-2xl text-left font-bold mt-12 mb-6"
-              : "text-md font-bold mt-4 mb-3 text-black dark:text-white"
-          }>
-          {artist ? artist + "'s Discography" : "Saved Albums"}
-        </h2>
-        {artist && (
-          <div className="flex my-2 gap-4 items-center">
-            <TagList
-              tags={tags}
-              activeTag={activeTag}
-              setActiveTag={setActiveTag}
-            />
-          </div>
-        )}
+    <>
+      <h2
+        className={
+          artist
+            ? "text-2xl text-left font-bold mt-12 mb-6"
+            : "text-md font-bold mt-4 mb-3 text-black dark:text-white"
+        }>
+        {artist ? artist + "'s Discography" : "Saved Albums"}
+      </h2>
+      {artist && (
+        <div className="flex my-2 gap-4 items-center">
+          <TagList
+            tags={tags}
+            activeTag={activeTag}
+            setActiveTag={setActiveTag}
+          />
+        </div>
+      )}
+      {albums?.length > 0 ? (
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4">
+          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-2">
           {albums?.map((album, index) => {
             const albumData = artist ? album : album.album;
             return (
@@ -87,8 +87,10 @@ const AlbumList = (props) => {
             );
           })}
         </motion.div>
-      </>
-    )
+      ) : (
+        <p className="text-2xl font-bold">No Music Found</p>
+      )}
+    </>
   );
 };
 

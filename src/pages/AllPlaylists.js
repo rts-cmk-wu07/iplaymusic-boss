@@ -81,8 +81,7 @@ const AllPlaylists = () => {
           variants={container}
           initial="hidden"
           animate="show"
-          className="px-6 grid grid-cols-2 gap-x-6 overflow-y-auto"
-        >
+          className="px-6 grid grid-cols-2 gap-x-6 gap-y-3 overflow-y-auto">
           {playlistData?.map((playlist, i) =>
             i === 16 && nextUrl ? (
               <InView key={i} onChange={setInView}>

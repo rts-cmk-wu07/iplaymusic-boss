@@ -12,7 +12,7 @@ const Playlist = () => {
     <div className="p-6">
       <SongListHeader playlist={data} />
       <List
-        startUrl={`https://api.spotify.com/v1/playlists/${id}/tracks`}
+        startUrl={`https://api.spotify.com/v1/playlists/${id}/tracks?limit=20`}
         loadMoreOnIndex={16}
         trackLocation="track"
       />
