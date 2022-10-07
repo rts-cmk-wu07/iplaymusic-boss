@@ -7,6 +7,7 @@ import SongContext from "../contexts/SongContext";
 import SongListContext from "../contexts/SongListContext";
 import ControlsContext from "../contexts/ControlsContext";
 import handleShuffle from "../functions/handleShuffle";
+import Notification from "../components/subcomponents/Notification";
 
 const PlayerLayout = ({ children }) => {
   const [songData, setSongData] = useState({});
@@ -54,6 +55,10 @@ const PlayerLayout = ({ children }) => {
           <TokenContext.Provider value={{ tokenData, setTokenData }}>
             {children}
             {accessToken && <Player />}
+            {/* if song is unavailable: */}
+            {accessToken && (
+              <Notification text="Song not available, enjoy Rick Roll instead :D" />
+            )}
           </TokenContext.Provider>
         </SongContext.Provider>
       </SongListContext.Provider>
