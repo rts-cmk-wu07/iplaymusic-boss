@@ -16,8 +16,6 @@ const PlayerLayout = ({ children }) => {
 		currentList: { upNext: [], playlist: [], referenceIndex: 0 },
 	});
 
-	console.log(songList.currentList.referenceIndex);
-
 	const [controls, setControls] = useState({
 		isPlaying: false,
 		isShuffle: false,
