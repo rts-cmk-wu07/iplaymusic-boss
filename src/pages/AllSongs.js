@@ -20,7 +20,7 @@ const AllSongs = () => {
       />
       {selectState === "Top Songs" && (
         <List
-          startUrl="https://api.spotify.com/v1/me/top/tracks"
+          startUrl="https://api.spotify.com/v1/me/top/tracks?limit=20"
           loadMoreOnIndex={16}
         />
       )}

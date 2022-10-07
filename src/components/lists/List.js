@@ -6,12 +6,10 @@ import useControls from "../../hooks/useControls";
 
 const List = ({ children, gap }) => {
   const { addToQueue } = useControls();
-  console.log(children);
 
   return (
     <SwipeableList className={`flex w-full ${gap || "gap-2"} flex-col !h-fit`}>
       {children?.map((child, index) => {
-        console.log(child);
         const leadingAction = () =>
           leadingActions({
             action: () => addToQueue(child.props.track),
