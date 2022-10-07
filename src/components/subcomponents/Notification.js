@@ -9,6 +9,7 @@ const Notification = ({ text }) => {
   const { songData } = useContext(SongContext);
   const [invalidSong, setInvalidSong] = useState(false);
   const customToastId = "custom-toast-id";
+  /* eslint-disable */
   useEffect(() => {
     if (toast.isActive(customToastId)) {
       toast.dismiss(customToastId);
@@ -21,6 +22,7 @@ const Notification = ({ text }) => {
       setInvalidSong(false);
     }
   }, [songData]);
+  /* eslint-enable */
   const styles = {
     notification: css`
       .Toastify__progress-bar {

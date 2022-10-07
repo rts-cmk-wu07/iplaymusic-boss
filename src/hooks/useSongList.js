@@ -9,9 +9,13 @@ const useSongList = () => {
 
 	const updateSongList = (newSongList, config) => {
 		const originalList = newSongList;
-		let currentList = newSongList;
+		let currentList = { upNext: [], playlist: newSongList, referenceIndex: 0 };
 		if (isShuffle) {
-			currentList = arrayShuffle(newSongList);
+			currentList = {
+				upNext: [],
+				playlist: arrayShuffle(newSongList),
+				referenceIndex: 0,
+			};
 		}
 
 		setSongList({

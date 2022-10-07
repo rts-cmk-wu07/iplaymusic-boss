@@ -30,6 +30,7 @@ const NavigationTop = () => {
     "/category": "Category",
     "/artist": "Artist",
     "/user": "User",
+    "/callback": "Loading...",
   };
 
   const pathsWithoutBack = ["/login", "/", "/events", "/trends", "/settings"];
@@ -64,7 +65,7 @@ const NavigationTop = () => {
             setSearchOpen((searchState) => !searchState);
           }}
           id="search-icon"
-          className="text-2xl mr-4 ml-auto w-fit h-fit rounded-full"
+          className="text-2xl mr-4 ml-auto w-6 h-6 rounded-full"
         />
         <AnimatePresence>
           {searchOpen && (

@@ -60,7 +60,7 @@ const AnimatedText = ({ children, alignment, callback }) => {
 					repeatType: "reverse",
 					ease: "linear",
 				}}
-				className="w-fit flex-shrink-0 whitespace-nowrap"
+				className="w-fit flex-shrink-0 whitespace-nowrap overflow-hidden"
 				ref={containerRef}
 			>
 				{children}

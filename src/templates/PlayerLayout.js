@@ -14,7 +14,7 @@ const PlayerLayout = ({ children }) => {
 
   const [songList, setSongList] = useState({
     originalList: [],
-    currentList: [],
+    currentList: { upNext: [], playlist: [], referenceIndex: 0 },
   });
 
   const [controls, setControls] = useState({
@@ -28,6 +28,7 @@ const PlayerLayout = ({ children }) => {
     if (songList.originalList.length > 0) {
       handleShuffle({
         isShuffle: controls.isShuffle,
+        currentSong: songData,
         currentId: songData.id,
         setSongData,
         setSongList,
