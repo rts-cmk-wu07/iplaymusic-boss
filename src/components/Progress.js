@@ -25,7 +25,6 @@ const Progress = ({ current, setProgress, controls }) => {
 	// useEffect that checks if the progress bar is close to the left or right edge
 	// and sets the state accordingly
 	useEffect(() => {
-		console.log(percentageDragged);
 		if (percentageDragged * 100 < 20) {
 			setCloseToLeftEdge(true);
 		} else {
@@ -38,8 +37,6 @@ const Progress = ({ current, setProgress, controls }) => {
 			setCloseToRightEdge(false);
 		}
 	}, [percentageDragged]);
-
-	console.log(isDragging && closeToLeftEdge);
 
 	return (
 		<div className="flex flex-col w-full mt-12">
