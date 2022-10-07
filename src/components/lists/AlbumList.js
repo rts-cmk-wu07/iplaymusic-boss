@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import TagList from "./TagList";
 import { useEffect, useState } from "react";
+import Loader from "../subcomponents/Loader";
 
 const AlbumList = (props) => {
   const { url, artist } = props;
@@ -11,7 +12,7 @@ const AlbumList = (props) => {
 
   // Get albums
   const [currentUrl, setCurrentUrl] = useState(url);
-  const { data } = useFetch(currentUrl);
+  const { data, loading } = useFetch(currentUrl);
   const albums = data.items;
   const [activeTag, setActiveTag] = useState("All");
   const container = {
@@ -65,7 +66,13 @@ const AlbumList = (props) => {
           />
         </div>
       )}
-      {albums?.length > 0 ? (
+      {albums?.length <= 0 && !loading && (
+        <p className="text-3xl font-bold text-addition dark:text-white">
+          No Music Found :(
+        </p>
+      )}
+      {loading && <Loader />}
+      {!loading && albums && (
         <motion.div
           variants={container}
           initial="hidden"
@@ -87,8 +94,6 @@ const AlbumList = (props) => {
             );
           })}
         </motion.div>
-      ) : (
-        <p className="text-2xl font-bold">No Music Found</p>
       )}
     </>
   );
