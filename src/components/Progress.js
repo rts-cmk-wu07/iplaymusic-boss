@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { progressV } from "../assets/variants/LargePlayer";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const Progress = ({ current, setProgress, controls }) => {
 	const maxValue = 30;
@@ -15,6 +15,31 @@ const Progress = ({ current, setProgress, controls }) => {
 	const containerRef = useRef();
 	const progressRef = useRef();
 	const progressButton = useRef();
+
+	const [percentageDragged, setPercentageDragged] = useState(0);
+
+	const [closeToLeftEdge, setCloseToLeftEdge] = useState(false);
+	const [closeToRightEdge, setCloseToRightEdge] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
+
+	// useEffect that checks if the progress bar is close to the left or right edge
+	// and sets the state accordingly
+	useEffect(() => {
+		console.log(percentageDragged);
+		if (percentageDragged * 100 < 20) {
+			setCloseToLeftEdge(true);
+		} else {
+			setCloseToLeftEdge(false);
+		}
+
+		if (percentageDragged * 100 > 80) {
+			setCloseToRightEdge(true);
+		} else {
+			setCloseToRightEdge(false);
+		}
+	}, [percentageDragged]);
+
+	console.log(isDragging && closeToLeftEdge);
 
 	return (
 		<div className="flex flex-col w-full mt-12">
@@ -52,6 +77,11 @@ const Progress = ({ current, setProgress, controls }) => {
 						dragElastic={0}
 						onDragStart={() => controls.pause()}
 						onDrag={(e, info) => {
+							setIsDragging(true);
+							setPercentageDragged(
+								(info.point.x - 35) / containerRef.current.offsetWidth
+							);
+
 							const newCurrent =
 								((info.point.x - 35) / containerRef.current.offsetWidth) *
 								maxValue;
@@ -64,6 +94,7 @@ const Progress = ({ current, setProgress, controls }) => {
 							}
 						}}
 						onDragEnd={(e, info) => {
+							setIsDragging(false);
 							controls.currentTime =
 								((info.point.x - 35) / containerRef.current.offsetWidth) *
 								maxValue;
@@ -78,7 +109,13 @@ const Progress = ({ current, setProgress, controls }) => {
 				variants={progressV.time}
 				className="flex justify-between text-white/50 text-sm mt-2"
 			>
-				<span>
+				<motion.span
+					className="flex"
+					animate={{
+						y: closeToLeftEdge && isDragging ? 16 : 0,
+						transition: { delay: 0.1, duration: 0.25, ease: "easeInOut" },
+					}}
+				>
 					{currentValueMinutes < 10
 						? `0${currentValueMinutes}`
 						: currentValueMinutes}
@@ -86,11 +123,17 @@ const Progress = ({ current, setProgress, controls }) => {
 					{currentValueSeconds < 10
 						? `0${currentValueSeconds}`
 						: currentValueSeconds}
-				</span>
-				<span>
+				</motion.span>
+				<motion.span
+					className="flex"
+					animate={{
+						y: closeToRightEdge && isDragging ? 16 : 0,
+						transition: { delay: 0.1, duration: 0.25, ease: "easeInOut" },
+					}}
+				>
 					{maxValueMinutes < 10 ? `0${maxValueMinutes}` : maxValueMinutes}:
 					{maxValueSeconds < 10 ? `0${maxValueSeconds}` : maxValueSeconds}
-				</span>
+				</motion.span>
 			</motion.div>
 		</div>
 	);
