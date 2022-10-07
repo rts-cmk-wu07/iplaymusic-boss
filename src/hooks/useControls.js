@@ -53,7 +53,7 @@ const useControls = () => {
 					},
 				});
 			} else {
-				if (controls.isRepeat) {
+				if (controls.isRepeat && playlist.length > 1) {
 					setSongData(playlist[0]);
 					setSongList({
 						...songList,
