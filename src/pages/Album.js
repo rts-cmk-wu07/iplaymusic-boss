@@ -6,7 +6,7 @@ import List from "../components/lists/List";
 import SongListItem from "../components/subcomponents/SongListItem";
 import NavBg from "../components/NavBg";
 import { useInView } from "react-intersection-observer";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import NavBgContext from "../contexts/NavBgContext";
 import convertDate from "../functions/convertDate";
 import Flame from "../components/subcomponents/Flame";
@@ -16,11 +16,12 @@ const Album = () => {
 	const { id } = useParams();
 	const { ref, inView } = useInView();
 	const { setNavBgOpen } = useContext(NavBgContext);
-
-	setNavBgOpen(!inView);
-
+	/* eslint-disable */
+	useEffect(() => {
+		setNavBgOpen(!inView);
+	}, [inView]);
+	/* eslint-enable */
 	const { data } = useFetch(`https://api.spotify.com/v1/albums/${id}`);
-
 	const updatedListWithImages = data?.tracks?.items?.map((item, index) => {
 		return {
 			...item,
@@ -29,7 +30,6 @@ const Album = () => {
 			},
 		};
 	});
-
 	const trackWithImage = track => {
 		return {
 			...track,
