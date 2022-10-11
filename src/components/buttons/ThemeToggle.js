@@ -3,6 +3,8 @@ import { container, sun, moon } from "../../assets/variants/ThemeToggle";
 import { motion } from "framer-motion";
 import { useState } from "react";
 const ThemeToggle = () => {
+  console.log("render");
+
   // State for changing variants later in code
   const [themeToggle, setThemeToggle] = useState(
     localStorage.getItem("theme") === "dark"
@@ -28,11 +30,18 @@ const ThemeToggle = () => {
   const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
   darkTheme.addEventListener("change", (e) => {
+    console.log("change");
     if (e.matches) {
       themeToggle === "auto" && document.documentElement.classList.add("dark");
+      document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute("content", "#341931");
     } else {
       themeToggle === "auto" &&
         document.documentElement.classList.remove("dark");
+      document
+        .querySelector('meta[name="theme-color"]')
+        .setAttribute("content", "#ffffff");
     }
   });
 
@@ -41,13 +50,10 @@ const ThemeToggle = () => {
     if (localStorage.getItem("theme") === "light") {
       document
         .querySelector('meta[name="theme-color"]')
-        .setAttribute("content", "#111625");
+        .setAttribute("content", "#341931");
       localStorage.theme = "dark";
       setThemeToggle("dark");
     } else if (localStorage.getItem("theme") === "dark") {
-      document
-        .querySelector('meta[name="theme-color"]')
-        .setAttribute("content", "#ffffff");
       localStorage.removeItem("theme");
       setThemeToggle("auto");
     } else {
