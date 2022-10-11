@@ -3,8 +3,6 @@ import { container, sun, moon } from "../../assets/variants/ThemeToggle";
 import { motion } from "framer-motion";
 import { useState } from "react";
 const ThemeToggle = () => {
-  console.log("render");
-
   // State for changing variants later in code
   const [themeToggle, setThemeToggle] = useState(
     localStorage.getItem("theme") === "dark"
@@ -30,7 +28,6 @@ const ThemeToggle = () => {
   const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
   darkTheme.addEventListener("change", (e) => {
-    console.log("change");
     if (e.matches) {
       themeToggle === "auto" && document.documentElement.classList.add("dark");
       document

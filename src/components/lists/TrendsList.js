@@ -15,10 +15,12 @@ const TrendsList = (props) => {
 
   /* eslint-disable */
   useEffect(() => {
+    console.log("now fetched more data");
     if (data?.albums?.items) {
       if (trendsArray) {
-        setLoadMoreIndex((prevState) => prevState * 2);
+        console.log(data);
         setTrendsArray([...trendsArray, ...data?.albums?.items]);
+        setLoadMoreIndex(loadMoreOnIndex * 2);
       } else {
         setTrendsArray(data?.albums?.items);
       }
@@ -35,7 +37,9 @@ const TrendsList = (props) => {
     <ul className="flex flex-col gap-12">
       {trendsArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
-          <p className="text-center heading text-2xl text-black dark:text-white">There are no trends here :( Come back later</p>
+          <p className="text-center heading text-2xl text-black dark:text-white">
+            There are no trends here :( Come back later
+          </p>
         </div>
       )}
 
