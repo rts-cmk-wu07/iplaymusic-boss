@@ -29,67 +29,36 @@ const AlbumList = (props) => {
     show: { opacity: 1, x: 0 },
   };
   const tags = ["All", "Albums", "Singles & EPs"];
+  /* eslint-disable */
   useEffect(() => {
     if (activeTag === "All") {
       setCurrentUrl(url);
     } else if (activeTag === "Albums") {
-      setCurrentUrl(
-        url.split("include_groups=")[0] +
-          "include_groups=" +
-          activeTag.slice(0, -1).toLowerCase()
-      );
+      setCurrentUrl(url.split("include_groups=")[0] + "include_groups=" + activeTag.slice(0, -1).toLowerCase());
     } else if (activeTag === "Singles & EPs") {
-      setCurrentUrl(
-        url.split("include_groups=")[0] +
-          "include_groups=" +
-          "single,compilation"
-      );
+      setCurrentUrl(url.split("include_groups=")[0] + "include_groups=" + "single,compilation");
     }
   }, [activeTag, url]);
-
+  /* eslint-enable */
   return (
     <>
-      <h2
-        className={
-          artist
-            ? "text-2xl text-left font-bold mt-12 mb-6"
-            : "text-md font-bold mt-4 mb-3 text-black dark:text-white"
-        }>
+      <h2 className={artist ? "text-2xl text-left font-bold mt-12 mb-6" : "text-md font-bold mt-4 mb-3 text-black dark:text-white"}>
         {artist ? artist + "'s Discography" : "Saved Albums"}
       </h2>
       {artist && (
         <div className="flex my-2 gap-4 items-center">
-          <TagList
-            tags={tags}
-            activeTag={activeTag}
-            setActiveTag={setActiveTag}
-          />
+          <TagList tags={tags} activeTag={activeTag} setActiveTag={setActiveTag} />
         </div>
       )}
-      {albums?.length <= 0 && !loading && (
-        <p className="text-3xl font-bold text-addition dark:text-white">
-          No Music Found :(
-        </p>
-      )}
+      {albums?.length <= 0 && !loading && <p className="text-3xl font-bold text-addition dark:text-white">No Music Found :(</p>}
       {loading && <Loader />}
       {!loading && albums && (
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-4">
+        <motion.div variants={container} initial="hidden" animate="show" className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-4">
           {albums?.map((album, index) => {
             const albumData = artist ? album : album.album;
             return (
-              <motion.div
-                whileTap={{ scale: 0.9 }}
-                key={index}
-                variants={listItem}>
-                <AlbumArt
-                  artwork={albumData?.images[1]?.url}
-                  widthHeight="130px"
-                  callback={() => navigate(`/album/${albumData.id}`)}
-                />
+              <motion.div whileTap={{ scale: 0.9 }} key={index} variants={listItem}>
+                <AlbumArt artwork={albumData?.images[1]?.url} widthHeight="130px" callback={() => navigate(`/album/${albumData.id}`)} />
               </motion.div>
             );
           })}

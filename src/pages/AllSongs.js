@@ -14,23 +14,12 @@ const AllSongs = () => {
         onChange={handleChange}
         isSearchable={false}
         options={options}
-        className="my-react-select-container w-fit my-4"
+        className="my-react-select-container w-fit my-4 z-40"
         classNamePrefix="my-react-select"
         defaultValue={options.filter((option) => option.label === "Top Songs")}
       />
-      {selectState === "Top Songs" && (
-        <List
-          startUrl="https://api.spotify.com/v1/me/top/tracks?limit=20"
-          loadMoreOnIndex={16}
-        />
-      )}
-      {selectState === "Saved Songs" && (
-        <List
-          startUrl="https://api.spotify.com/v1/me/tracks"
-          loadMoreOnIndex={16}
-          trackLocation="track"
-        />
-      )}
+      {selectState === "Top Songs" && <List startUrl="https://api.spotify.com/v1/me/top/tracks?limit=20" loadMoreOnIndex={16} />}
+      {selectState === "Saved Songs" && <List startUrl="https://api.spotify.com/v1/me/tracks" loadMoreOnIndex={16} trackLocation="track" />}
     </div>
   );
 };
