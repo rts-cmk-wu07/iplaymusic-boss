@@ -18,8 +18,8 @@ const AllSongs = () => {
         classNamePrefix="my-react-select"
         defaultValue={options.filter((option) => option.label === "Top Songs")}
       />
-      {selectState === "Top Songs" && <List startUrl="https://api.spotify.com/v1/me/top/tracks?limit=20" loadMoreOnIndex={16} />}
-      {selectState === "Saved Songs" && <List startUrl="https://api.spotify.com/v1/me/tracks" loadMoreOnIndex={16} trackLocation="track" />}
+      {selectState === "Top Songs" && <List startUrl="https://api.spotify.com/v1/me/top/tracks?offset=0&limit=50" />}
+      {selectState === "Saved Songs" && <List startUrl="https://api.spotify.com/v1/me/tracks?offset=0&limit=50" trackLocation="track" />}
     </div>
   );
 };

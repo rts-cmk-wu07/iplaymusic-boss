@@ -64,7 +64,7 @@ const Home = () => {
         </div>
         <h1 className="heading gradient-text mt-16 mb-4">Featured</h1>
 
-        <FeaturedItemsList startUrl="https://api.spotify.com/v1/browse/featured-playlists?limit=3" loadMoreOnIndex={2} />
+        <FeaturedItemsList startUrl="https://api.spotify.com/v1/browse/featured-playlists?limit=4&offset=0" loadMoreOnIndex={3} />
       </div>
     </>
   );

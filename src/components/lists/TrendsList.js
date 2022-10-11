@@ -17,7 +17,7 @@ const TrendsList = (props) => {
   useEffect(() => {
     if (data?.albums?.items) {
       if (trendsArray) {
-        setLoadMoreIndex((prevState) => prevState * 2);
+        setLoadMoreIndex((prevState) => prevState + loadMoreOnIndex + 1);
         setTrendsArray([...trendsArray, ...data?.albums?.items]);
       } else {
         setTrendsArray(data?.albums?.items);
@@ -31,6 +31,7 @@ const TrendsList = (props) => {
   useEffect(() => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
+  console.log(data?.albums?.next);
   return (
     <ul className="flex flex-col gap-12">
       {trendsArray?.length <= 0 && !loading && (

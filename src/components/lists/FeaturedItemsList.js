@@ -17,7 +17,7 @@ const FeaturedItemsList = (props) => {
   useEffect(() => {
     if (data?.playlists?.items) {
       if (featuredArray) {
-        setLoadMoreIndex((prevState) => prevState * 2);
+        setLoadMoreIndex((prevState) => prevState + loadMoreOnIndex + 1);
         setFeaturedArray([...featuredArray, ...data?.playlists?.items]);
       } else {
         setFeaturedArray(data?.playlists?.items);

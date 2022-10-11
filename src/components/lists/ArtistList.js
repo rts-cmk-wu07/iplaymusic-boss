@@ -22,7 +22,7 @@ const ArtistList = (props) => {
   useEffect(() => {
     if (data?.items) {
       if (artistArray) {
-        setLoadMoreIndex((prevState) => prevState * 2);
+        setLoadMoreIndex((prevState) => prevState + loadMoreOnIndex + 1);
         setArtistArray([...artistArray, ...data?.items]);
       } else {
         setArtistArray(data?.items);
@@ -71,18 +71,12 @@ const ArtistList = (props) => {
       {artistArray?.length <= 0 && !loading && (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
-            There are no artists here, you can search for artists in the search
-            bar above.
+            There are no artists here, you can search for artists in the search bar above.
           </p>
         </div>
       )}
       {artistArray && !loading && (
-        <motion.ul
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2"
-        >
+        <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2">
           {artistArray?.map((item, i) =>
             //If element index is loadMore, then load more
             i === loadMoreIndex && nextUrl ? (
