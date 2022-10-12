@@ -12,7 +12,8 @@ const PlaylistCard = (props) => {
           style={{ opacity: isImage ? 1 : 0 }}
           src={images[1]?.url || images[0]?.url}
           onLoad={() => setIsImage(true)}
-          alt=""
+          alt="Playlist cover"
+          draggable="false"
         />
       </div>
       <p className="text-center self-stretch mt-1 text-ellipsis overflow-hidden whitespace-nowrap text-additional dark:text-white">
