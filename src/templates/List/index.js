@@ -9,7 +9,7 @@ import "react-swipeable-list/dist/styles.css";
 import trailingActions from "./TrailingActions";
 import leadingActions from "./LeadingActions";
 import useControls from "../../hooks/useControls";
-
+import PlaylistSearch from "../../components/subcomponents/PlaylistSearch";
 const List = (props) => {
   const { startUrl, trackLocation, header, showTitle } = props;
   // States
@@ -35,14 +35,31 @@ const List = (props) => {
     }
   }, [data]);
   /* eslint-enable */
+  const [search, setSearch] = useState("");
+  const filteredTracks = songArray?.filter((track) => {
+    const trackData = trackLocation ? track[trackLocation] : track;
+    const trackArtists = trackData?.artists
+      ? trackData?.artists?.map((artist) => artist.name)
+      : trackData?.artists;
+    return (
+      trackData.name.toLowerCase().includes(search.toLowerCase()) ||
+      trackArtists?.join(" ").toLowerCase().includes(search.toLowerCase())
+    );
+  });
 
   return (
     <>
-      {showTitle && <h1 className="heading gradient-text">{header ? header : title}</h1>}
-      {loading && <Loader />}
-      {songArray?.length <= 0 && !loading && (
-        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">There are no songs here yet</h2>
+      {showTitle && (
+        <h1 className="heading gradient-text">{header ? header : title}</h1>
       )}
+
+      {songArray?.length <= 0 && !loading && (
+        <h2 className="heading text-addition dark:text-white text-center mt-[25%]">
+          There are no songs here yet
+        </h2>
+      )}
+      <PlaylistSearch search={search} setSearch={setSearch} />
+      {loading && <Loader />}
       {!loading && songArray && (
         <SwipeableList
           style={{
@@ -52,7 +69,7 @@ const List = (props) => {
             marginTop: "1rem",
             height: "auto",
           }}>
-          {songArray.map((track, i) => {
+          {filteredTracks.map((track, i) => {
             const trackData = trackLocation ? track[trackLocation] : track;
 
             // on swipe right add song to queue
@@ -74,8 +91,15 @@ const List = (props) => {
               });
 
             return (
-              <SwipeableListItem key={i} leadingActions={leadingAction()} trailingActions={trailingAction()}>
-                <SongListItem key={trackData?.id} id={trackData?.id} track={trackData} />
+              <SwipeableListItem
+                key={i}
+                leadingActions={leadingAction()}
+                trailingActions={trailingAction()}>
+                <SongListItem
+                  key={trackData?.id}
+                  id={trackData?.id}
+                  track={trackData}
+                />
               </SwipeableListItem>
             );
           })}
