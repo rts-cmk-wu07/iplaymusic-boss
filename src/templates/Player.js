@@ -7,6 +7,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { useEffect } from "react";
 import SongContext from "../contexts/SongContext";
 import useControls from "../hooks/useControls";
+import { isIOS } from "react-device-detect";
 
 const Player = () => {
 	const { songData, setSongData } = useContext(SongContext);
@@ -149,7 +150,7 @@ const Player = () => {
 					className={`fixed flex flex-col gradient shadow-lg rounded-lg shadow-[#FF6A00]/50 z-30 ${
 						isOpen
 							? "top-0 bottom-0 left-0 right-0"
-							: "bottom-20 left-2 right-2 p-1"
+							: `${isIOS ? "bottom-[5.75rem]" : "bottom-20"} left-2 right-2 p-1`
 					}`}
 				>
 					<ReactAudioPlayer
