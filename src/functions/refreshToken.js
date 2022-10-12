@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { getCookie, setCookie } from 'react-use-cookie';
+import axios from "axios";
+import { getCookie, setCookie } from "react-use-cookie";
 
 const refreshToken = async setTokenData => {
 	// Get the tokenData from the cookie
-	const tokenDataFromCookie = getCookie('tokenData');
+	const tokenDataFromCookie = getCookie("tokenData");
 
 	// If token cookie exists
 	if (tokenDataFromCookie) {
@@ -19,7 +19,7 @@ const refreshToken = async setTokenData => {
 			// Token needs a refresh
 			axios
 				.post(
-					'/.netlify/functions/refresh_token',
+					"/.netlify/functions/refresh_token",
 					JSON.stringify({
 						refresh_token: tokenDataFromCookieParsed.refreshToken,
 					})
@@ -34,11 +34,10 @@ const refreshToken = async setTokenData => {
 							new Date().getTime() + response.data.expires_in * 1000,
 					};
 					setTokenData(resData);
-					setCookie('tokenData', JSON.stringify(resData));
+					setCookie("tokenData", JSON.stringify(resData));
 				});
 		}
 	} else {
-		console.info('%cNo tokenData stored in cookie ❌🍪', 'color: red');
 	}
 };
 
