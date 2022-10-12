@@ -21,9 +21,10 @@ const PlaylistSearch = ({ search, setSearch }) => {
         className="relative w-full">
         <span
           className={
-            isFocused
-              ? "cursor-text text-center flex items-center opacity-50 justify-center gap-1 text-black dark:text-white absolute text-xs ml-3 transition-all w-[calc(100%-33px)]"
-              : "cursor-text flex items-center justify-center gap-1 text-center text-black dark:text-white transition-all overflow-hidden text-ellipsis whitespace-nowrap  absolute mt-[10px] ml-[23px] w-[calc(100%-33px)]"
+            "cursor-text flex items-center justify-center gap-1 text-black dark:text-white absolute w-[calc(100%-33px)] transition-all " +
+            (isFocused
+              ? "text-xs ml-3 opacity-50 text-center"
+              : "text-center overflow-hidden text-ellipsis whitespace-nowrap mt-[10px] ml-[23px] w-[calc(100%-60px)]")
           }>
           <IoSearch
             className="transition-all duration-500"
@@ -34,14 +35,13 @@ const PlaylistSearch = ({ search, setSearch }) => {
         <button
           className="absolute right-4 bottom-[5px] text-white w-5 h-5 text-xs rounded-full gradient font-semibold"
           onClick={(e) => {
-            e.stopPropagation();
             setSearch("");
             inputRef.current.focus();
           }}>
           X
         </button>
         <input
-          className="text-center rounded-2xl outline-none w-full h-[45px] bg-white text-black dark:bg-additional pt-2 dark:text-white"
+          className="text-center rounded-2xl outline-none w-full h-[45px] bg-neutral-200 text-black dark:bg-additional pt-2 dark:text-white"
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
