@@ -17,7 +17,7 @@ const PlaylistSearch = ({ search, setSearch }) => {
       <motion.label
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1 }}
         className="relative w-full">
         <span
           className={
