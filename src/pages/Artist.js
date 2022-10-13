@@ -19,7 +19,7 @@ const Artist = () => {
             <TopTracksList id={id} />
             <AlbumList
               url={`https://api.spotify.com/v1/artists/${id}/albums?market=US&limit=50&include_groups=album,single,compilation,appears_on`}
-              artist={data.name}
+              artistName={data.name}
             />
             <div className="mt-12 w-full">
               <h3 className="heading text-left mb-6">Related Artists</h3>
