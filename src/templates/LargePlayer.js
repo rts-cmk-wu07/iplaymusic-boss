@@ -1,18 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { IoChevronDown } from "react-icons/io5";
-import {
-	containerV,
-	albumArtV,
-	titleV,
-	closeV,
-	imgV,
-} from "../assets/variants/LargePlayer";
+import { containerV, closeV, imgV } from "../assets/variants/LargePlayer";
 import Progress from "../components/player/Progress";
 import useFetch from "../hooks/useFetch";
 import PlayBackButtons from "../components/buttons/PlayBackButtons";
-import AnimatedText from "../components/subcomponents/text/AnimatedText";
 import { useContext } from "react";
-import VolumeSlider from "../components/player/VolumeSlider";
 import { memo } from "react";
 import ActionContext from "../contexts/ActionContext";
 import BackgroundImage from "../components/player/BackgroundImage";
