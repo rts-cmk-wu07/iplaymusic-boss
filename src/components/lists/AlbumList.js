@@ -37,47 +37,36 @@ const AlbumList = (props) => {
 
   // if used with tags, use these tags
   const tags = ["All", "Albums", "Singles & EPs"];
-  /* eslint-disable */
   useEffect(() => {
+    // get first part of url
+    const baseUrl = url.split("include_groups=")[0];
+    // check which tag matches and change url accordingly
     if (activeTag === "All") {
+      setCurrentUrl(url);
       return;
     }
     if (activeTag === "Albums") {
-      console.log(
-        "%c" +
-          url.split("include_groups=")[0] +
-          "include_groups=" +
-          activeTag.slice(0, -1).toLowerCase(),
-        "color: red;"
-      );
-      setCurrentUrl(
-        url.split("include_groups=")[0] +
-          "include_groups=" +
-          activeTag.slice(0, -1).toLowerCase()
-      );
+      setCurrentUrl(`${baseUrl}include_groups=album`);
       return;
     }
     if (activeTag === "Singles & EPs") {
-      setCurrentUrl(
-        url.split("include_groups=")[0] +
-          "include_groups=" +
-          "single,compilation"
-      );
+      setCurrentUrl(`${baseUrl}include_groups=single,compilation`);
       return;
     }
   }, [activeTag, url]);
-  /* eslint-enable */
+
   return (
     <>
-      <h2
-        className={
-          artistName
-            ? "text-2xl text-left font-bold mt-12 mb-6"
-            : "text-md font-bold mt-4 mb-3 text-black dark:text-white"
-        }
-      >
-        {artistName ? artistName + "'s Discography" : "Saved Albums"}
-      </h2>
+      {loading && <Loader />}
+      {/* if used at artist page print it's header : default header */}
+      {artistName ? (
+        <h2 className="text-2xl text-left font-bold mt-12 mb-6">{`${artistName}'s Discography`}</h2>
+      ) : (
+        <h1 className="text-md font-bold mt-4 mb-3 text-black dark:text-white">
+          Saved Albums
+        </h1>
+      )}
+      {/* if used at artist page use tagList */}
       {artistName && (
         <div className="flex my-2 gap-4 items-center">
           <TagList
@@ -87,19 +76,20 @@ const AlbumList = (props) => {
           />
         </div>
       )}
+      {/* no albums saved err msg */}
       {albums?.length <= 0 && !loading && (
-        <p className="text-3xl font-bold text-addition dark:text-white">
-          No Music Found :(
+        <p className="text-sm font-bold text-addition dark:text-white">
+          You don't have any saved albums..
         </p>
       )}
-      {loading && <Loader />}
-      {!loading && albums && (
+      {albums && (
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
           className="flex gap-3 overflow-y-auto -mr-6 pr-6 pl-4 -ml-4 pb-4"
         >
+          {/* printing all albumArt covers */}
           {albums?.map((album, index) => {
             const albumData = artistName ? album : album.album;
             return (
