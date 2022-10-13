@@ -4,7 +4,6 @@ import { ToastContainer, toast, Zoom } from "react-toastify";
 import SongContext from "../../contexts/SongContext";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext, useEffect, useState } from "react";
-import useControls from "../../hooks/useControls";
 
 const Notification = ({ text }) => {
   const { songData } = useContext(SongContext);
