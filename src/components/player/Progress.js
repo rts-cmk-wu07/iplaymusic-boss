@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { progressV } from "../assets/variants/LargePlayer";
+import { progressV } from "../../assets/variants/LargePlayer";
 import { useRef, useState, useEffect } from "react";
 
 const Progress = ({ current, setProgress, controls }) => {
