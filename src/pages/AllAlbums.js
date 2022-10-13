@@ -1,3 +1,4 @@
+/* all albums page */
 import AlbumList from "../components/lists/AlbumList";
 import NewReleases from "../components/lists/NewReleases";
 
