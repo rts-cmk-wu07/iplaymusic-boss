@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const AnimatedText = ({ children, alignment, callback }) => {
 	const containerRef = useRef(null);

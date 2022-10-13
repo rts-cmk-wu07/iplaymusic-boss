@@ -14,6 +14,7 @@ const Playlist = () => {
       <List
         startUrl={`https://api.spotify.com/v1/playlists/${id}/tracks`}
         trackLocation="track"
+        loadMoreOnIndex={90}
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import SongListItem from "../../components/subcomponents/SongListItem";
+import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
 import Loader from "../../components/subcomponents/Loader";
@@ -14,10 +15,13 @@ import ActionContext from "../../contexts/ActionContext";
 const List = props => {
 	const { items, open, album } = useContext(ActionContext);
 	console.log(items, open, album);
-	const { startUrl, trackLocation, header, showTitle } = props;
+	const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
 	// States
-	const [currentUrl] = useState(startUrl);
+	const [currentUrl, setCurrentUrl] = useState(startUrl);
 	const [songArray, setSongArray] = useState(null);
+	const [nextUrl, setNextUrl] = useState(null);
+	const [inView, setInView] = useState(false);
+	const [loadMoreIndex, setLoadMoreIndex] = useState(loadMoreOnIndex);
 
 	//Placheholder array of objects for the songs list items to be mapped over in the return statement below
 	const { data, loading } = useFetch(currentUrl);
@@ -27,20 +31,11 @@ const List = props => {
 	// Getting the title
 	const [searchParams] = useSearchParams();
 	const title = searchParams.get("title");
-	/* eslint-disable */
-	useEffect(() => {
-		if (data.items) {
-			if (songArray) {
-				setSongArray([...songArray, ...data.items]);
-			} else {
-				setSongArray(data.items.filter(item => item));
-			}
-		}
-	}, [data]);
-	/* eslint-enable */
+
 	const [search, setSearch] = useState("");
 	const filteredTracks = songArray?.filter(track => {
 		const trackData = trackLocation ? track[trackLocation] : track;
+		if (trackData === null) return null;
 		const trackArtists = trackData?.artists
 			? trackData?.artists?.map(artist => artist.name)
 			: trackData?.artists;
@@ -49,6 +44,23 @@ const List = props => {
 			trackArtists?.join(" ").toLowerCase().includes(search.toLowerCase())
 		);
 	});
+	/* eslint-disable */
+	useEffect(() => {
+		if (data.items) {
+			if (songArray) {
+				setLoadMoreIndex(prevState => prevState + loadMoreOnIndex + 5);
+				setSongArray([...songArray, ...data.items]);
+			} else {
+				setSongArray(data.items.filter(item => item));
+			}
+			setNextUrl(data.next);
+		}
+	}, [data]);
+	/* eslint-enable */
+	// When bottom element (loadMoreOnIndex) gets show, fetch nextUrl
+	useEffect(() => {
+		if (inView) setCurrentUrl(nextUrl);
+	}, [inView, nextUrl]);
 
 	const handleActionMenu = track => {
 		open.setActionMenuOpen(true);
@@ -61,14 +73,13 @@ const List = props => {
 			{showTitle && (
 				<h1 className="heading gradient-text">{header ? header : title}</h1>
 			)}
-
+			{loading && <Loader />}
 			{songArray?.length <= 0 && !loading && (
 				<h2 className="heading text-addition dark:text-white text-center mt-[25%]">
 					There are no songs here yet
 				</h2>
 			)}
 			<PlaylistSearch search={search} setSearch={setSearch} />
-			{loading && <Loader />}
 			{!loading && songArray && (
 				<SwipeableList
 					style={{
@@ -81,8 +92,7 @@ const List = props => {
 				>
 					{filteredTracks.map((track, i) => {
 						const trackData = trackLocation ? track[trackLocation] : track;
-						console.log(trackData);
-
+						if (trackData === null) return null;
 						// on swipe right add song to queue
 						const leadingAction = () =>
 							leadingActions({
@@ -101,19 +111,40 @@ const List = props => {
 								textColor: "white",
 							});
 
-						return (
-							<SwipeableListItem
-								key={i}
-								leadingActions={leadingAction()}
-								trailingActions={trailingAction()}
-							>
-								<SongListItem
-									key={trackData?.id}
-									id={trackData?.id}
-									track={trackData}
-								/>
-							</SwipeableListItem>
-						);
+						if (i === loadMoreIndex && nextUrl) {
+							return (
+								<InView key={i} onChange={setInView}>
+									{({ inView, ref, entry }) => (
+										<div key={i} ref={ref}>
+											<SwipeableListItem
+												leadingActions={leadingAction()}
+												trailingActions={trailingAction()}
+											>
+												<SongListItem
+													key={i}
+													id={trackData?.id}
+													track={trackData}
+												/>
+											</SwipeableListItem>
+										</div>
+									)}
+								</InView>
+							);
+						} else {
+							return (
+								<SwipeableListItem
+									key={i}
+									leadingActions={leadingAction()}
+									trailingActions={trailingAction()}
+								>
+									<SongListItem
+										key={trackData?.id}
+										id={trackData?.id}
+										track={trackData}
+									/>
+								</SwipeableListItem>
+							);
+						}
 					})}
 				</SwipeableList>
 			)}

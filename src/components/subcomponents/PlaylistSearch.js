@@ -32,14 +32,16 @@ const PlaylistSearch = ({ search, setSearch }) => {
           />
           Search for a song or artist...
         </span>
-        <button
-          className="absolute right-4 bottom-[5px] text-white w-5 h-5 text-xs rounded-full gradient font-semibold"
-          onClick={(e) => {
-            setSearch("");
-            inputRef.current.focus();
-          }}>
-          X
-        </button>
+        {search !== "" && (
+          <button
+            className="absolute right-4 bottom-[5px] text-white w-5 h-5 text-xs rounded-full gradient font-semibold"
+            onClick={(e) => {
+              setSearch("");
+              inputRef.current.focus();
+            }}>
+            X
+          </button>
+        )}
         <input
           className="text-center rounded-2xl outline-none w-full h-[45px] bg-neutral-200 text-black dark:bg-additional pt-2 dark:text-white"
           type="search"

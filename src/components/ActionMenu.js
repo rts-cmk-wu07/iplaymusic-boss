@@ -10,6 +10,7 @@ const ActionMenu = ({
 	additionalCallback,
 	album,
 }) => {
+	console.log(album);
 	const variants = {
 		container: {
 			hidden: {
@@ -64,7 +65,7 @@ const ActionMenu = ({
 							variants={variants.list}
 							className="flex flex-col items-start gap-4 py-4 px-6 bg-white dark:bg-secondary rounded-md max-w-full"
 						>
-							<div className="flex items-end gap-4 min-w-0 max-w-full">
+							<div className="flex items-end gap-2 min-w-0 max-w-full">
 								{album?.images[0] ? (
 									<img
 										src={album?.images[0]?.url}
@@ -74,6 +75,7 @@ const ActionMenu = ({
 								) : (
 									<div className="w-16 h-16 rounded-md bg-slate-500"></div>
 								)}
+
 								<AnimatedText>
 									<h1 className="text-2xl font-bold whitespace-nowrap text-ellipsis w-full mb-1">
 										{album?.name}
