@@ -4,9 +4,16 @@ import PlayBackButton from "../components/buttons/PlayBackButton";
 import AlbumArt from "../components/subcomponents/AlbumArt";
 import AnimatedText from "../components/subcomponents/text/AnimatedText";
 import useControls from "../hooks/useControls";
+import { useContext } from "react";
+import SongListContext from "../contexts/SongListContext";
 
 const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
-	const { nextSong } = useControls();
+	const { nextSong, isRepeat } = useControls();
+	const { songList } = useContext(SongListContext);
+	const songIsLastInCurrentList =
+		songList?.currentList.playlist[songList.currentList.playlist.length - 1]
+			?.id === song?.id;
+
 	return (
 		<AnimatePresence>
 			{!isOpen && (
@@ -47,9 +54,9 @@ const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
 						</AnimatedText>
 					</motion.div>
 					<motion.div
-						className={`flex gap-1 text-white items-center ${
-							!isOpen && "ml-auto"
-						} mr-2`}
+						className={`flex ${
+							!songIsLastInCurrentList || isRepeat ? "gap-1" : "gap-0"
+						} text-white items-center ${!isOpen && "ml-auto"} mr-2`}
 					>
 						<PlayBackButton
 							initial={{ x: 8 }}
@@ -62,13 +69,28 @@ const MiniPlayer = ({ isOpen, setIsOpen, song, controls, isPlaying }) => {
 								<IoPlayCircle className="w-12 h-12" />
 							)}
 						</PlayBackButton>
-						<PlayBackButton
-							initial={{ opacity: 0, x: -16 }}
-							animate={{ opacity: 1, x: 0, transition: { delay: 0.75 } }}
-							callback={() => nextSong(setIsOpen)}
-						>
-							<IoPlayForward size={24} />
-						</PlayBackButton>
+						<AnimatePresence>
+							{!songIsLastInCurrentList || isRepeat ? (
+								<PlayBackButton
+									initial={{ opacity: 0, x: -16 }}
+									animate={{
+										opacity: 1,
+										x: 0,
+										width: "fit-content",
+										transition: { delay: 0.75 },
+									}}
+									exit={{
+										opacity: 0,
+										x: 16,
+										width: 0,
+										transition: { duration: 0.2 },
+									}}
+									callback={() => nextSong(setIsOpen)}
+								>
+									<IoPlayForward size={24} />
+								</PlayBackButton>
+							) : null}
+						</AnimatePresence>
 					</motion.div>
 				</motion.div>
 			)}
