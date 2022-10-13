@@ -11,10 +11,11 @@ import leadingActions from "./LeadingActions";
 import useControls from "../../hooks/useControls";
 import PlaylistSearch from "../../components/subcomponents/PlaylistSearch";
 import ActionContext from "../../contexts/ActionContext";
+import { BiListPlus } from "react-icons/bi";
+import { MdPersonOutline } from "react-icons/md";
 
 const List = props => {
 	const { items, open, album } = useContext(ActionContext);
-	console.log(items, open, album);
 	const { startUrl, loadMoreOnIndex, trackLocation, header, showTitle } = props;
 	// States
 	const [currentUrl, setCurrentUrl] = useState(startUrl);
@@ -98,7 +99,7 @@ const List = props => {
 							leadingActions({
 								action: () => addToQueue(trackData),
 								destructive: false,
-								text: "Queue",
+								icon: <BiListPlus size={24} />,
 								bgColor: "#1db954",
 								textColor: "white",
 							});
@@ -106,8 +107,8 @@ const List = props => {
 							trailingActions({
 								action: () => handleActionMenu(trackData),
 								destructive: false,
-								text: "DELETE",
-								bgColor: "red",
+								icon: <MdPersonOutline size={24} />,
+								bgColor: "#FF1168",
 								textColor: "white",
 							});
 

@@ -55,6 +55,15 @@ const PlayerLayout = ({ children }) => {
 	const [actionMenuOpen, setActionMenuOpen] = useState(false);
 	const [actionAlbum, setActionAlbum] = useState(null);
 
+	useEffect(() => {
+		if (!actionMenuOpen) {
+			setTimeout(() => {
+				setActionMenuItems([]);
+				setActionAlbum(null);
+			}, 500);
+		}
+	}, [actionMenuOpen]);
+
 	return (
 		<ControlsContext.Provider value={{ controls, setControls }}>
 			<SongListContext.Provider value={{ songList, setSongList }}>
