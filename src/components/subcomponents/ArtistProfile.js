@@ -1,10 +1,13 @@
 import { IoPerson } from "react-icons/io5";
-
+// takes in data as prop
 const ArtistProfile = ({ data }) => {
+  // seperates all genres with a comma and space
   const genres = data?.genres?.map((genre) => genre).join(", ");
   return (
     <div className="flex flex-col gap-4 items-center">
       {data?.images ? (
+        // if there is an image, display it
+        // else display a placeholder
         <img
           src={
             data?.images?.find((image) => image.width === 320)?.url ||

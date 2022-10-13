@@ -13,8 +13,8 @@ const UserPlayLists = ({ id, name }) => {
       {!loading ? (
         <ul className="ml-6 pr-12 overflow-x-auto flex w-full gap-4 select-none">
           {data?.items.map((playlist) => (
-            <div className="min-w-[165px] min-h-[215px]">
-              <Playlist key={playlist.id} {...playlist} />
+            <div key={playlist.id} className="min-w-[165px] min-h-[215px]">
+              <Playlist {...playlist} />
             </div>
           ))}
         </ul>
