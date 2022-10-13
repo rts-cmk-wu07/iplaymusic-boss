@@ -11,11 +11,10 @@ import Progress from "../components/Progress";
 import useFetch from "../hooks/useFetch";
 import PlayBackButtons from "../components/buttons/PlayBackButtons";
 import AnimatedText from "../components/subcomponents/text/AnimatedText";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import ActionMenu from "../components/ActionMenu";
+import { useContext } from "react";
 import VolumeSlider from "../components/VolumeSlider";
 import { memo } from "react";
+import ActionContext from "../contexts/ActionContext";
 
 const LargePlayer = ({
 	isOpen,
@@ -28,19 +27,15 @@ const LargePlayer = ({
 	volume,
 	setVolume,
 }) => {
-	const navigate = useNavigate();
-	const [artistListOpen, setArtistListOpen] = useState(false);
+	const { items, open, album } = useContext(ActionContext);
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
 	);
 
 	const handleArtistClick = () => {
-		if (song?.artists.length > 1) {
-			setArtistListOpen(true);
-		} else {
-			navigate(`/artist/${song?.artists[0].id}`);
-			setIsOpen(false);
-		}
+		open.setActionMenuOpen(true);
+		items.setActionMenuItems(song?.artists);
+		album.setActionAlbum(song?.album);
 	};
 
 	return (
@@ -175,13 +170,6 @@ const LargePlayer = ({
 							</div>
 						</motion.div>
 					</motion.div>
-
-					<ActionMenu
-						items={song?.artists}
-						isOpen={artistListOpen}
-						setIsOpen={setArtistListOpen}
-						additionalCallback={setIsOpen}
-					/>
 				</>
 			)}
 		</AnimatePresence>

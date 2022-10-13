@@ -26,7 +26,7 @@ const Album = () => {
 		return {
 			...item,
 			album: {
-				images: data?.images,
+				...data,
 			},
 		};
 	});
@@ -34,7 +34,7 @@ const Album = () => {
 		return {
 			...track,
 			album: {
-				images: data?.images,
+				...data,
 			},
 		};
 	};
