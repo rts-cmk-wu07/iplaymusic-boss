@@ -42,9 +42,7 @@ const albumArtV = {
 		},
 		open: {
 			opacity: 1,
-			rotate: ["0deg", "360deg"],
 			transition: {
-				delay: 0.5,
 				ease: "easeOut",
 				rotate: {
 					duration: 10,
@@ -55,6 +53,9 @@ const albumArtV = {
 		},
 		exit: {
 			opacity: 0,
+			transition: {
+				ease: "easeOut",
+			},
 		},
 	},
 };

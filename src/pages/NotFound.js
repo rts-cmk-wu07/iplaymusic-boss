@@ -13,7 +13,7 @@ const NotFound = () => {
 	const navigate = useNavigate();
 	const [gameHasStarted, setGameHasStarted] = useState(false);
 	const [points, setPoints] = useState(0);
-	const goal = 50;
+	const goal = 10;
 	const progress = (points / goal) * 100;
 	const [pointerIsDown, setPointerIsDown] = useState(false);
 	const [gameIsWon, setGameIsWon] = useState(false);
