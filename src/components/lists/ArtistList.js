@@ -23,18 +23,12 @@ const ArtistList = (props) => {
   // fetches artist data with custom useFetch hook
   const { data, loading } = useFetch(currentUrl);
 
-  // useEffect to update the artistArray state with the data from the fetch
+  // useEffect that updates artistArray data from the fetch
   useEffect(() => {
     if (data?.items || data?.artists?.items) {
-      if (artistArray) {
-        // adds new items into artists array
-        setArtistArray([
-          ...artistArray,
-          ...(data?.items || data?.artists?.items),
-        ]);
-      } else {
-        setArtistArray(data?.items || data?.artists?.items);
-      }
+      setArtistArray((prevState) => {
+        return [...prevState, ...(data.items || data.artists.items)];
+      });
       // uses the next url from api to load next results
       setNextUrl(data?.next || data?.artists?.next);
     }
