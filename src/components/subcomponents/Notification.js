@@ -4,6 +4,7 @@ import { ToastContainer, toast, Zoom } from "react-toastify";
 import SongContext from "../../contexts/SongContext";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext, useEffect, useState } from "react";
+import useControls from "../../hooks/useControls";
 
 const Notification = ({ text }) => {
   const { songData } = useContext(SongContext);
@@ -11,14 +12,14 @@ const Notification = ({ text }) => {
   const customToastId = "custom-toast-id";
   /* eslint-disable */
   useEffect(() => {
-    if (toast.isActive(customToastId)) {
-      toast.dismiss(customToastId);
-      setInvalidSong(false);
-    }
     if (songData.preview_url === null) {
       toast(text.toString(), { toastId: customToastId });
       setInvalidSong(true);
     } else {
+      setInvalidSong(false);
+    }
+    if (toast.isActive(customToastId)) {
+      toast.dismiss(customToastId);
       setInvalidSong(false);
     }
   }, [songData]);
@@ -36,11 +37,9 @@ const Notification = ({ text }) => {
       {invalidSong ? (
         <ToastContainer
           toastClassName={() =>
-            "fixed mx-auto bottom-40 flex p-1 w-full min-h-16 rounded-md justify-between overflow-hidden cursor-pointer gradient w-[95%] ml-[-47.5%] left-[50%] z-50"
+            "fixed mx-auto bottom-[170px] flex p-1 w-full min-h-16 rounded-md justify-between overflow-hidden cursor-pointer gradient w-[95%] ml-[-47.5%] left-[50%] z-50"
           }
-          bodyClassName={() =>
-            "relative flex w-full h-full text-lg font-white font-semibold p-3"
-          }
+          bodyClassName={() => "relative flex w-full h-full text-lg font-white font-semibold py-1 px-3"}
           rtl={false}
           pauseOnFocusLoss
           transition={Zoom}
