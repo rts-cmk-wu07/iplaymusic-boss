@@ -83,7 +83,8 @@ const Search = ({ setSearchOpen, transparent }) => {
         transparent
           ? "flex flex-col top-[63px] overflow-hidden absolute w-full  text-black  dark:text-white rounded-b-2xl"
           : "flex flex-col top-[63px] overflow-hidden absolute w-full bg-white text-black dark:bg-secondary dark:text-white rounded-b-2xl shadow-2xl"
-      }>
+      }
+    >
       <SearchInput
         onSubmitSearch={onSubmitSearch}
         inputValue={inputValue}
