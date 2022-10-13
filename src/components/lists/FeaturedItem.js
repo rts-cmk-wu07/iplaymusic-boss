@@ -17,9 +17,7 @@ const FeaturedItem = ({ item }) => {
           }
         }}>
         <div className="flex flex-col justify-end px-4 py-4 h-3/4 mt-auto w-full text-white bg-gradient-to-t from-black/50 to-black/0">
-          {item?.owner?.display_name && (
-            <p className="opacity-90">Made by: {item?.owner?.display_name}</p>
-          )}
+          {item?.owner?.display_name && <p className="opacity-90 self-end">Made by: {item?.owner?.display_name}</p>}
           <div className="flex min-w-0 text-ellipsis overflow-hidden whitespace-nowrap ">
             {item?.artists?.map((artist, index) => {
               return (
@@ -36,11 +34,7 @@ const FeaturedItem = ({ item }) => {
             })}
           </div>
 
-          {item?.release_date && (
-            <p className="text-base opacity-50 mt-2">
-              {convertDate(item?.release_date)}
-            </p>
-          )}
+          {item?.release_date && <p className="text-base opacity-50 mt-2">{convertDate(item?.release_date)}</p>}
 
           {item?.album_type === "album" && (
             <>
