@@ -39,21 +39,15 @@ const useControls = () => {
 					: referenceIndex + 1;
 
 			const nextSongIndex = controls.isShuffle
-				? playlist.findIndex(song => song.id === playlist[playlistNextIndex].id)
-				: playlist.findIndex(song => song.id === originalList[nextIndex].id);
+				? playlist.findIndex(
+						song => song?.id === playlist[playlistNextIndex]?.id
+				  )
+				: playlist.findIndex(
+						song => song?.id === originalList[nextIndex]?.id
+				  ) || 0;
 
-			if (nextIndex < playlist.length) {
-				setSongData(playlist[nextSongIndex]);
-				setSongList({
-					...songList,
-					currentList: {
-						playlist,
-						upNext,
-						referenceIndex: nextIndex,
-					},
-				});
-			} else {
-				if (controls.isRepeat && playlist.length > 1) {
+			if (nextIndex > playlist.length - 1 || playlist.length <= 1) {
+				if (controls.isRepeat && playlist.length > 0) {
 					setSongData(playlist[0]);
 					setSongList({
 						...songList,
@@ -65,8 +59,26 @@ const useControls = () => {
 					});
 				} else {
 					setSongData({});
+					setSongList({
+						...songList,
+						currentList: {
+							playlist: [],
+							upNext,
+							referenceIndex: 0,
+						},
+					});
 					setOpen(false);
 				}
+			} else {
+				setSongData(playlist[nextSongIndex]);
+				setSongList({
+					...songList,
+					currentList: {
+						playlist,
+						upNext,
+						referenceIndex: nextIndex,
+					},
+				});
 			}
 		}
 	};
@@ -76,7 +88,6 @@ const useControls = () => {
 		const { playlist, referenceIndex } = currentList;
 		const currentIndex = playlist.findIndex(song => song.id === songData.id);
 		const previousIndex = currentIndex - 1;
-		console.log(playlist[referenceIndex].name);
 		const previousSong =
 			playlist[currentIndex].id === playlist[referenceIndex].id
 				? playlist[previousIndex < 0 ? playlist.length - 1 : previousIndex]

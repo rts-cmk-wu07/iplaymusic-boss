@@ -7,11 +7,13 @@ const PlayBackButton = ({
 	size,
 	initial,
 	animate,
+	exit,
 }) => {
 	return (
 		<motion.button
 			initial={initial}
 			animate={animate}
+			exit={exit}
 			variants={variants}
 			whileTap={{ scale: 0.75 }}
 			transition={{ type: "spring", stiffness: 500 }}
