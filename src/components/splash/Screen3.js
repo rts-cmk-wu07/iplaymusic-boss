@@ -4,6 +4,15 @@ import { IoHeartOutline, IoMusicalNotesOutline } from "react-icons/io5";
 
 const SwappableText = ({ text, icon, index }) => {
 	const [showIcon, setShowIcon] = useState(false);
+	const [hasBeenClicked, setHasBeenClicked] = useState(false);
+
+	if (!hasBeenClicked) {
+		setTimeout(() => {
+			setShowIcon(true);
+			setHasBeenClicked(true);
+		}, 1000 * (index + 1));
+	}
+
 	return (
 		<AnimatePresence>
 			<motion.span
@@ -11,9 +20,32 @@ const SwappableText = ({ text, icon, index }) => {
 				initial={{ opacity: 0, x: -30 }}
 				animate={{ opacity: 1, x: 0 }}
 				transition={{ delay: `0.${index * 2}` }}
-				onClick={() => setShowIcon(!showIcon)}
+				onClick={() => {
+					setShowIcon(!showIcon);
+					setHasBeenClicked(true);
+				}}
 			>
-				{showIcon ? icon : text}
+				<AnimatePresence>
+					{showIcon ? (
+						<motion.span
+							initial={{ width: 0, opacity: 0 }}
+							animate={{ width: "fit-content", opacity: 1 }}
+							exit={{ width: 0, opacity: 0 }}
+							className="inline-flex items-center gap-2"
+						>
+							{icon}
+						</motion.span>
+					) : (
+						<motion.span
+							initial={{ width: 0, opacity: 0 }}
+							animate={{ width: "fit-content", opacity: 1 }}
+							exit={{ width: 0, opacity: 0 }}
+							className="inline-flex items-center gap-2"
+						>
+							{text}
+						</motion.span>
+					)}
+				</AnimatePresence>
 				{index < 2 && !showIcon && ","}
 			</motion.span>
 		</AnimatePresence>
