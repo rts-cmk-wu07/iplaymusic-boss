@@ -54,12 +54,14 @@ const PlayerLayout = ({ children }) => {
 	const [actionMenuItems, setActionMenuItems] = useState([]);
 	const [actionMenuOpen, setActionMenuOpen] = useState(false);
 	const [actionAlbum, setActionAlbum] = useState(null);
+	const [additionalCallback, setAdditionalCallback] = useState(null);
 
 	useEffect(() => {
 		if (!actionMenuOpen) {
 			setTimeout(() => {
 				setActionMenuItems([]);
 				setActionAlbum(null);
+				setAdditionalCallback(null);
 			}, 500);
 		}
 	}, [actionMenuOpen]);
@@ -83,6 +85,10 @@ const PlayerLayout = ({ children }) => {
 									actionAlbum,
 									setActionAlbum,
 								},
+								callback: {
+									additionalCallback,
+									setAdditionalCallback,
+								},
 							}}
 						>
 							{children}
@@ -92,10 +98,10 @@ const PlayerLayout = ({ children }) => {
 								<>
 									<Notification text="Song not available, enjoy Rick Roll instead :D" />
 									<ActionMenu
-										items={actionMenuItems}
-										isOpen={actionMenuOpen}
-										setIsOpen={setActionMenuOpen}
-										album={actionAlbum}
+									// items={actionMenuItems}
+									// isOpen={actionMenuOpen}
+									// setIsOpen={setActionMenuOpen}
+									// album={actionAlbum}
 									/>
 								</>
 							)}

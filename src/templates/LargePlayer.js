@@ -23,15 +23,20 @@ const LargePlayer = props => {
 		volume,
 		setVolume,
 	} = props;
-	const { items, open, album } = useContext(ActionContext);
+	const { items, open, album, callback } = useContext(ActionContext);
 	const { data } = useFetch(
 		`https://api.spotify.com/v1/artists/${song?.artists[0].id}/`
 	);
+
+	const closePlayer = () => {
+		setIsOpen(false);
+	};
 
 	const handleArtistClick = () => {
 		open.setActionMenuOpen(true);
 		items.setActionMenuItems(song?.artists);
 		album.setActionAlbum(song?.album);
+		callback.setAdditionalCallback(closePlayer);
 	};
 
 	return (
@@ -66,7 +71,7 @@ const LargePlayer = props => {
 								<LargePlayerTitle
 									title={song?.name}
 									artist={song.artists.map(artist => artist.name).join(", ")}
-									callback={handleArtistClick}
+									artistCallback={handleArtistClick}
 								/>
 								<motion.div>
 									<Progress
