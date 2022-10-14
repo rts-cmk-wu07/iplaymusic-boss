@@ -1,21 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
 import { useState } from "react";
 import { IoHeartOutline, IoMusicalNotesOutline } from "react-icons/io5";
 
 const SwappableText = ({ text, icon, index }) => {
-	const [showIcon, setShowIcon] = useState(Math.random() > 0.8 ? true : false);
-	// at random repeating intervals, show the icon instead of the text, and vice versa
-	const [randomInterval, setRandomInterval] = useState(
-		Math.floor(Math.random() * 15000) + 2000
-	);
-	useEffect(() => {
-		const interval = setTimeout(() => {
-			setShowIcon(prev => !prev);
-			setRandomInterval(Math.floor(Math.random() * 15000) + 2000);
-		}, randomInterval);
-		return () => clearInterval(interval);
-	}, [randomInterval]);
+	const [showIcon, setShowIcon] = useState(false);
+	const [hasBeenClicked, setHasBeenClicked] = useState(false);
+
+	if (!hasBeenClicked) {
+		setTimeout(() => {
+			setShowIcon(true);
+			setHasBeenClicked(true);
+		}, 1000 * (index + 1));
+	}
 
 	return (
 		<AnimatePresence>
@@ -24,7 +20,10 @@ const SwappableText = ({ text, icon, index }) => {
 				initial={{ opacity: 0, x: -30 }}
 				animate={{ opacity: 1, x: 0 }}
 				transition={{ delay: `0.${index * 2}` }}
-				onClick={() => setShowIcon(!showIcon)}
+				onClick={() => {
+					setShowIcon(!showIcon);
+					setHasBeenClicked(true);
+				}}
 			>
 				<AnimatePresence>
 					{showIcon ? (
