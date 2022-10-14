@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
 import { useState } from "react";
 import { IoHeartOutline, IoMusicalNotesOutline } from "react-icons/io5";
 
