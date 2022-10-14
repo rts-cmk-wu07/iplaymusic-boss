@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import millisToTime from "../../functions/millisToTime";
+import millisToTime from "../../../functions/millisToTime";
 import { useContext, useState } from "react";
-import useSong from "../../hooks/useSong";
+import useSong from "../../../hooks/useSong";
 import { FiChevronRight } from "react-icons/fi";
-import SongContext from "../../contexts/SongContext";
-import NowPlaying from "./NowPlaying";
+import SongContext from "../../../contexts/SongContext";
+import NowPlaying from "../../subcomponents/NowPlaying";
 import { AnimatePresence } from "framer-motion";
 
 const SongListItem = ({

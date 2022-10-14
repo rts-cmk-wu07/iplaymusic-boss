@@ -1,4 +1,4 @@
-import ColoredListItem from "../components/lists/ColoredListItem";
+import ColoredListItem from "../components/lists/items/ColoredListItem";
 import FeaturedItemsList from "../components/lists/FeaturedItemsList";
 import useFetch from "../hooks/useFetch";
 const Home = () => {

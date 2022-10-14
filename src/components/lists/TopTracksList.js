@@ -1,6 +1,6 @@
 import useFetch from "../../hooks/useFetch";
 import Loader from "../subcomponents/Loader";
-import SongListItem from "../subcomponents/SongListItem";
+import SongListItem from "./items/SongListItem";
 import List from "./List";
 
 const TopTracksList = ({ id }) => {
