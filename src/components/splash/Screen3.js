@@ -1,9 +1,22 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 import { useState } from "react";
 import { IoHeartOutline, IoMusicalNotesOutline } from "react-icons/io5";
 
 const SwappableText = ({ text, icon, index }) => {
-	const [showIcon, setShowIcon] = useState(false);
+	const [showIcon, setShowIcon] = useState(Math.random() > 0.8 ? true : false);
+	// at random repeating intervals, show the icon instead of the text, and vice versa
+	const [randomInterval, setRandomInterval] = useState(
+		Math.floor(Math.random() * 15000) + 2000
+	);
+	useEffect(() => {
+		const interval = setTimeout(() => {
+			setShowIcon(prev => !prev);
+			setRandomInterval(Math.floor(Math.random() * 15000) + 2000);
+		}, randomInterval);
+		return () => clearInterval(interval);
+	}, [randomInterval]);
+
 	return (
 		<AnimatePresence>
 			<motion.span
@@ -13,7 +26,27 @@ const SwappableText = ({ text, icon, index }) => {
 				transition={{ delay: `0.${index * 2}` }}
 				onClick={() => setShowIcon(!showIcon)}
 			>
-				{showIcon ? icon : text}
+				<AnimatePresence>
+					{showIcon ? (
+						<motion.span
+							initial={{ width: 0, opacity: 0 }}
+							animate={{ width: "fit-content", opacity: 1 }}
+							exit={{ width: 0, opacity: 0 }}
+							className="inline-flex items-center gap-2"
+						>
+							{icon}
+						</motion.span>
+					) : (
+						<motion.span
+							initial={{ width: 0, opacity: 0 }}
+							animate={{ width: "fit-content", opacity: 1 }}
+							exit={{ width: 0, opacity: 0 }}
+							className="inline-flex items-center gap-2"
+						>
+							{text}
+						</motion.span>
+					)}
+				</AnimatePresence>
 				{index < 2 && !showIcon && ","}
 			</motion.span>
 		</AnimatePresence>
