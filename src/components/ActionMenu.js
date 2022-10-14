@@ -3,14 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IoChevronForward } from "react-icons/io5";
 import AnimatedText from "./subcomponents/text/AnimatedText";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import ActionContext from "../contexts/ActionContext";
 
-const ActionMenu = ({
-	items,
-	isOpen,
-	setIsOpen,
-	additionalCallback,
-	album,
-}) => {
+const ActionMenu = () => {
+	const { items, open, album, callback } = useContext(ActionContext);
 	const navigate = useNavigate();
 	const variants = {
 		container: {
@@ -84,28 +81,28 @@ const ActionMenu = ({
 	};
 	return (
 		<AnimatePresence>
-			{isOpen && (
+			{open.actionMenuOpen && (
 				<motion.div
 					variants={variants.container}
 					initial="hidden"
 					animate="show"
 					exit="exit"
 					className="fixed z-[100] w-screen h-screen top-0 left-0 bg-white/50 dark:bg-secondary/50 backdrop-blur-lg flex flex-col justify-end gap-2 px-4 py-6 dark:text-white"
-					onClick={() => setIsOpen(false)}
+					onClick={() => open.setActionMenuOpen(false)}
 				>
-					{album && (
+					{album.actionAlbum && (
 						<motion.div
 							variants={variants.album}
 							className="flex flex-col items-start gap-4 py-4 px-6 bg-white dark:bg-secondary rounded-md max-w-full"
-							onClick={() => navigate(`/album/${album?.id}`)}
+							onClick={() => navigate(`/album/${album?.actionAlbum?.id}`)}
 						>
 							<motion.div
 								className="flex items-end gap-2 min-w-0 max-w-full"
 								variants={variants.albumHeader}
 							>
-								{album?.images[0] ? (
+								{album?.actionAlbum?.images[0] ? (
 									<motion.img
-										src={album?.images[0]?.url}
+										src={album?.actionAlbum?.images[0]?.url}
 										alt="album cover"
 										className="z-50 w-16 h-16 rounded-md"
 										variants={variants.albumImage}
@@ -118,11 +115,11 @@ const ActionMenu = ({
 									variants={variants.albumHeaderText}
 								>
 									<p className="text-xs opacity-50 capitalize font-semibold">
-										{album?.type}
+										{album?.actionAlbum?.type}
 									</p>
 									<AnimatedText>
 										<h1 className="text-2xl font-bold whitespace-nowrap text-ellipsis w-full mb-1">
-											{album?.name}
+											{album?.actionAlbum?.name}
 										</h1>
 									</AnimatedText>
 								</motion.div>
@@ -133,7 +130,7 @@ const ActionMenu = ({
 							>
 								<AnimatedText>
 									<p className="text-sm text-black/75 dark:text-white/75">
-										{album?.artists?.map((artist, index) => (
+										{album?.actionAlbum?.artists?.map((artist, index) => (
 											<span key={artist.id}>
 												{index ? ", " : ""}
 												{artist.name}
@@ -148,19 +145,22 @@ const ActionMenu = ({
 						variants={variants.list}
 						className="bg-white dark:bg-secondary rounded-md"
 					>
-						{items &&
-							items.map((item, i) => (
+						{items.actionMenuItems &&
+							items.actionMenuItems.map((item, i) => (
 								<motion.li variants={variants.listItem} key={i}>
 									<Link
 										className={`flex justify-between items-center py-4 px-6 font-medium ${
-											i === items.length - 1 ? "border-b-0" : "border-b"
+											i === items.actionMenuItems.length - 1
+												? "border-b-0"
+												: "border-b"
 										} border-b-primary/10 dark:border-b-secondary/10`}
 										to={`/artist/${item?.id}`}
 										onClick={() => {
-											setIsOpen(false);
-											setTimeout(() => {
-												additionalCallback && additionalCallback(false);
-											}, 500);
+											open.setActionMenuOpen(false);
+											callback.additionalCallback &&
+												setTimeout(() => {
+													callback.additionalCallback();
+												}, 500);
 										}}
 									>
 										<span>{item.name}</span>
@@ -172,7 +172,7 @@ const ActionMenu = ({
 					<motion.button
 						variants={variants.button}
 						className="w-full block py-4 bg-white/50 dark:bg-secondary/50 rounded-md"
-						onClick={() => setIsOpen(false)}
+						onClick={() => open.setActionMenuOpen(false)}
 					>
 						Close
 					</motion.button>
