@@ -44,7 +44,7 @@ const PlaylistSearch = ({ search, setSearch }) => {
         )}
         <input
           className="text-center rounded-2xl outline-none w-full h-[45px] bg-neutral-200 text-black dark:bg-additional pt-2 dark:text-white"
-          type="search"
+          type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={focusHandler}

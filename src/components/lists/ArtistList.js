@@ -25,9 +25,12 @@ const ArtistList = (props) => {
 
   // useEffect that updates artistArray data from the fetch
   useEffect(() => {
-    if (data?.items || data?.artists?.items) {
+    if (data?.items || data?.artists?.items || data?.artists) {
       setArtistArray((prevState) => {
-        return [...prevState, ...(data.items || data.artists.items)];
+        return [
+          ...prevState,
+          ...(data?.items || data?.artists?.items || data?.artists),
+        ];
       });
       // uses the next url from api to load next results
       setNextUrl(data?.next || data?.artists?.next);
@@ -60,12 +63,17 @@ const ArtistList = (props) => {
       {artistArray?.length <= 0 && !loading ? (
         <div className="mt-[15%] col-start-1 col-end-4">
           <p className="text-center heading text-2xl text-black dark:text-white">
-            There are no artists here, you can search for artists in the search bar above.
+            There are no artists here, you can search for artists in the search
+            bar above.
           </p>
         </div>
       ) : (
         //Else if data is found, print data
-        <motion.ul variants={container} initial="hidden" animate="show" className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2">
+        <motion.ul
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2 mt-4 gap-y-5 gap-x-2">
           {/* Maps through the array of data */}
           {artistArray?.map((item, i) =>
             // If element index in view is same as loadMore, then load more artists
