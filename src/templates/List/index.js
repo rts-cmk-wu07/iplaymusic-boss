@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import SongListItem from "../../components/subcomponents/SongListItem";
+import SongListItem from "../../components/lists/items/SongListItem";
 import { InView } from "react-intersection-observer";
 import useFetch from "../../hooks/useFetch";
 import { useSearchParams } from "react-router-dom";
