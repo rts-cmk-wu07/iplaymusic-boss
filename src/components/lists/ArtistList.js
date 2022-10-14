@@ -25,9 +25,12 @@ const ArtistList = (props) => {
 
   // useEffect that updates artistArray data from the fetch
   useEffect(() => {
-    if (data?.items || data?.artists?.items) {
+    if (data?.items || data?.artists?.items || data?.artists) {
       setArtistArray((prevState) => {
-        return [...prevState, ...(data.items || data.artists.items)];
+        return [
+          ...prevState,
+          ...(data?.items || data?.artists?.items || data?.artists),
+        ];
       });
       // uses the next url from api to load next results
       setNextUrl(data?.next || data?.artists?.next);
@@ -39,6 +42,9 @@ const ArtistList = (props) => {
     if (inView) setCurrentUrl(nextUrl);
   }, [inView, nextUrl]);
 
+  console.log(artistArray);
+
+  console.log(data?.artists);
   // Framer motion variants
   const container = {
     hidden: { opacity: 0 },
