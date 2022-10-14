@@ -1,0 +1,17 @@
+/* Tailwind Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Custom CSS Imports */
+@import url("./styles/gradient-text.css");
+@import url("./styles/gradient.css");
+@import url("./styles/gradient-fill.css");
+@import url("./styles/heading.css");
+@import url("./styles/hide-scrollbar.css");
+@import url("./styles/no-image-drag.css");
+@import url("./styles/loader.css");
+@import url("./styles/select-field.css");
