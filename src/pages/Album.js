@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import { IoFlame } from "react-icons/io5";
 import { motion } from "framer-motion";
 import List from "../components/lists/List";
-import SongListItem from "../components/subcomponents/SongListItem";
+import SongListItem from "../components/lists/items/SongListItem";
 import NavBg from "../components/NavBg";
 import { useInView } from "react-intersection-observer";
 import { useContext, useEffect } from "react";
